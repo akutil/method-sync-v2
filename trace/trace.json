@@ -157,924 +157,794 @@
   "links": [
     {
       "id": "FR-1",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-2",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-3",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-4",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-5",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-6",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-7",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-8",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-9",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-10",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-14",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-15",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-16",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-17",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-18",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-19",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-20",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-21",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-22",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-23",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md",
+        "openspec/specs/run-cli/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-24",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-25",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-26",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-27",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-28",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-29",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-30",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-31",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-32",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-33",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-34",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-35",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/live-capture/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-36",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-37",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-38",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-39",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-40",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-41",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-42",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-43",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-44",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-46",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-47",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-48",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-49",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-50",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-51",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-52",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-53",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-54",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-55",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-56",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-57",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-58",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/enum-verification/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-60",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-61",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-62",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-63",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-64",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-65",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-66",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-67",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-68",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-69",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-70",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-71",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-72",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-73",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-74",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-75",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-76",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-77",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-78",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-79",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-80",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-81",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-82",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-83",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-84",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-report/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-90",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-91",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-92",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     },
     {
       "id": "FR-93",
-      "specs": [],
-      "planned": null,
+      "specs": [
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
+      ],
+      "planned": true,
       "tests": [],
       "recordings": []
     }
   ],
   "failures": [],
   "warnings": [
-    {
-      "check": "spec-mention",
-      "msg": "FR-1 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-2 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-3 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-4 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-5 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-6 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-7 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-8 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-9 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-10 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-14 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-15 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-16 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-17 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-18 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-19 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-20 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-21 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-22 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-23 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-24 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-25 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-26 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-27 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-28 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-29 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-30 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-31 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-32 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-33 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-34 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-35 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-36 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-37 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-38 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-39 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-40 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-41 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-42 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-43 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-44 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-46 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-47 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-48 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-49 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-50 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-51 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-52 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-53 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-54 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-55 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-56 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-57 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-58 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-60 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-61 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-62 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-63 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-64 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-65 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-66 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-67 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-68 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-69 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-70 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-71 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-72 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-73 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-74 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-75 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-76 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-77 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-78 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-79 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-80 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-81 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-82 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-83 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-84 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-90 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-91 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-92 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "spec-mention",
-      "msg": "FR-93 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
-    },
-    {
-      "check": "plan-ownership",
-      "msg": "docs/mvp-capability-plan.md not found - ownership check skipped (expected before Phase 3; mandatory at --release)"
-    },
     {
       "check": "test-trace",
       "msg": "FR-1 has no test annotated \"@trace FR-1\""
@@ -1738,6 +1608,34 @@
     {
       "check": "recording-evidence",
       "msg": "FR-93 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "active-changes",
+      "msg": "active change \"improve-PD-1\" is not archived"
+    },
+    {
+      "check": "active-changes",
+      "msg": "active change \"improve-PD-2\" is not archived"
+    },
+    {
+      "check": "active-changes",
+      "msg": "active change \"improve-PD-3\" is not archived"
+    },
+    {
+      "check": "active-changes",
+      "msg": "active change \"improve-PD-4\" is not archived"
+    },
+    {
+      "check": "active-changes",
+      "msg": "active change \"improve-PD-5\" is not archived"
+    },
+    {
+      "check": "active-changes",
+      "msg": "active change \"improve-PD-6\" is not archived"
+    },
+    {
+      "check": "active-changes",
+      "msg": "active change \"improve-PD-7\" is not archived"
     }
   ]
 }

@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-30",
+  "auditedBy": "process-auditor (plain subagent)",
+  "trigger": "on-demand",
+  "inputs": [
+    "docs/qa/process-health.md",
+    "trace/process-health.json",
+    "docs/qa/orchestrator-observations.md",
+    "docs/qa/process-defects.json (deterministic fallback, superseded by this file)",
+    "docs/qa/recordings-report.md",
+    "docs/qa/trajectory-report.md",
+    "docs/qa/traceability-report.md",
+    "retro/corrections/ (absent: 0 files)",
+    "scripts/gate-status.mjs",
+    "scripts/check-acceptance-methods.mjs",
+    "scripts/check-factory-integrity.mjs",
+    "scripts/check-traceability.mjs",
+    "scripts/hooks-pre-commit.mjs",
+    "scripts/hooks-commit-msg.mjs",
+    "scripts/qa-verify.mjs (grep only)",
+    ".githooks/pre-commit",
+    ".githooks/commit-msg",
+    ".github/workflows/ci.yml (grep only)",
+    "factory-lock.json",
+    "docs/adr/ADR-0001-stack.md",
+    "templates/retro/process-defects.schema.json",
+    "templates/retro/improvement.template.md",
+    "templates/retro/correction.schema.json",
+    ".claude/agents/process-auditor.md",
+    "directory listings: scripts/, openspec/, trace/, templates/retro/, templates/ci/ (absent)",
+    "checklists/quality-gates.md (absent: searched with Glob/Grep for the PD-3 rev 2 revision; --strict-recordings occurs only in scripts/)"
+  ],
+  "readSetNote": "Beyond the role read set, the orchestrator granted read access to the gate scripts named in symptoms S1-S6. Everything read is listed above. No product source (src/, tests/), requirements or specs were read. trace/acceptance-contracts.json and trace/ledger.jsonl were NOT read, so the orchestrator's figure of 98 local-verifiable contracts (S1) is not reconciled with the digest (124 declared, 30 e2e unmet, 94 covered in existence mode).",
+  "fallbackDisposition": {
+    "PD-D1": "Not kept as a process defect. The 30 unmet e2e contracts are an open plan item for checkpoint 2, and the gate chain reported them correctly: existence mode is red at G3 and auto-drafted trace/missing-gate-candidates/e2e.md. No gate rendered PASS over them. The real process weakness near them is PD-6: once any non-empty docs/qa/e2e-report.md exists, all 30 contracts go green. Release protection does not depend on PD-D1 either, because G7 keeps acceptanceArtifact."
+  },
+  "rejectedSymptoms": [
+    {
+      "symptom": "S5",
+      "reason": "This is not a defect of this project's gate chain. templates/ci/ does not exist in this repo, and .github/workflows/ci.yml:41,45 already parenthesise the expression. The fix is recorded in ADR-0001:42-44 and factory-lock.json:34, and ci.yml is sealed at the hard tier. It is an upstream defect in koldovsky/project-factory@0d7286a: file it there."
+    },
+    {
+      "symptom": "(auditor-checked, not an orchestrator symptom) Refs: PD-<n> vs commit-msg trailer grammar",
+      "reason": "hooks-commit-msg.mjs:37 does not accept PD ids, but line 34 exits 0 for any commit that does not touch app|lib|db|src. Gate-script-only improvement commits therefore pass the hook. There is no collision."
+    }
+  ],
+  "defects": [
+    {
+      "id": "PD-1",
+      "symptom": "S3 (still live now, not only historical)",
+      "class": "vacuous-pass",
+      "severity": "P0",
+      "evidence": [
+        { "pointer": "docs/qa/traceability-report.md:6-7", "quote": "Scope: 83 MVP functional requirements. / Result: PASS, 250 warning(s)", "note": "every one of the 83 rows shows Spec **MISSING**; openspec/specs/ contains only .gitkeep" },
+        { "pointer": "docs/qa/traceability-report.md:101", "quote": "FR-1 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)", "note": "the check infers 'before Phase 2' from the emptiness itself (check-traceability.mjs:117 const specsStarted = specFileCount > 0;)" },
+        { "pointer": "docs/qa/orchestrator-observations.md:37-39", "quote": "G2  PASS           baseline specs  [traceability]", "note": "the checks list shows 'traceability PASS' with no Scope suffix, i.e. gate-status parsed scopeN = null" },
+        { "pointer": "scripts/check-traceability.mjs:266-274", "quote": "traceability: ${mvpFRs?.length ?? 0} MVP FRs checked", "note": "stdout prints neither 'Scope:' nor 'Result:' (they exist only in the markdown report), so gate-status.mjs:157-165 falls through to status = \"PASS\" on exit 0" }
+      ],
+      "metric": { "name": "vacuousPasses (gate-level; invisible to the digest, see PD-9)", "current": "digest 0; actual 2 gate rows (G2, G8) rendered PASS over 0 baseline specs; computed frontier G2", "expectedMovement": "2 -> 0; the frontier drops G2 -> G1 until at least one spec cites the FRs" },
+      "proposedFix": { "targetFile": "scripts/check-traceability.mjs", "sketch": "Print the stdout convention gate-status and qa-verify parse ('Scope: N' plus a final 'Result:' line). When the requirements file or every spec is absent, report SKIP-pending instead of PASS, in stdout and in the report, so the existing three-valued machinery renders G2/G4/G8 as not earned.", "proposalDir": "openspec/changes/improve-PD-1/" },
+      "status": "proposed",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-2",
+      "symptom": "S1",
+      "class": "skipped-convention",
+      "severity": "P1",
+      "evidence": [
+        { "pointer": "scripts/check-acceptance-methods.mjs:437", "quote": "const isTestFile = (f) => /\\.(test|spec|eval)\\.(ts|tsx|js|mjs)$/.test(f);", "note": "trace-test artifact check for local-verifiable; blind to tests/*_test.py" },
+        { "pointer": "factory-lock.json:31", "quote": "check-traceability: *_test.py and *_eval.py count as test files (ADR-0001)", "note": "the G0 adaptation inventory lists only check-traceability. The same predicate here was locked unadapted." },
+        { "pointer": "docs/qa/orchestrator-observations.md:18-19", "quote": "fixture red   (tests/a_test.py,  \"# @trace FR-1\")  -> FAIL [FR-1] local-verifiable: no test annotated \"@trace FR-1\" found", "note": "the only way to turn this green is a decoy JS file (the green fixture tests/a.test.mjs). From G4 the check forces either mass waivers or decoys." }
+      ],
+      "metric": { "name": "acceptanceCoverage (artifact mode, local-verifiable)", "current": "0 Python-traced tests recognised", "expectedMovement": "every tests/*_test.py and *_eval.py @trace recognised; red fixture exit 1, green fixture exit 0" },
+      "proposedFix": { "targetFile": "scripts/check-acceptance-methods.mjs", "sketch": "Apply the G0 adaptation already made in check-traceability: accept (_test|_eval).py. Deliberately omit check-traceability's /integration|e2e/ clause, which would count product modules as tests.", "proposalDir": "openspec/changes/improve-PD-2/" },
+      "status": "proposed",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-3",
+      "symptom": "S2",
+      "class": "label-drift",
+      "severity": "P1",
+      "evidence": [
+        { "pointer": "scripts/gate-status.mjs:196-197", "quote": "{ g: \"G6\", desc: \"QA proof\", keys: [\"recordings\", \"evals\", \"acceptanceArtifact\", \"visual\"] },", "note": "G7 also keys on recordings" },
+        { "pointer": "scripts/gate-status.mjs:76", "quote": "args: [\"--release\", \"--strict-tests\", \"--strict-recordings\"],", "note": "G7's release traceability command. --strict-recordings fails every MVP FR without a recording manifest (check-traceability.mjs:181-186), so it is a fourth never-earnable constituent for a CLI. The executed rev-1 proof surfaced it." },
+        { "pointer": "docs/qa/recordings-report.md:7-8", "quote": "Scope: 0 clip(s) across 0 manifest(s). / Result: NOT-EARNED", "note": "a CLI never produces clips, so G6 and G7 are NOT-EARNED by construction" },
+        { "pointer": "factory-lock.json:30", "quote": "qa-verify battery: recordings and visual-fidelity removed (no UI)", "note": "the owner-accepted ADR-0001:33 adaptation reached qa-verify but not gate-status, so 'QA proof' now means two different sets. gate-status's named sync partner checklists/quality-gates.md does not exist in this repo." }
+      ],
+      "metric": { "name": "notEarned (structural)", "current": "4 never-earnable constituents (G6: recordings, visual; G7: recordings, --strict-recordings)", "expectedMovement": "4 -> 0; G6/G7 still fail without e2e evidence" },
+      "proposedFix": { "targetFile": "scripts/gate-status.mjs", "sketch": "Remove recordings and visual from GATE_COMMANDS (anyCheckFail would otherwise still see them) and from the G6/G7 keys, and drop --strict-recordings from traceabilityRelease, with ADR-0001 comments. CLI evidence stays in acceptanceArtifact (e2e token) and --strict-tests.", "proposalDir": "openspec/changes/improve-PD-3/" },
+      "status": "proposed",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-4",
+      "symptom": "S4",
+      "class": "check-too-weak",
+      "severity": "P1",
+      "evidence": [
+        { "pointer": ".githooks/pre-commit:2", "quote": "exec node scripts/hooks-pre-commit.mjs", "note": "the locked wrapper holds no logic" },
+        { "pointer": "scripts/check-factory-integrity.mjs:101", "quote": "if (/^check-.*\\.mjs$/.test(e) || /^(qa-verify|gate-status)(\\.reference)?\\.mjs$/.test(e)) {", "note": "hooks-*.mjs, correct.mjs, ledger.mjs and ledger-report.mjs are never collected, so they do not even get the 'NOT in factory-lock.json' WARN" },
+        { "pointer": "scripts/gate-status.mjs:372", "quote": "events = mod.detectAutoCorrections(root);", "note": "correct.mjs decides the overall FAIL for unrecorded waivers. Editing it to return [] silences that red." },
+        { "pointer": "docs/qa/process-defects.json (fallback, as read)", "quote": "until then G7 keys on this fallback", "note": "written by the unlocked scripts/ledger-report.mjs" }
+      ],
+      "metric": { "name": "unlocked gate-bearing scripts", "current": 5, "expectedMovement": "5 -> 0" },
+      "proposedFix": { "targetFile": "scripts/check-factory-integrity.mjs", "sketch": "Extend collectLockTargets to scripts/hooks-*.mjs and correct|ledger|ledger-report.mjs, then reseal in the same Refs: PD-4 commit, re-passing all 7 existing adaptation notes (see PD-11).", "proposalDir": "openspec/changes/improve-PD-4/" },
+      "status": "proposed",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-5",
+      "symptom": "none (auditor finding while root-causing S4)",
+      "class": "check-too-weak",
+      "severity": "P1",
+      "evidence": [
+        { "pointer": "scripts/check-factory-integrity.mjs:180", "quote": "re-locking is a post-adaptation-G0 / approved-improvement action, not routine.", "note": "printed as a WARN; --init-lock still ends with 'Result: PASS' (line 185)" },
+        { "pointer": "scripts/check-factory-integrity.mjs:209", "quote": "const drifted = !exists || sha256(rel) !== lock.files[rel];", "note": "drift is measured against whatever the lock currently says, and nothing checks who resealed it. One commit can edit gate-status.mjs, rerun --init-lock and verify clean with no Refs: PD. The lock is the trust root for every other PD." }
+      ],
+      "metric": { "name": "unverified reseals of factory-lock.json", "current": "not measured", "expectedMovement": "every reseal after the G0 lock carries Refs: PD-<n>, otherwise hard FAIL; shallow or no history gives a visible WARN, not a silent pass" },
+      "proposedFix": { "targetFile": "scripts/check-factory-integrity.mjs", "sketch": "In verify mode, walk git log -- factory-lock.json. Every commit except the oldest (the G0 lock) must contain Refs: PD-<n>, otherwise FAIL. A shallow clone or missing history gives a WARN.", "proposalDir": "openspec/changes/improve-PD-5/" },
+      "status": "proposed",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-6",
+      "symptom": "none (digest claim divergence + adaptation record)",
+      "class": "check-too-weak",
+      "severity": "P1",
+      "evidence": [
+        { "pointer": "scripts/check-acceptance-methods.mjs:429-432", "quote": "return { ok: true, msg: \"artifact present\" };", "note": "exists-passed only inspects a status field for JSON. Any non-empty, fresh Markdown file passes." },
+        { "pointer": "factory-lock.json:35", "quote": "quality/telemetry.config.json: acceptance token e2e = CLI evidence run, artifact docs/qa/e2e-report.md, no Playwright", "note": "docs/qa/e2e-report.md is also in the built-in e2e globs (line 135), so this holds with or without the config override. quality/telemetry.config.json itself was not read." },
+        { "pointer": "docs/qa/process-health.md:38", "quote": "Declared-but-unmet acceptance contracts: FR-15 (e2e), FR-18 (e2e)", "note": "30 contracts (24% of 124) would turn green on one file that need not cite them or report a pass. The report format is not built yet, which makes checkpoint 2 the cheapest moment to fix the contract." }
+      ],
+      "metric": { "name": "acceptanceCoverage (e2e)", "current": "30 e2e contracts satisfiable by 1 verdict-less file", "expectedMovement": "30 -> 0; each needs a passing final Result:/Status: line plus its own id in the report" },
+      "proposedFix": { "targetFile": "scripts/check-acceptance-methods.mjs", "sketch": "Under exists-passed, a .md artifact must carry a final Result:/Status: verdict of pass and must cite the requirement id. Thread the id into validateArtifact.", "proposalDir": "openspec/changes/improve-PD-6/" },
+      "status": "proposed",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-7",
+      "symptom": "none (ADR claim vs gate-status mechanism)",
+      "class": "wrong-claim",
+      "severity": "P1",
+      "evidence": [
+        { "pointer": "docs/adr/ADR-0001-stack.md:58", "quote": "G5 показує його явно як WAIVED, не PASS.", "note": "owner decision at checkpoint 1 (coverage waiver, 'stdlib only')" },
+        { "pointer": "scripts/gate-status.mjs:178", "quote": "const SEVERITY = [\"PASS\", \"SKIP-pending\", \"needs sign-off\", \"NOT-EARNED\", \"FAIL\"];", "note": "no WAIVED state exists, and the Result: parser at line 159 cannot read one either" },
+        { "pointer": "scripts/check-acceptance-methods.mjs:518-521", "quote": "waivedLines.push(`WAIVED [${e.id}] ${e.method}: ${e.problem}", "note": "a waived failure becomes a warning, so the output is 'Result: PASS, N warning(s)' and gate-status renders PASS. This matters at checkpoint 2 if any e2e contract is waived." },
+        { "pointer": "docs/qa/process-health.md:13", "quote": "| Waivers (ledger + contracts) | 0 |", "note": "the checkpoint-1 waiver has no artifact yet" }
+      ],
+      "metric": { "name": "waivers (rendered)", "current": "0 statuses able to show WAIVED; a waived check renders PASS", "expectedMovement": "waived-but-PASS rows: always 0 once waivers exist" },
+      "proposedFix": { "targetFile": "scripts/gate-status.mjs", "sketch": "Add a WAIVED status: a check PASS whose output carries WAIVED lines renders WAIVED. It ranks above PASS in worst(), counts as earned for the frontier and adds to the warning count. G5 additionally needs check-coverage-ratchet to print WAIVED lines (not verified: outside the read set).", "proposalDir": "openspec/changes/improve-PD-7/" },
+      "status": "proposed",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-8",
+      "symptom": "S6",
+      "class": "skipped-convention",
+      "severity": "P2",
+      "evidence": [
+        { "pointer": "docs/qa/orchestrator-observations.md:59-62", "quote": "✗ [ERROR] Change must have at least one delta", "note": "the orchestrator's probe: only schema: spec-driven + skip_specs: true validates. CI runs 'npx openspec validate --all --strict' (ci.yml:47)." },
+        { "pointer": "templates/retro/improvement.template.md:58", "quote": "- **Red fixture:** `tests/fixtures/<component>/red/` — a minimal fake project", "note": "check-traceability (testDirs includes tests, :37) and check-acceptance-methods walk tests/ recursively. A fixture carrying '@trace FR-x' would count as a real trace, so the proposals here build fixtures in mktemp dirs instead." },
+        { "pointer": "scripts/check-traceability.mjs:199-202", "quote": "const report = `active change \"${change}\" is not archived`;", "note": "--release fails on every improve-PD folder left open. The template defines no lifecycle for approved or rejected proposals (archive or delete)." }
+      ],
+      "metric": { "name": "openspec strict-validation failures caused by retro output", "current": "1 per improve-PD folder without metadata (orchestrator probe)", "expectedMovement": "-> 0" },
+      "proposedFix": { "targetFile": "templates/retro/improvement.template.md", "sketch": "The template should require .openspec.yaml (schema: spec-driven, skip_specs: true), forbid fixtures under test-scanned dirs, and say that approved proposals are archived in the landing commit and rejected ones are deleted. The process-auditor write set should name .openspec.yaml. P2: no proposal drafted.", "proposalDir": "" },
+      "status": "open",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-9",
+      "symptom": "none (why the digest missed PD-1)",
+      "class": "check-too-weak",
+      "severity": "P2",
+      "evidence": [
+        { "pointer": "docs/qa/process-health.md:11", "quote": "| Vacuous passes (exit 0, scope 0, product code) | **0**  |", "note": "shown in bold while PD-1 rendered G2/G8 PASS" },
+        { "pointer": "docs/qa/process-health.md:25", "quote": "No per-class warning data in the ledger.", "note": "the traceability report alone carries 250 warnings" },
+        { "pointer": "scripts/gate-status.mjs:496-509", "quote": "scope_n: gateRows.length,", "note": "the only check-level event source records gate statuses, but no per-check scope or warnings. check-* scripts do not emit ledger events. The ledger sees 3 sources (pre-commit, commit-msg, gate-status)." }
+      ],
+      "metric": { "name": "vacuousPasses detector coverage", "current": "3 event sources; gate-row PASS over empty scope undetectable", "expectedMovement": "gate-status events carry {status, scopeN} per check; ledger-report counts PASS rows whose constituents had scope 0 or SKIP-pending" },
+      "proposedFix": { "targetFile": "scripts/gate-status.mjs + scripts/ledger-report.mjs", "sketch": "Add meta.checks {key: {status, scopeN}} to the gate-status ledger event and have ledger-report flag gate rows that PASS over empty constituents. P2: ledger-report.mjs was not read, so there is no exact diff and no proposal.", "proposalDir": "" },
+      "status": "open",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-10",
+      "symptom": "none (digest anomaly)",
+      "class": "check-too-weak",
+      "severity": "P2",
+      "evidence": [
+        { "pointer": "docs/qa/process-health.md:17", "quote": "40m 12s (23 event(s) since 2026-09-29T20:17:05.258Z)", "note": "all 23 ledger events fall in the dirty streak" },
+        { "pointer": "docs/qa/process-health.md:31-32", "quote": "| pre-commit | 11 | 0 | 0 | - | no |", "note": "22 of the 23 events are pre-commit/commit-msg hook runs (hooks-pre-commit.mjs:14-20). They fire with a staged index, so they are dirty by construction, and the streak spans 11 successful commits. This is an inference from the counts; ledger.jsonl was not read." }
+      ],
+      "metric": { "name": "uncommittedWork", "current": "23/23 events dirty; the age can only grow", "expectedMovement": "hook-time events excluded from the streak; the age resets after a commit" },
+      "proposedFix": { "targetFile": "scripts/ledger-report.mjs", "sketch": "Compute the dirty streak only from events emitted outside a commit (exclude hook-run), or from the dirty flag of the latest non-hook event. P2: no proposal.", "proposalDir": "" },
+      "status": "open",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-11",
+      "symptom": "none (found while drafting the PD-4 reseal)",
+      "class": "check-too-weak",
+      "severity": "P2",
+      "evidence": [
+        { "pointer": "scripts/check-factory-integrity.mjs:170-175", "quote": "adaptations,", "note": "the lock's adaptations are rebuilt only from --adaptation flags (lines 54-57). Any reseal without re-passing them silently erases the 7 G0 adaptation notes (factory-lock.json:29-37), which are the machine-readable record of legitimate deviations." }
+      ],
+      "metric": { "name": "adaptation notes surviving a bare reseal", "current": "0 of 7", "expectedMovement": "7 of 7 (carry forward unless explicitly replaced)" },
+      "proposedFix": { "targetFile": "scripts/check-factory-integrity.mjs", "sketch": "In --init-lock, append new --adaptation notes to the existing lock's adaptations instead of replacing them. Until then, every reseal must re-pass all 7 notes verbatim (the PD-4 proposal does this). P2: no proposal.", "proposalDir": "" },
+      "status": "open",
+      "correctionIds": []
+    }
+  ]
+}

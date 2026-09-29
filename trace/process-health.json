@@ -1,0 +1,211 @@
+{
+  "generatedAt": "2026-09-29T21:00:31.250Z",
+  "ledger": {
+    "path": "trace/ledger.jsonl",
+    "present": true,
+    "eventCount": 23,
+    "malformedLines": 0
+  },
+  "productCodePresent": true,
+  "result": "PASS",
+  "vacuousPasses": 0,
+  "warningsByClass": {},
+  "acceptanceCoverage": {
+    "covered": 94,
+    "declared": 124
+  },
+  "metrics": {
+    "vacuousPasses": {
+      "count": 0,
+      "events": []
+    },
+    "warningsByClass": {},
+    "notEarned": {
+      "count": 0
+    },
+    "warningTrendByClass": {},
+    "retriesPerCheck": {
+      "pre-commit": {
+        "runs": 11,
+        "failures": 0,
+        "retries": 0
+      },
+      "commit-msg": {
+        "runs": 11,
+        "failures": 0,
+        "retries": 0
+      },
+      "gate-status": {
+        "runs": 1,
+        "failures": 1,
+        "retries": 0
+      }
+    },
+    "redToGreenLatency": {
+      "perCheck": {
+        "pre-commit": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": false
+        },
+        "commit-msg": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": false
+        },
+        "gate-status": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": true
+        }
+      },
+      "overallAvgMs": null
+    },
+    "waivers": {
+      "ledgerEvents": 0,
+      "contractWaivers": 0,
+      "total": 0
+    },
+    "claimDivergence": {
+      "ledgerEvents": 0,
+      "unmetContracts": 30,
+      "unmet": [
+        {
+          "reqId": "FR-15",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-18",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-23",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-26",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-27",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-33",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-34",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-36",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-39",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-42",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-44",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-46",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-51",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-53",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-56",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-57",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-58",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-63",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-69",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-70",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-73",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-77",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-79",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-81",
+          "method": "e2e"
+        },
+        {
+          "reqId": "FR-93",
+          "method": "e2e"
+        },
+        {
+          "reqId": "NFR-6",
+          "method": "e2e"
+        },
+        {
+          "reqId": "NFR-8",
+          "method": "e2e"
+        },
+        {
+          "reqId": "NFR-9",
+          "method": "e2e"
+        },
+        {
+          "reqId": "NFR-10",
+          "method": "e2e"
+        },
+        {
+          "reqId": "NFR-15",
+          "method": "e2e"
+        }
+      ],
+      "total": 30
+    },
+    "uncommittedWork": {
+      "dirtyStreakEvents": 23,
+      "since": "2026-09-29T20:17:05.258Z",
+      "ageMs": 2412214
+    },
+    "corrections": {
+      "total": 0,
+      "open": 0,
+      "openIds": []
+    }
+  },
+  "inputs": {
+    "acceptanceContracts": 124,
+    "corrections": 0
+  }
+}
