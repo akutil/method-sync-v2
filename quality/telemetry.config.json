@@ -15,14 +15,36 @@
       "Verification-class token -> artifact resolution table for check-acceptance-methods --mode=artifact.",
       "Tokens are the closed vocabulary from docs/requirements.template.md. Each declared method must resolve to a fresh, threshold-passing artifact — a declared method with no mechanism is the pixel-perfect failure class."
     ],
-    "local-verifiable": { "glob": "docs/qa/automated-verification-latest.md" },
-    "vision-verify": { "glob": "docs/qa/**/manifest.json", "require": "vision.met == true && vision.readable == true" },
-    "recording": { "glob": "docs/qa/**/manifest.json", "require": "asserted == true" },
-    "visual-diff": { "glob": "docs/qa/visual-diff/*/report.json", "threshold": { "path": "score", "gte": 0.99 } },
-    "e2e": { "glob": "docs/qa/e2e-report.*" },
-    "a11y": { "glob": "docs/qa/a11y-report.*" },
-    "eval": { "glob": "evals/results/*.json" },
-    "deploy-gated": { "glob": "docs/qa/deploy-verification.md" }
+    "local-verifiable": {
+      "glob": "docs/qa/automated-verification-latest.md"
+    },
+    "vision-verify": {
+      "glob": "docs/qa/**/manifest.json",
+      "require": "vision.met == true && vision.readable == true"
+    },
+    "recording": {
+      "glob": "docs/qa/**/manifest.json",
+      "require": "asserted == true"
+    },
+    "visual-diff": {
+      "glob": "docs/qa/visual-diff/*/report.json",
+      "threshold": {
+        "path": "score",
+        "gte": 0.99
+      }
+    },
+    "e2e": {
+      "glob": "docs/qa/e2e-report.*"
+    },
+    "a11y": {
+      "glob": "docs/qa/a11y-report.*"
+    },
+    "eval": {
+      "glob": "evals/results/*.json"
+    },
+    "deploy-gated": {
+      "glob": "docs/qa/deploy-verification.md"
+    }
   },
   "warningBudgets": {
     "_comment": [
@@ -35,15 +57,64 @@
       "'*' is the default budget for classes without their own entry. Budgets can only be tightened once",
       "baselined — check-process-ratchet --update rejects widening writes (tighten-only direction guard)."
     ],
-    "recording-evidence": { "0-5": 100, "6+": 0 },
-    "recordings": { "0-5": 25, "6+": 0 },
-    "test-trace": { "0-3": 100, "4+": 10 },
-    "spec-mention": { "0-1": 50, "2+": 0 },
-    "plan-ownership": { "0-2": 10, "3+": 0 },
-    "requirements": { "0": 5, "1+": 0 },
-    "active-changes": { "0-6": 10, "7+": 0 },
-    "slices": { "0-3": 5, "4+": 1 },
-    "vacuous-pass": { "0+": 0 },
-    "*": { "0-5": 25, "6+": 5 }
+    "recording-evidence": {
+      "0-5": 100,
+      "6+": 0
+    },
+    "recordings": {
+      "0-5": 25,
+      "6+": 0
+    },
+    "test-trace": {
+      "0-3": 100,
+      "4+": 10
+    },
+    "spec-mention": {
+      "0-1": 50,
+      "2+": 0
+    },
+    "plan-ownership": {
+      "0-2": 10,
+      "3+": 0
+    },
+    "requirements": {
+      "0": 5,
+      "1+": 0
+    },
+    "active-changes": {
+      "0-6": 10,
+      "7+": 0
+    },
+    "slices": {
+      "0-3": 5,
+      "4+": 1
+    },
+    "vacuous-pass": {
+      "0+": 0
+    },
+    "*": {
+      "0-5": 25,
+      "6+": 5
+    }
+  },
+  "acceptance": {
+    "_comment": [
+      "method-sync-v2 adaptation (ADR-0001): a CLI with no browser. 'e2e' is the CLI run over the",
+      "registry against a disposable clone of the target library, not Playwright; its artifact is the",
+      "committed evidence report written by that run."
+    ],
+    "maxAgeHours": 168,
+    "tokens": {
+      "e2e": {
+        "npmScripts": [
+          "test:e2e"
+        ],
+        "artifactGlobs": [
+          "docs/qa/e2e-report.md"
+        ],
+        "artifactCheck": "exists-passed",
+        "needsPlaywright": false
+      }
+    }
   }
 }

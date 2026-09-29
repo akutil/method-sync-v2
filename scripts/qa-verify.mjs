@@ -43,6 +43,8 @@ import { pathToFileURL } from "node:url";
 // over a red sandbox during validation. Run this from the project root.
 const root = process.cwd();
 
+// method-sync-v2 adaptation (ADR-0001): a CLI with no UI — recordings and visual-fidelity
+// are not battery members here; everything else is kept.
 const commands = [
   {
     name: "traceability",
@@ -55,26 +57,11 @@ const commands = [
     args: ["scripts/check-trajectory.mjs"],
   },
   {
-    // Real recordings gate: video artifacts exist + asserted + vision met
-    // (graceful before Phase 6 — but "Scope: 0" over product code is
-    // NOT-EARNED, never PASS: see classify() below).
-    name: "recordings",
-    command: "node",
-    args: ["scripts/check-recordings.mjs"],
-  },
-  {
     // Acceptance-contract join (mechanism 2, HARD): every declared
     // verification method must resolve to a fresh threshold-passing artifact.
     name: "acceptance-artifacts",
     command: "node",
     args: ["scripts/check-acceptance-methods.mjs", "--mode=artifact"],
-  },
-  {
-    // Pixel-parity acceptance gate (forensics fix 1) — reads
-    // quality/visual-parity.config.json, writes docs/qa/visual-diff/*/report.json.
-    name: "visual-fidelity",
-    command: "node",
-    args: ["scripts/check-visual-fidelity.mjs"],
   },
   {
     // Process ratchet (mechanism 5). EXPERIMENTAL per RULES-CHANGELOG.md —
@@ -96,12 +83,16 @@ const commands = [
     args: ["run", "test:run"],
   },
   {
-    name: "db-integration-tests",
+    // method-sync-v2 (ADR-0001): no DB — the integration layer is the verification runner
+    // compiled against the real target library and a live exchange call.
+    name: "integration-tests",
     command: "npm",
     args: ["run", "test:integration"],
   },
   {
-    name: "browser-e2e-tests",
+    // method-sync-v2 (ADR-0001): no browser — end-to-end is the CLI run over the registry
+    // against a disposable clone of the target library.
+    name: "e2e-evidence-run",
     command: "npm",
     args: ["run", "test:e2e"],
   },

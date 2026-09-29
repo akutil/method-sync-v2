@@ -1,0 +1,16 @@
+{
+  "generatedBy": "scripts/check-traceability.mjs",
+  "requirements": {},
+  "links": [],
+  "failures": [],
+  "warnings": [
+    {
+      "check": "requirements",
+      "msg": "docs/requirements.md not found - FR chain checks skipped (expected before Phase 1; mandatory at --release)"
+    },
+    {
+      "check": "plan-ownership",
+      "msg": "docs/mvp-capability-plan.md not found - ownership check skipped (expected before Phase 3; mandatory at --release)"
+    }
+  ]
+}

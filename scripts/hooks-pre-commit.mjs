@@ -2,8 +2,8 @@
 // Fast, staged-scope checks only; the full battery runs at gates and in CI.
 //
 //   1. block committing real env files / obvious secrets
-//   2. ESLint on staged JS/TS files
-//   3. tsc --noEmit (whole project, but incremental and fast)
+//   2. byte-compile staged Python files, warnings as errors
+//   3. (no typecheck: stdlib Python, no tsc — method-sync-v2 adaptation, ADR-0001)
 //   4. traceability validator (fast, pure file parsing)
 import { execSync, spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -59,14 +59,13 @@ for (const file of staged) {
   }
 }
 
-// 2 — lint staged sources
-const lintable = staged.filter((f) => /\.(ts|tsx|js|jsx|mjs)$/.test(f));
+// 2 — lint staged sources. method-sync-v2 adaptation (ADR-0001): the tool is stdlib Python, so the
+// staged-scope check is byte-compilation with warnings promoted to errors (an invalid escape in a
+// string literal fails here, not in production). There is no tsc step: nothing to typecheck.
+const lintable = staged.filter((f) => /\.py$/.test(f));
 if (lintable.length) {
-  run(`npx eslint ${lintable.map((f) => `"${f}"`).join(" ")}`);
+  run(`python3 -W error -m py_compile ${lintable.map((f) => `"${f}"`).join(" ")}`);
 }
-
-// 3 — typecheck
-run("npx tsc --noEmit");
 
 // 4 — traceability (fails on broken FR chain / archived-but-unchecked tasks).
 // The validator regenerates the report + trace graph; stage them so the

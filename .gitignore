@@ -1,0 +1,11 @@
+node_modules/
+coverage/
+__pycache__/
+*.pyc
+.idea/
+.DS_Store
+**/raw/
+# Одноразова копія цільової бібліотеки для доказових прогонів — живе поза git.
+.sandbox/
+.claude/settings.local.json
+.claude/worktrees/

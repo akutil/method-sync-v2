@@ -1,0 +1,31 @@
+{
+  "name": "method-sync-v2",
+  "private": true,
+  "version": "0.1.0",
+  "description": "CLI над Java-бібліотеками біржових конекторів: звіряє DTO і енами з живою відповіддю біржі й жене кодуючого агента до зеленої перевірки. Node тут лише для інструментів Project Factory; сам інструмент — Python stdlib.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint": "python3 -W error -m compileall -q src tests .claude/hooks",
+    "build": "python3 -W error -m compileall -q src",
+    "test:run": "python3 -m unittest discover -s tests -p '*_test.py' && python3 -m unittest discover -s .claude/hooks -p '*_test.py'",
+    "qa:verify": "node scripts/qa-verify.mjs",
+    "check:trace": "node scripts/check-traceability.mjs",
+    "check:coverage": "node scripts/check-coverage-ratchet.mjs",
+    "check:eval": "node scripts/check-eval-ratchet.mjs",
+    "check:trajectory": "node scripts/check-trajectory.mjs",
+    "gate:status": "node scripts/gate-status.mjs",
+    "correct": "node scripts/correct.mjs",
+    "retro:digest": "node scripts/ledger-report.mjs",
+    "check:acceptance": "node scripts/check-acceptance-methods.mjs --mode=existence",
+    "check:acceptance:artifact": "node scripts/check-acceptance-methods.mjs --mode=artifact",
+    "check:process": "node scripts/check-process-ratchet.mjs",
+    "check:integrity": "node scripts/check-factory-integrity.mjs",
+    "agent:log": "node scripts/agent-log-summary.mjs"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "^1.13.2"
+  }
+}

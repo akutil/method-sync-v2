@@ -141,7 +141,10 @@ const testTraces = new Map(); // id -> [test files]
 // `.eval.ts` files are graded-quality eval cases (evals/cases/*) — they carry
 // `@trace` ids just like tests, so an NFR proven only by an eval still joins
 // the chain instead of showing as an evidence gap.
-const isTestFile = (f) => /\.(test|spec|eval)\.(ts|tsx|js|mjs)$/.test(f) || /integration|e2e/.test(f);
+// method-sync-v2 adaptation (ADR-0001): Python tests are `*_test.py` (unittest discover) and eval
+// cases are `*_eval.py`; the JS/TS spellings stay recognised.
+const isTestFile = (f) =>
+  /\.(test|spec|eval)\.(ts|tsx|js|mjs)$/.test(f) || /(_test|_eval)\.py$/.test(f) || /integration|e2e/.test(f);
 for (const dir of PATHS.testDirs) {
   for (const file of walk(dir, isTestFile)) {
     const text = read(file) ?? "";

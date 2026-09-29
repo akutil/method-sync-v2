@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "extraKnownMarketplaces": {
+    "project-factory": {
+      "source": {
+        "source": "github",
+        "repo": "koldovsky/project-factory"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "project-factory@project-factory": true
+  },
+  "permissions": {
+    "deny": [
+      "Read(**/config.properties)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Bash(git add .)",
+      "Bash(git add -A *)",
+      "Bash(git commit -a *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": ["-c", "h=.claude/hooks/block-unsafe-stage.py; [ -f \"$CLAUDE_PROJECT_DIR/$h\" ] && h=\"$CLAUDE_PROJECT_DIR/$h\"; exec python3 \"$h\""],
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/log-action.mjs"],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const f=JSON.parse(require('fs').readFileSync(0,'utf8')).tool_input.file_path||''; if(/\\.py$/.test(f)){const{execFileSync}=require('child_process');try{execFileSync('python3',['-W','error','-m','py_compile',f],{stdio:'pipe'})}catch(e){console.error('py_compile: '+(e.stdout||'')+(e.stderr||''));process.exit(2)}}\""
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/log-action.mjs"],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/log-action.mjs"],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

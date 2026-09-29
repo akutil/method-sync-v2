@@ -102,7 +102,9 @@ for (const slice of slices) {
         else if (line.trim()) files.add(line.trim());
       }
       for (const f of files) {
-        const m = f.match(/^lib\/([^/]+)\//);
+        // method-sync-v2 adaptation (ADR-0001): a Python package keeps one module per domain as
+        // src/method_sync/<module>.py, not lib/<domain>/ — both layouts are recognised.
+        const m = f.match(/^lib\/([^/]+)\//) ?? f.match(/^src\/method_sync\/([^/.]+)(?:\.py$|\/)/);
         if (m) {
           libDomains.push(m[1]);
         }

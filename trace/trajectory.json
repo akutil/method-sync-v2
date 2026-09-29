@@ -1,0 +1,12 @@
+{
+  "generatedBy": "scripts/check-trajectory.mjs",
+  "slices": [],
+  "overlaps": [],
+  "failures": [],
+  "warnings": [
+    {
+      "check": "slices",
+      "msg": "no archived slices found under openspec/changes/archive/ (nothing to audit yet)"
+    }
+  ]
+}
