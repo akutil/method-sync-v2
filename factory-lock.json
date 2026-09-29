@@ -1,0 +1,38 @@
+{
+  "createdAt": "2026-09-29T20:17:24.738Z",
+  "gitHead": "61a580109ba2d815b6c1d01bdafd7f01c7fae596",
+  "files": {
+    ".claude/workflows/eval-suite.js": "f93c99d868b812cfa7412927f52b62d1042525396a9d0265f16cfe435b9c6098",
+    ".claude/workflows/review-gate.js": "7295d8e94ba347213120b9d190b9ebbb88dee373173cfc7daba2114b726ca76b",
+    ".claude/workflows/spec-pipeline.js": "00c689d129ecf8a9e6603d08fd1054976e2caea97a8929980d4fe3c3102fa3a3",
+    ".claude/workflows/trajectory-eval.js": "ea229b3a57f6e0723c27e9f3148fdd5df17181225349d8b0770dc346efe47715",
+    ".claude/workflows/uat-triage.js": "bcad8666cf3358fa37ece9c6c5096281520f516470675a9aabd8361cbdf45ad2",
+    ".claude/workflows/vision-verify.js": "84c893a066088a158d308a3a21cf7cd3b44fdefb4f503ef9bd85507b7364fc69",
+    ".githooks/commit-msg": "c1267b1b23d2722b1d879381ed33fde8297cc1adf4dc2bda5adccc2f5d0fb46b",
+    ".githooks/pre-commit": "da9b7f8c0bab4ee7673da150c9a5aeb59cff4221588ad9c4ebbe3f39b51b28ed",
+    ".github/workflows/ci.yml": "7618291ed8356c6dcad84698f3b1753891349c6f7344663a0039374af0d5f736",
+    "quality/process-baseline.json": "c4138cf68d31420931034e59d580cc4db6fdd08550de95347c7396bd9b2923d5",
+    "quality/telemetry.config.json": "a57309c9698eeb7ef2f007ade28814b53205c91618f2d52c63ce5271604434ae",
+    "scripts/check-a11y.mjs": "25930dd0eefb2b70c4ca9b2733e89b712def89120f1b41ff2a215cc52a480f51",
+    "scripts/check-acceptance-methods.mjs": "9262665a654c5c2e66d2fdae3829c77f8b6587bd7eca29ad79d9c6aa0ff77660",
+    "scripts/check-coverage-ratchet.mjs": "59c72ea1d727bc5f14009f29c5bf488c81fcf63275596d67ba78c1170633f46e",
+    "scripts/check-eval-ratchet.mjs": "0a996c69ee12d6cb14aebe240bbca1f3460f362430bc7fe71276fb4c87c4d4c8",
+    "scripts/check-factory-integrity.mjs": "fbd605f988b157a3454f85a3cf7cd4b9656614e4e25798efe5a6ae6ec72c1dc0",
+    "scripts/check-process-ratchet.mjs": "a824c3bf4a36e4c1979c09d899242dbe4ac1cdf6e08bf227fca5b4772f331a03",
+    "scripts/check-recordings.mjs": "447628eccba1a88860d5b2cfb8f4fff9b09050edd0141476a31bcddc66fe3a54",
+    "scripts/check-traceability.mjs": "313fe745a1cd8b85cc9a0c49f8315941a06ce3e22497d06b6678c96adabe5468",
+    "scripts/check-trajectory.mjs": "b1190ab1383f975eb976154d3a60852be6db73d316e120b9c08d69a64cbfbde7",
+    "scripts/check-visual-fidelity.mjs": "f6fd0816f6293c0394c3cdb57232bb72b85cebe3b40ac6b88bf0628847722504",
+    "scripts/gate-status.mjs": "07617acbbd6ae513bcc7675478e920bd86ff2c765ae1b2ebc2ab27dad50e5fae",
+    "scripts/qa-verify.mjs": "ec354af674ba4c2e786d39a9decfb0d81df31534bb3d2ef1d5ae1d81577311eb"
+  },
+  "adaptations": [
+    "qa-verify battery: recordings and visual-fidelity removed (no UI); db-integration-tests -> integration-tests, browser-e2e-tests -> e2e-evidence-run (ADR-0001)",
+    "check-traceability: *_test.py and *_eval.py count as test files (ADR-0001)",
+    "check-trajectory: slice module scope = src/method_sync/<module>.py (ADR-0001)",
+    "hooks-pre-commit: ESLint + tsc replaced by python3 -W error -m py_compile on staged .py (ADR-0001)",
+    "ci.yml: Python 3.14 + Node, no Playwright/DB/tsc/coverage; integration + e2e run locally (private target library); --release expression parenthesised (template bug: evaluates to true on main)",
+    "quality/telemetry.config.json: acceptance token e2e = CLI evidence run, artifact docs/qa/e2e-report.md, no Playwright",
+    "tool adapters: claude only (--tools=claude); visual-parity config not installed (no pixel requirement)"
+  ]
+}
