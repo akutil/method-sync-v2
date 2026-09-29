@@ -53,8 +53,9 @@ v1, яке лишається: залежність у сам інструмен
 
 ## Consequences
 
-- Coverage-ratchet фабрики (`coverage/coverage-summary.json`) без coverage.py не має джерела — це
-  відкрите питання до checkpoint 1.
+- Coverage-ratchet фабрики (`coverage/coverage-summary.json`: рядки, statements, функції, гілки) у stdlib
+  джерела не має (`trace` дає лише рядки). Рішення власника на checkpoint 1 (2026-09-29): waiver на MVP
+  з причиною «stdlib only», переглянути після MVP. G5 показує його явно як WAIVED, не PASS.
 - Інтеграційні й e2e-докази не відтворюються в CI; вони комітяться як артефакти прогонів.
 - OpenSpec збирає анонімну телеметрію за замовчуванням; у CI вимкнено `OPENSPEC_TELEMETRY=0`,
   локально — змінною оточення або `openspec config set telemetry.enabled false` (рішення людини).

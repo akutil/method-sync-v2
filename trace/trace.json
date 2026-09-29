@@ -46,7 +46,7 @@
     "FR-43": "MVP",
     "FR-44": "MVP",
     "FR-45": "Future",
-    "FR-46": "Future",
+    "FR-46": "MVP",
     "FR-47": "MVP",
     "FR-48": "MVP",
     "FR-49": "MVP",
@@ -437,6 +437,13 @@
     },
     {
       "id": "FR-44",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-46",
       "specs": [],
       "planned": null,
       "tests": [],
@@ -898,6 +905,10 @@
     },
     {
       "check": "spec-mention",
+      "msg": "FR-46 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
       "msg": "FR-47 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
     },
     {
@@ -1230,6 +1241,10 @@
     },
     {
       "check": "test-trace",
+      "msg": "FR-46 has no test annotated \"@trace FR-46\""
+    },
+    {
+      "check": "test-trace",
       "msg": "FR-47 has no test annotated \"@trace FR-47\""
     },
     {
@@ -1555,6 +1570,10 @@
     {
       "check": "recording-evidence",
       "msg": "FR-44 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-46 is not referenced by any recording manifest under docs/qa/"
     },
     {
       "check": "recording-evidence",
