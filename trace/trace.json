@@ -1,16 +1,1724 @@
 {
   "generatedBy": "scripts/check-traceability.mjs",
-  "requirements": {},
-  "links": [],
+  "requirements": {
+    "FR-1": "MVP",
+    "FR-2": "MVP",
+    "FR-3": "MVP",
+    "FR-4": "MVP",
+    "FR-5": "MVP",
+    "FR-6": "MVP",
+    "FR-7": "MVP",
+    "FR-8": "MVP",
+    "FR-9": "MVP",
+    "FR-10": "MVP",
+    "FR-11": "Future",
+    "FR-12": "Future",
+    "FR-13": "Future",
+    "FR-14": "MVP",
+    "FR-15": "MVP",
+    "FR-16": "MVP",
+    "FR-17": "MVP",
+    "FR-18": "MVP",
+    "FR-19": "MVP",
+    "FR-20": "MVP",
+    "FR-21": "MVP",
+    "FR-22": "MVP",
+    "FR-23": "MVP",
+    "FR-24": "MVP",
+    "FR-25": "MVP",
+    "FR-26": "MVP",
+    "FR-27": "MVP",
+    "FR-28": "MVP",
+    "FR-29": "MVP",
+    "FR-30": "MVP",
+    "FR-31": "MVP",
+    "FR-32": "MVP",
+    "FR-33": "MVP",
+    "FR-34": "MVP",
+    "FR-35": "MVP",
+    "FR-36": "MVP",
+    "FR-37": "MVP",
+    "FR-38": "MVP",
+    "FR-39": "MVP",
+    "FR-40": "MVP",
+    "FR-41": "MVP",
+    "FR-42": "MVP",
+    "FR-43": "MVP",
+    "FR-44": "MVP",
+    "FR-45": "Future",
+    "FR-46": "Future",
+    "FR-47": "MVP",
+    "FR-48": "MVP",
+    "FR-49": "MVP",
+    "FR-50": "MVP",
+    "FR-51": "MVP",
+    "FR-52": "MVP",
+    "FR-53": "MVP",
+    "FR-54": "MVP",
+    "FR-55": "MVP",
+    "FR-56": "MVP",
+    "FR-57": "MVP",
+    "FR-58": "MVP",
+    "FR-59": "Future",
+    "FR-60": "MVP",
+    "FR-61": "MVP",
+    "FR-62": "MVP",
+    "FR-63": "MVP",
+    "FR-64": "MVP",
+    "FR-65": "MVP",
+    "FR-66": "MVP",
+    "FR-67": "MVP",
+    "FR-68": "MVP",
+    "FR-69": "MVP",
+    "FR-70": "MVP",
+    "FR-71": "MVP",
+    "FR-72": "MVP",
+    "FR-73": "MVP",
+    "FR-74": "MVP",
+    "FR-75": "MVP",
+    "FR-76": "MVP",
+    "FR-77": "MVP",
+    "FR-78": "MVP",
+    "FR-79": "MVP",
+    "FR-80": "MVP",
+    "FR-81": "MVP",
+    "FR-82": "MVP",
+    "FR-83": "MVP",
+    "FR-84": "MVP",
+    "FR-85": "Future",
+    "FR-86": "Future",
+    "FR-87": "Future",
+    "FR-88": "Future",
+    "FR-89": "Future",
+    "FR-90": "MVP",
+    "FR-91": "MVP",
+    "FR-92": "MVP",
+    "FR-93": "MVP",
+    "FR-94": "Future",
+    "FR-95": "Future",
+    "FR-96": "Future",
+    "FR-97": "Future",
+    "FR-98": "Future",
+    "FR-99": "Future",
+    "FR-100": "Future",
+    "FR-101": "Future",
+    "FR-102": "Future",
+    "FR-103": "Future",
+    "FR-104": "Future",
+    "FR-105": "Future",
+    "FR-106": "Future",
+    "FR-107": "Future",
+    "FR-108": "Future",
+    "FR-109": "Future",
+    "NFR-1": "MVP",
+    "NFR-2": "MVP",
+    "NFR-3": "MVP",
+    "NFR-4": "MVP",
+    "NFR-5": "MVP",
+    "NFR-6": "MVP",
+    "NFR-7": "MVP",
+    "NFR-8": "MVP",
+    "NFR-9": "MVP",
+    "NFR-10": "MVP",
+    "NFR-11": "MVP",
+    "NFR-12": "MVP",
+    "NFR-13": "MVP",
+    "NFR-14": "MVP",
+    "NFR-15": "MVP",
+    "TC-1": "MVP",
+    "TC-2": "MVP",
+    "TC-3": "MVP",
+    "TC-4": "MVP",
+    "TC-5": "MVP",
+    "TC-6": "MVP",
+    "TC-7": "MVP",
+    "TC-8": "MVP",
+    "TC-9": "MVP",
+    "TC-10": "MVP",
+    "TC-11": "MVP",
+    "TC-12": "MVP",
+    "TC-13": "MVP",
+    "TC-14": "MVP",
+    "TC-15": "MVP",
+    "TC-16": "MVP",
+    "TC-17": "MVP",
+    "TC-18": "MVP",
+    "TC-19": "MVP",
+    "TC-20": "MVP",
+    "TC-21": "MVP",
+    "TC-22": "MVP",
+    "BC-1": "MVP",
+    "BC-2": "MVP",
+    "BC-3": "MVP",
+    "BC-4": "MVP",
+    "BC-5": "MVP",
+    "BC-6": "MVP"
+  },
+  "links": [
+    {
+      "id": "FR-1",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-2",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-3",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-4",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-5",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-6",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-7",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-8",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-9",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-10",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-14",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-15",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-16",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-17",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-18",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-19",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-20",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-21",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-22",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-23",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-24",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-25",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-26",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-27",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-28",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-29",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-30",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-31",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-32",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-33",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-34",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-35",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-36",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-37",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-38",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-39",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-40",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-41",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-42",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-43",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-44",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-47",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-48",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-49",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-50",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-51",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-52",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-53",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-54",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-55",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-56",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-57",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-58",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-60",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-61",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-62",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-63",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-64",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-65",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-66",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-67",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-68",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-69",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-70",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-71",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-72",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-73",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-74",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-75",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-76",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-77",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-78",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-79",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-80",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-81",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-82",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-83",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-84",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-90",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-91",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-92",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    },
+    {
+      "id": "FR-93",
+      "specs": [],
+      "planned": null,
+      "tests": [],
+      "recordings": []
+    }
+  ],
   "failures": [],
   "warnings": [
     {
-      "check": "requirements",
-      "msg": "docs/requirements.md not found - FR chain checks skipped (expected before Phase 1; mandatory at --release)"
+      "check": "spec-mention",
+      "msg": "FR-1 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-2 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-3 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-4 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-5 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-6 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-7 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-8 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-9 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-10 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-14 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-15 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-16 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-17 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-18 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-19 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-20 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-21 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-22 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-23 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-24 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-25 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-26 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-27 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-28 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-29 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-30 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-31 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-32 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-33 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-34 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-35 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-36 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-37 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-38 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-39 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-40 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-41 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-42 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-43 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-44 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-47 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-48 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-49 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-50 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-51 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-52 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-53 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-54 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-55 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-56 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-57 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-58 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-60 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-61 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-62 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-63 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-64 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-65 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-66 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-67 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-68 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-69 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-70 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-71 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-72 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-73 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-74 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-75 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-76 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-77 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-78 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-79 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-80 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-81 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-82 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-83 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-84 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-90 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-91 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-92 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
+    },
+    {
+      "check": "spec-mention",
+      "msg": "FR-93 is not cited by any spec under openspec/specs/ (no specs authored yet - expected before Phase 2)"
     },
     {
       "check": "plan-ownership",
       "msg": "docs/mvp-capability-plan.md not found - ownership check skipped (expected before Phase 3; mandatory at --release)"
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-1 has no test annotated \"@trace FR-1\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-2 has no test annotated \"@trace FR-2\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-3 has no test annotated \"@trace FR-3\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-4 has no test annotated \"@trace FR-4\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-5 has no test annotated \"@trace FR-5\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-6 has no test annotated \"@trace FR-6\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-7 has no test annotated \"@trace FR-7\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-8 has no test annotated \"@trace FR-8\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-9 has no test annotated \"@trace FR-9\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-10 has no test annotated \"@trace FR-10\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-14 has no test annotated \"@trace FR-14\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-15 has no test annotated \"@trace FR-15\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-16 has no test annotated \"@trace FR-16\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-17 has no test annotated \"@trace FR-17\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-18 has no test annotated \"@trace FR-18\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-19 has no test annotated \"@trace FR-19\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-20 has no test annotated \"@trace FR-20\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-21 has no test annotated \"@trace FR-21\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-22 has no test annotated \"@trace FR-22\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-23 has no test annotated \"@trace FR-23\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-24 has no test annotated \"@trace FR-24\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-25 has no test annotated \"@trace FR-25\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-26 has no test annotated \"@trace FR-26\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-27 has no test annotated \"@trace FR-27\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-28 has no test annotated \"@trace FR-28\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-29 has no test annotated \"@trace FR-29\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-30 has no test annotated \"@trace FR-30\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-31 has no test annotated \"@trace FR-31\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-32 has no test annotated \"@trace FR-32\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-33 has no test annotated \"@trace FR-33\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-34 has no test annotated \"@trace FR-34\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-35 has no test annotated \"@trace FR-35\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-36 has no test annotated \"@trace FR-36\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-37 has no test annotated \"@trace FR-37\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-38 has no test annotated \"@trace FR-38\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-39 has no test annotated \"@trace FR-39\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-40 has no test annotated \"@trace FR-40\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-41 has no test annotated \"@trace FR-41\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-42 has no test annotated \"@trace FR-42\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-43 has no test annotated \"@trace FR-43\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-44 has no test annotated \"@trace FR-44\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-47 has no test annotated \"@trace FR-47\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-48 has no test annotated \"@trace FR-48\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-49 has no test annotated \"@trace FR-49\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-50 has no test annotated \"@trace FR-50\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-51 has no test annotated \"@trace FR-51\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-52 has no test annotated \"@trace FR-52\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-53 has no test annotated \"@trace FR-53\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-54 has no test annotated \"@trace FR-54\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-55 has no test annotated \"@trace FR-55\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-56 has no test annotated \"@trace FR-56\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-57 has no test annotated \"@trace FR-57\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-58 has no test annotated \"@trace FR-58\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-60 has no test annotated \"@trace FR-60\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-61 has no test annotated \"@trace FR-61\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-62 has no test annotated \"@trace FR-62\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-63 has no test annotated \"@trace FR-63\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-64 has no test annotated \"@trace FR-64\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-65 has no test annotated \"@trace FR-65\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-66 has no test annotated \"@trace FR-66\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-67 has no test annotated \"@trace FR-67\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-68 has no test annotated \"@trace FR-68\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-69 has no test annotated \"@trace FR-69\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-70 has no test annotated \"@trace FR-70\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-71 has no test annotated \"@trace FR-71\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-72 has no test annotated \"@trace FR-72\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-73 has no test annotated \"@trace FR-73\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-74 has no test annotated \"@trace FR-74\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-75 has no test annotated \"@trace FR-75\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-76 has no test annotated \"@trace FR-76\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-77 has no test annotated \"@trace FR-77\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-78 has no test annotated \"@trace FR-78\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-79 has no test annotated \"@trace FR-79\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-80 has no test annotated \"@trace FR-80\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-81 has no test annotated \"@trace FR-81\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-82 has no test annotated \"@trace FR-82\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-83 has no test annotated \"@trace FR-83\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-84 has no test annotated \"@trace FR-84\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-90 has no test annotated \"@trace FR-90\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-91 has no test annotated \"@trace FR-91\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-92 has no test annotated \"@trace FR-92\""
+    },
+    {
+      "check": "test-trace",
+      "msg": "FR-93 has no test annotated \"@trace FR-93\""
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-1 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-2 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-3 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-4 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-5 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-6 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-7 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-8 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-9 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-10 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-14 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-15 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-16 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-17 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-18 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-19 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-20 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-21 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-22 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-23 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-24 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-25 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-26 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-27 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-28 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-29 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-30 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-31 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-32 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-33 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-34 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-35 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-36 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-37 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-38 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-39 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-40 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-41 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-42 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-43 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-44 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-47 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-48 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-49 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-50 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-51 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-52 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-53 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-54 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-55 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-56 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-57 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-58 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-60 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-61 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-62 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-63 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-64 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-65 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-66 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-67 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-68 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-69 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-70 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-71 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-72 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-73 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-74 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-75 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-76 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-77 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-78 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-79 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-80 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-81 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-82 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-83 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-84 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-90 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-91 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-92 is not referenced by any recording manifest under docs/qa/"
+    },
+    {
+      "check": "recording-evidence",
+      "msg": "FR-93 is not referenced by any recording manifest under docs/qa/"
     }
   ]
 }

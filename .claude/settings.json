@@ -29,7 +29,10 @@
           {
             "type": "command",
             "command": "sh",
-            "args": ["-c", "h=.claude/hooks/block-unsafe-stage.py; [ -f \"$CLAUDE_PROJECT_DIR/$h\" ] && h=\"$CLAUDE_PROJECT_DIR/$h\"; exec python3 \"$h\""],
+            "args": [
+              "-c",
+              "h=.claude/hooks/block-unsafe-stage.py; d=\"${CLAUDE_PROJECT_DIR:-}\"; if [ ! -f \"$d/$h\" ]; then d=\"$PWD\"; while [ \"$d\" != / ] && [ ! -f \"$d/$h\" ]; do d=$(dirname \"$d\"); done; fi; if [ -f \"$d/$h\" ]; then exec python3 \"$d/$h\"; fi; echo \"stage gate not found from $PWD - the command was NOT checked\" >&2; exit 1"
+            ],
             "timeout": 10
           }
         ]
@@ -39,8 +42,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node",
-            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/log-action.mjs"],
+            "command": "sh",
+            "args": [
+              "-c",
+              "h=.claude/hooks/log-action.mjs; d=\"${CLAUDE_PROJECT_DIR:-}\"; if [ ! -f \"$d/$h\" ]; then d=\"$PWD\"; while [ \"$d\" != / ] && [ ! -f \"$d/$h\" ]; do d=$(dirname \"$d\"); done; fi; if [ -f \"$d/$h\" ]; then CLAUDE_PROJECT_DIR=\"$d\" exec node \"$d/$h\"; fi; exit 0"
+            ],
             "timeout": 10
           }
         ]
@@ -61,8 +67,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node",
-            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/log-action.mjs"],
+            "command": "sh",
+            "args": [
+              "-c",
+              "h=.claude/hooks/log-action.mjs; d=\"${CLAUDE_PROJECT_DIR:-}\"; if [ ! -f \"$d/$h\" ]; then d=\"$PWD\"; while [ \"$d\" != / ] && [ ! -f \"$d/$h\" ]; do d=$(dirname \"$d\"); done; fi; if [ -f \"$d/$h\" ]; then CLAUDE_PROJECT_DIR=\"$d\" exec node \"$d/$h\"; fi; exit 0"
+            ],
             "timeout": 10
           }
         ]
@@ -74,8 +83,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node",
-            "args": ["${CLAUDE_PROJECT_DIR}/.claude/hooks/log-action.mjs"],
+            "command": "sh",
+            "args": [
+              "-c",
+              "h=.claude/hooks/log-action.mjs; d=\"${CLAUDE_PROJECT_DIR:-}\"; if [ ! -f \"$d/$h\" ]; then d=\"$PWD\"; while [ \"$d\" != / ] && [ ! -f \"$d/$h\" ]; do d=$(dirname \"$d\"); done; fi; if [ -f \"$d/$h\" ]; then CLAUDE_PROJECT_DIR=\"$d\" exec node \"$d/$h\"; fi; exit 0"
+            ],
             "timeout": 10
           }
         ]
