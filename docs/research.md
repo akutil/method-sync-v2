@@ -46,3 +46,24 @@ FX-ринку десеріалізується під ключем `UNKNOWN`. М
 `List<FuturesTimeInForce>` у вкладеному `symbols[]`; живі значення зараз у межах енамів
 (`LIQUIDATION` і `RPI` є в енамах, але живо не трапились — приклад, чому невидиме не видаляють).
 `status`, `contractType` у моделі — `String`, не енами. Це вкладений рівень — поза обсягом v2.
+
+### R-013. Інтроспекція Jackson 2.10.1 бачить енамні поля в усіх трьох формах
+
+Проба `EnumProbe` (2026-09-29) проти класів `.sandbox/binancefutures` (коміт `cee6585`),
+`jackson-databind = 2.10.1`: для кожної властивості з `introspect(...).findProperties()`
+береться `getPrimaryType()`; енамний тип знаходиться як `isEnumType()` (значення),
+`getContentType().isEnumType()` (елементи списку) або `getKeyType().isEnumType()` (ключі мапи).
+Запасник — константа, поле якої має `@JsonEnumDefaultValue` (рефлексія `getField(name)`).
+
+```
+TradingScheduleResponse.marketSchedules -> MarketType [keys] declared=[EQUITY, COMMODITY, KR_EQUITY, HK_EQUITY, CN_EQUITY] sentinel=UNKNOWN
+FuturesSymbolInfo.orderTypes -> FuturesOrderType [items] declared=[LIMIT, MARKET, STOP, STOP_MARKET, TAKE_PROFIT, TAKE_PROFIT_MARKET, TRAILING_STOP_MARKET, LIQUIDATION] sentinel=UNKNOWN
+FuturesSymbolInfo.timeInForce -> FuturesTimeInForce [items] declared=[GTC, IOC, FOK, GTX, GTD, RPI] sentinel=UNKNOWN
+FuturesMarkPriceInfo: enum-typed properties = 0
+```
+
+Межа перевіреного: проба порівнювала константи за `name()`. Але 8 енамів бібліотеки мають
+`@JsonProperty`/`@JsonValue`/`@JsonCreator` (grep 2026-09-29; напр.
+`binanceFutures/request/ModifyPositionType`), тож для них `name()` ≠ JSON-значення. Наслідок для
+дизайну: живе значення перевіряти так, як його прочитає бібліотека, — десеріалізацією Jackson із
+`READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE`; результат-запасник означає «значення не оголошене».

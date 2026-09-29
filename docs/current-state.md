@@ -67,4 +67,9 @@ Current test expectation: 12 tests (stage-gate selftest); tool tests arrive with
 - `factory-lock.json` хешує `.githooks/*` (обгортки), але не `scripts/hooks-*.mjs`, де живе логіка
   хуків: правка хука не червонить integrity. Кандидат у process-defect для ретро.
 - `openspec init` 1.x не створює `openspec/project.md` — його дописано вручну під протокол фабрики.
+- `gate-status` (locked) жорстко включає `recordings` і `visual` у G6/G7: для CLI без UI вони
+  назавжди NOT-EARNED, тож G6/G7 чесно не пройти. Кандидат у process-defect (improve-PD-x через
+  механізм фабрики, з дозволу людини), а не тиха правка locked-скрипта.
+- `gate-status` на G0 показав G2 і G8 PASS при нулі специфікацій і нулі FR (traceability зелений над
+  порожнечею) — той самий vacuous pass, проти якого урок `vacuous-pass-not-earned`. Кандидат у PD.
 - Do not archive OpenSpec changes before implementation and smoke test.
