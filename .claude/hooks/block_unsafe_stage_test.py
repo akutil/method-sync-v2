@@ -11,6 +11,7 @@ import json
 import pathlib
 import subprocess
 import sys
+import tempfile
 import unittest
 
 HOOK = pathlib.Path(__file__).with_name("block-unsafe-stage.py")
@@ -38,7 +39,11 @@ class BlocksBulkStaging(unittest.TestCase):
                 self.assertIsNotNone(run(cmd))
 
     def test_directory(self):
-        self.assertIn("цілий каталог", run("git add specs"))
+        # Каталог створюється тут, а не береться з репо: у method-sync тест спирався на наявний
+        # там specs/ і після перенесення в репо без нього падав з TypeError на None.
+        with tempfile.TemporaryDirectory() as tmp:
+            pathlib.Path(tmp, "specs").mkdir()
+            self.assertIn("цілий каталог", run("git add specs", cwd=tmp))
 
     def test_other_repo_via_dash_c(self):
         """Найчастіший випадок інструмента: стейдж у чужій робочій копії через git -C."""
