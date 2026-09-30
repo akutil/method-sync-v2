@@ -1,0 +1,12 @@
+diff --git a/src/main/java/com/example/binanceFutures/response/MarketType.java b/src/main/java/com/example/binanceFutures/response/MarketType.java
+index f0671a2..73b19e3 100644
+--- a/src/main/java/com/example/binanceFutures/response/MarketType.java
++++ b/src/main/java/com/example/binanceFutures/response/MarketType.java
+@@ -8,6 +8,7 @@ public enum MarketType {
+     KR_EQUITY,
+     HK_EQUITY,
+     CN_EQUITY,
++    ZZ_INVENTED,
+ 
+     @JsonEnumDefaultValue
+     UNKNOWN

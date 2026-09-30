@@ -1,0 +1,53 @@
+ітерація 1
+green=False
+extra   = []   (зайві в моделі)
+missing = ['time']   (бракує в моделі)
+client_error = com.binance.api.client.exception.BinanceApiException: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "time" (class com.example.binanceFutures.response.FuturesMarkPriceInfo), not marked as ignorable (7 known properties: "estimatedSettlePrice", "indexPrice", "symbol", "interestRate", "markPrice", "lastFundingRate", "nextFundingTime"])
+ at [Source: (okhttp3.ResponseBody$BomAwareReader); line: 1, column: 231] (through reference chain: com.example.binanceFutures.response.FuturesMarkPriceInfo["time"])
+агента покликано: так
+
+--- вивід команди перевірки ---
+$ mvn -q -DskipTests test-compile
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.10/libexec/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+
+$ mvn -q dependency:build-classpath -Dmdep.outputFile=/private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-g5zxkt8u/cp.txt
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.10/libexec/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+
+$ javac -proc:none -encoding UTF-8 -cp <класпас бібліотеки> -d /private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-g5zxkt8u MethodSyncVerify.java
+
+$ java MethodSyncVerify
+16:52:27.485 [main] ERROR com.example.binanceFutures.general.BinanceFuturesApiServiceGenerator - GET https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT
+responseType: ERROR
+sentTime: 1790776346751924917
+receivedTime: 1790776347482
+accountName: null
+com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "time" (class com.example.binanceFutures.response.FuturesMarkPriceInfo), not marked as ignorable (7 known properties: "estimatedSettlePrice", "indexPrice", "symbol", "interestRate", "markPrice", "lastFundingRate", "nextFundingTime"])
+ at [Source: (okhttp3.ResponseBody$BomAwareReader); line: 1, column: 231] (through reference chain: com.example.binanceFutures.response.FuturesMarkPriceInfo["time"])
+клієнт бібліотеки кинув виняток: com.binance.api.client.exception.BinanceApiException: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "time" (class com.example.binanceFutures.response.FuturesMarkPriceInfo), not marked as ignorable (7 known properties: "estimatedSettlePrice", "indexPrice", "symbol", "interestRate", "markPrice", "lastFundingRate", "nextFundingTime"])
+ at [Source: (okhttp3.ResponseBody$BomAwareReader); line: 1, column: 231] (through reference chain: com.example.binanceFutures.response.FuturesMarkPriceInfo["time"])
+модель = [estimatedSettlePrice, indexPrice, interestRate, lastFundingRate, markPrice, nextFundingTime, symbol]
+жива   = [estimatedSettlePrice, indexPrice, interestRate, lastFundingRate, markPrice, nextFundingTime, symbol, time]
+ЗАЙВІ в моделі  = []
+БРАКУЄ в моделі = [time]
+{"green":false,"model":["estimatedSettlePrice","indexPrice","interestRate","lastFundingRate","markPrice","nextFundingTime","symbol"],"live":["estimatedSettlePrice","indexPrice","interestRate","lastFundingRate","markPrice","nextFundingTime","symbol","time"],"extra":[],"missing":["time"],"owners":{"estimatedSettlePrice":"com.example.binanceFutures.response.FuturesMarkPriceInfo","indexPrice":"com.example.binanceFutures.response.FuturesMarkPriceInfo","interestRate":"com.example.binanceFutures.response.FuturesMarkPriceInfo","lastFundingRate":"com.example.binanceFutures.response.FuturesMarkPriceInfo","markPrice":"com.example.binanceFutures.response.FuturesMarkPriceInfo","nextFundingTime":"com.example.binanceFutures.response.FuturesMarkPriceInfo","symbol":"com.example.binanceFutures.response.FuturesMarkPriceInfo"},"client_error":"com.binance.api.client.exception.BinanceApiException: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field \"time\" (class com.example.binanceFutures.response.FuturesMarkPriceInfo), not marked as ignorable (7 known properties: \"estimatedSettlePrice\", \"indexPrice\", \"symbol\", \"interestRate\", \"markPrice\", \"lastFundingRate\", \"nextFundingTime\"])\n at [Source: (okhttp3.ResponseBody$BomAwareReader); line: 1, column: 231] (through reference chain: com.example.binanceFutures.response.FuturesMarkPriceInfo[\"time\"])","enums":[]}
+
+
+--- вивід агента ---
+Додано поле `time` (Long) з гетером, сетером і рядком у `toString`. Компіляція зелена.
+
+Відхилення від стандарту (не виправляв): `FuturesMarkPriceInfo` не має `@JsonIgnoreProperties(ignoreUnknown = true)`, яке є в еталоні `AdlQuantile` — саме тому нове поле біржі валить клієнт винятком замість тихого ігнорування.
+
+QA: ✅
+ЛАКОНІЧНО: ✅
+ВОРКЕР: ✅
+НЕ ВЕЛ: ✅
+ЛОГІКА: 1/10
+ДОВЕДЕНО: ✅
+НА ПРОД: —
+

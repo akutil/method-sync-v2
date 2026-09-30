@@ -1,0 +1,32 @@
+{
+  "path": "/fapi/v1/fundingRate",
+  "args": {
+    "symbol": "BTCUSDT",
+    "limit": 3
+  },
+  "captured_at": "2026-09-30T13:49:45.052003+00:00",
+  "http_status": 200,
+  "body": [
+    {
+      "symbol": "BTCUSDT",
+      "fundingTime": 1790697600000,
+      "fundingRate": "0.00001399",
+      "markPrice": "83039.30000000",
+      "rateType": "Regular"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "fundingTime": 1790726400000,
+      "fundingRate": "0.00007697",
+      "markPrice": "83624.50000000",
+      "rateType": "Regular"
+    },
+    {
+      "symbol": "BTCUSDT",
+      "fundingTime": 1790755200000,
+      "fundingRate": "-0.00000244",
+      "markPrice": "83259.62923913",
+      "rateType": "Regular"
+    }
+  ]
+}

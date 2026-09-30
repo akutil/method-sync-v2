@@ -1,0 +1,46 @@
+diff --git a/src/main/java/com/example/binanceFutures/response/FuturesFundingRateInfo.java b/src/main/java/com/example/binanceFutures/response/FuturesFundingRateInfo.java
+index 004c782..25a52ce 100644
+--- a/src/main/java/com/example/binanceFutures/response/FuturesFundingRateInfo.java
++++ b/src/main/java/com/example/binanceFutures/response/FuturesFundingRateInfo.java
+@@ -11,6 +11,10 @@ public class FuturesFundingRateInfo {
+ 
+     private Long fundingTime;
+ 
++    private String markPrice;
++
++    private String rateType;
++
+     public String getSymbol() {
+         return symbol;
+     }
+@@ -35,12 +39,30 @@ public class FuturesFundingRateInfo {
+         this.fundingTime = fundingTime;
+     }
+ 
++    public String getMarkPrice() {
++        return markPrice;
++    }
++
++    public void setMarkPrice(String markPrice) {
++        this.markPrice = markPrice;
++    }
++
++    public String getRateType() {
++        return rateType;
++    }
++
++    public void setRateType(String rateType) {
++        this.rateType = rateType;
++    }
++
+     @Override
+     public String toString() {
+         return "FuturesFundingRateInfo{" +
+                 "symbol='" + symbol + '\'' +
+                 ", fundingRate='" + fundingRate + '\'' +
+                 ", fundingTime=" + fundingTime +
++                ", markPrice='" + markPrice + '\'' +
++                ", rateType='" + rateType + '\'' +
+                 '}';
+     }
+ }

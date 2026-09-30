@@ -1,0 +1,43 @@
+ітерація 1
+green=False
+extra   = ['bogusExtraField']   (зайві в моделі)
+missing = []   (бракує в моделі)
+агента покликано: так
+
+--- вивід команди перевірки ---
+$ mvn -q -DskipTests test-compile
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.10/libexec/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+
+$ mvn -q dependency:build-classpath -Dmdep.outputFile=/private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-mjpmls2c/cp.txt
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.10/libexec/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+
+$ javac -proc:none -encoding UTF-8 -cp <класпас бібліотеки> -d /private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-mjpmls2c MethodSyncVerify.java
+
+$ java MethodSyncVerify
+клієнт бібліотеки повернув: FuturesMarkPriceInfo{symbol='BTCUSDT', markPrice='84566.77297826', indexPrice='84613.54630435', estimatedSettlePrice='84907.92612150', lastFundingRate='0.00008828', nextFundingTime=1790784000000, interestRate='0.00010000', time=1790776223000, bogusExtraField='null'}
+модель = [bogusExtraField, estimatedSettlePrice, indexPrice, interestRate, lastFundingRate, markPrice, nextFundingTime, symbol, time]
+жива   = [estimatedSettlePrice, indexPrice, interestRate, lastFundingRate, markPrice, nextFundingTime, symbol, time]
+ЗАЙВІ в моделі  = [bogusExtraField]
+БРАКУЄ в моделі = []
+{"green":false,"model":["bogusExtraField","estimatedSettlePrice","indexPrice","interestRate","lastFundingRate","markPrice","nextFundingTime","symbol","time"],"live":["estimatedSettlePrice","indexPrice","interestRate","lastFundingRate","markPrice","nextFundingTime","symbol","time"],"extra":["bogusExtraField"],"missing":[],"owners":{"bogusExtraField":"com.example.binanceFutures.response.FuturesMarkPriceInfo","estimatedSettlePrice":"com.example.binanceFutures.response.FuturesMarkPriceInfo","indexPrice":"com.example.binanceFutures.response.FuturesMarkPriceInfo","interestRate":"com.example.binanceFutures.response.FuturesMarkPriceInfo","lastFundingRate":"com.example.binanceFutures.response.FuturesMarkPriceInfo","markPrice":"com.example.binanceFutures.response.FuturesMarkPriceInfo","nextFundingTime":"com.example.binanceFutures.response.FuturesMarkPriceInfo","symbol":"com.example.binanceFutures.response.FuturesMarkPriceInfo","time":"com.example.binanceFutures.response.FuturesMarkPriceInfo"},"client_error":null,"enums":[]}
+
+
+--- вивід агента ---
+`bogusExtraField` (поле, гетер, сетер, рядок у `toString`) прибрано. `mvn -q -DskipTests test-compile` — зелено.
+
+Відхилення від стандарту (в код не вносив): `FuturesMarkPriceInfo` не має `@JsonIgnoreProperties(ignoreUnknown = true)`, яка є в еталоні `AdlQuantile`.
+
+QA: ✅
+ЛАКОНІЧНО: ✅
+ВОРКЕР: ✅
+НЕ ВЕЛ: ✅
+ЛОГІКА: 1/10
+ДОВЕДЕНО: ✅
+НА ПРОД: —
+

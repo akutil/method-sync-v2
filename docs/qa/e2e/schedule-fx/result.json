@@ -1,0 +1,249 @@
+{
+  "scenario": "schedule-fx",
+  "verdict": "PASS",
+  "ids": [
+    "FR-19",
+    "FR-51",
+    "FR-55",
+    "FR-56",
+    "FR-58",
+    "FR-60",
+    "FR-64",
+    "FR-73",
+    "FR-77",
+    "FR-79",
+    "FR-90",
+    "FR-93",
+    "NFR-6",
+    "NFR-10"
+  ],
+  "expected": "`/fapi/v1/tradingSchedule` віддає в `marketSchedules` ключ `FX`, якого немає в `MarketType`: код 0 після циклу з агентом; перша перевірка — розходження енаму `marketSchedules` (`MarketType`: `FX`); `enum_mismatch` у звіті називає його; `MarketType.java` оголошує кожне значення, якого бракувало, — лише доданими рядками після останньої справжньої константи й перед запасником `UNKNOWN`; інших файлів не змінено.",
+  "observed": "пройшли всі перевірки (22); run: код 0, 48 с, сесій агента 1",
+  "started": "2026-09-30T13:53:14+00:00",
+  "finished": "2026-09-30T13:54:05+00:00",
+  "fingerprint": "608f6701890b05fe",
+  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": true,
+  "notes": [],
+  "checks": [
+    {
+      "name": "код виходу 0",
+      "ids": [
+        "NFR-6",
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "0",
+      "observed": "0"
+    },
+    {
+      "name": "рядки методів у stdout, у порядку реєстру",
+      "ids": [
+        "FR-19",
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "/fapi/v1/tradingSchedule refresh ітерацій=N≥2 перевірка=green",
+      "observed": "/fapi/v1/tradingSchedule  refresh  ітерацій=2  перевірка=green"
+    },
+    {
+      "name": "останній рядок stdout — підсумок",
+      "ids": [
+        "FR-19"
+      ],
+      "ok": true,
+      "expected": "підсумок: 1 методів, 1 зелених, 0 червоних",
+      "observed": "підсумок: 1 методів, 1 зелених, 0 червоних"
+    },
+    {
+      "name": "цей прогін записав логи ітерацій 1…2",
+      "ids": [
+        "FR-64"
+      ],
+      "ok": true,
+      "expected": "iteration-1.log, iteration-2.log",
+      "observed": "iteration-1.log, iteration-2.log"
+    },
+    {
+      "name": "сесій агента з cwd = клон: 1",
+      "ids": [
+        "FR-60",
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "1 (транскрипти Claude Code)",
+      "observed": "1: 94b53e36-1c1b-4020-8947-6e367bdf4542"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-1.log)",
+      "ids": [
+        "FR-51"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=False"
+    },
+    {
+      "name": "перша перевірка: розходження енаму marketSchedules (MarketType), серед значень FX",
+      "ids": [
+        "FR-51"
+      ],
+      "ok": true,
+      "expected": "green=false, поля без розходжень; marketSchedules → com.example.binanceFutures.response.MarketType, missing ∋ FX",
+      "observed": "green=False, extra=[], missing=[], запис={'field': 'marketSchedules', 'enum': 'com.example.binanceFutures.response.MarketType', 'declared': ['CN_EQUITY', 'COMMODITY', 'EQUITY', 'HK_EQUITY', 'KR_EQUITY'], 'live': ['CN_EQUITY', 'COMMODITY', 'EQUITY', 'FX', 'HK_EQUITY', 'KR_EQUITY'], 'missing': ['FX'], 'unseen': []}"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-2.log)",
+      "ids": [
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=True"
+    },
+    {
+      "name": "остання перевірка зелена",
+      "ids": [
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "green=true, client_error=null",
+      "observed": "green=True, client_error=None"
+    },
+    {
+      "name": "звіт runs/fapi-v1-tradingSchedule/report.md записано: заголовок і 12 полів FR-78 у порядку",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "# Звіт прогону — fapi-v1-tradingSchedule; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen",
+      "observed": "# Звіт прогону — fapi-v1-tradingSchedule; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen"
+    },
+    {
+      "name": "enum_mismatch називає marketSchedules (MarketType) і FX",
+      "ids": [
+        "FR-56"
+      ],
+      "ok": true,
+      "expected": "група «marketSchedules (com.example.binanceFutures.response.MarketType): …» зі значенням FX",
+      "observed": "marketSchedules (com.example.binanceFutures.response.MarketType): FX"
+    },
+    {
+      "name": "звіт: mismatch",
+      "ids": [
+        "FR-79"
+      ],
+      "ok": true,
+      "expected": "зайві в моделі: —; бракує в моделі: —",
+      "observed": "зайві в моделі: —; бракує в моделі: —"
+    },
+    {
+      "name": "звіт: verify_result",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "green",
+      "observed": "green"
+    },
+    {
+      "name": "звіт: iterations",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "2",
+      "observed": "2"
+    },
+    {
+      "name": "MarketType оголошує кожне значення, якого бракувало на першій перевірці",
+      "ids": [
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "['FX']",
+      "observed": "['EQUITY', 'COMMODITY', 'KR_EQUITY', 'HK_EQUITY', 'CN_EQUITY', 'FX', 'UNKNOWN']"
+    },
+    {
+      "name": "MarketType.java: лише додані константи після останньої справжньої, перед запасником",
+      "ids": [
+        "FR-55"
+      ],
+      "ok": true,
+      "expected": "лише додані рядки констант між останньою справжньою константою і @JsonEnumDefaultValue",
+      "observed": "додано FX, між рядками 10 і 12 (до прогону)"
+    },
+    {
+      "name": "змінено лише src/main/java/com/example/binanceFutures/response/MarketType.java",
+      "ids": [
+        "FR-73"
+      ],
+      "ok": true,
+      "expected": "рівно src/main/java/com/example/binanceFutures/response/MarketType.java",
+      "observed": "src/main/java/com/example/binanceFutures/response/MarketType.java"
+    },
+    {
+      "name": "індекс копії порожній до і після прогону",
+      "ids": [
+        "NFR-10"
+      ],
+      "ok": true,
+      "expected": "git diff --cached --name-only порожній до і після",
+      "observed": "до [], після []"
+    },
+    {
+      "name": "тести бібліотеки не змінено",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "у git status немає src/test/",
+      "observed": "немає"
+    },
+    {
+      "name": "тести бібліотеки не запускались",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "немає target/surefire-reports і target/failsafe-reports",
+      "observed": "немає"
+    },
+    {
+      "name": "історія копії та сама (HEAD, жодного коміту)",
+      "ids": [
+        "FR-90"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a4",
+      "observed": "cee6585f89a4"
+    },
+    {
+      "name": "у stdout і stderr немає Python Traceback",
+      "ids": [
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "немає",
+      "observed": "немає"
+    }
+  ],
+  "runs": [
+    {
+      "label": "run",
+      "argv": [
+        "python3",
+        "-m",
+        "method_sync",
+        "--registry",
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/schedule-fx.toml"
+      ],
+      "exit_code": 0,
+      "seconds": 48.1,
+      "agent_sessions": [
+        "94b53e36-1c1b-4020-8947-6e367bdf4542"
+      ]
+    }
+  ]
+}

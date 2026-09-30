@@ -1,0 +1,2 @@
+/fapi/v1/premiumIndex  жива відповідь недоступна: http://127.0.0.1:9/fapi/v1/premiumIndex?symbol=BTCUSDT — [Errno 61] Connection refused
+підсумок: 1 методів, 0 зелених, 1 червоних

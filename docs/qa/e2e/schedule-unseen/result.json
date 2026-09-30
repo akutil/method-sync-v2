@@ -1,0 +1,252 @@
+{
+  "scenario": "schedule-unseen",
+  "verdict": "PASS",
+  "ids": [
+    "FR-19",
+    "FR-51",
+    "FR-53",
+    "FR-55",
+    "FR-57",
+    "FR-58",
+    "FR-60",
+    "FR-64",
+    "FR-73",
+    "FR-77",
+    "FR-90",
+    "FR-93",
+    "NFR-6",
+    "NFR-10"
+  ],
+  "expected": "Як `schedule-fx`, але в копії перед запасником дописано вигадану константу `ZZ_INVENTED`: перша перевірка — `FX` бракує, `ZZ_INVENTED` невидима; остання перевірка зелена попри невидиму константу; `enum_unseen` у звіті — `ZZ_INVENTED` з позначкою «не видалено»; `FX` дописано, `ZZ_INVENTED` лишилась; `MarketType.java` — без жодного вилученого рядка.",
+  "observed": "пройшли всі перевірки (22); run: код 0, 48 с, сесій агента 1",
+  "started": "2026-09-30T13:54:05+00:00",
+  "finished": "2026-09-30T13:54:55+00:00",
+  "fingerprint": "608f6701890b05fe",
+  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": true,
+  "notes": [],
+  "checks": [
+    {
+      "name": "код виходу 0",
+      "ids": [
+        "NFR-6",
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "0",
+      "observed": "0"
+    },
+    {
+      "name": "рядки методів у stdout, у порядку реєстру",
+      "ids": [
+        "FR-19",
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "/fapi/v1/tradingSchedule refresh ітерацій=N≥2 перевірка=green",
+      "observed": "/fapi/v1/tradingSchedule  refresh  ітерацій=2  перевірка=green"
+    },
+    {
+      "name": "останній рядок stdout — підсумок",
+      "ids": [
+        "FR-19"
+      ],
+      "ok": true,
+      "expected": "підсумок: 1 методів, 1 зелених, 0 червоних",
+      "observed": "підсумок: 1 методів, 1 зелених, 0 червоних"
+    },
+    {
+      "name": "цей прогін записав логи ітерацій 1…2",
+      "ids": [
+        "FR-64"
+      ],
+      "ok": true,
+      "expected": "iteration-1.log, iteration-2.log",
+      "observed": "iteration-1.log, iteration-2.log"
+    },
+    {
+      "name": "сесій агента з cwd = клон: 1",
+      "ids": [
+        "FR-60",
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "1 (транскрипти Claude Code)",
+      "observed": "1: cab1648c-cfa4-4426-9bb1-6a87dd00d98c"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-1.log)",
+      "ids": [
+        "FR-51"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=False"
+    },
+    {
+      "name": "перша перевірка: FX бракує, ZZ_INVENTED — невидима",
+      "ids": [
+        "FR-51",
+        "FR-57"
+      ],
+      "ok": true,
+      "expected": "missing ∋ FX, unseen ∋ ZZ_INVENTED",
+      "observed": "missing=['FX'], unseen=['ZZ_INVENTED']"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-2.log)",
+      "ids": [
+        "FR-53"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=True"
+    },
+    {
+      "name": "остання перевірка зелена, хоча ZZ_INVENTED лишається невидимою",
+      "ids": [
+        "FR-53",
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "green=true, unseen ∋ ZZ_INVENTED",
+      "observed": "green=True, unseen=['ZZ_INVENTED']"
+    },
+    {
+      "name": "звіт runs/fapi-v1-tradingSchedule/report.md записано: заголовок і 12 полів FR-78 у порядку",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "# Звіт прогону — fapi-v1-tradingSchedule; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen",
+      "observed": "# Звіт прогону — fapi-v1-tradingSchedule; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen"
+    },
+    {
+      "name": "enum_unseen: ZZ_INVENTED з позначкою «не видалено»",
+      "ids": [
+        "FR-57"
+      ],
+      "ok": true,
+      "expected": "група «marketSchedules (com.example.binanceFutures.response.MarketType): … ZZ_INVENTED … — не видалено»",
+      "observed": "marketSchedules (com.example.binanceFutures.response.MarketType): ZZ_INVENTED — не видалено"
+    },
+    {
+      "name": "звіт: verify_result",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "green",
+      "observed": "green"
+    },
+    {
+      "name": "звіт: iterations",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "2",
+      "observed": "2"
+    },
+    {
+      "name": "ZZ_INVENTED не видалено",
+      "ids": [
+        "FR-53"
+      ],
+      "ok": true,
+      "expected": "ZZ_INVENTED в MarketType",
+      "observed": "['EQUITY', 'COMMODITY', 'KR_EQUITY', 'HK_EQUITY', 'CN_EQUITY', 'ZZ_INVENTED', 'FX', 'UNKNOWN']"
+    },
+    {
+      "name": "FX дописано",
+      "ids": [
+        "FR-58"
+      ],
+      "ok": true,
+      "expected": "FX в MarketType",
+      "observed": "['EQUITY', 'COMMODITY', 'KR_EQUITY', 'HK_EQUITY', 'CN_EQUITY', 'ZZ_INVENTED', 'FX', 'UNKNOWN']"
+    },
+    {
+      "name": "MarketType.java: лише додані константи після останньої наявної (ZZ_INVENTED), перед запасником",
+      "ids": [
+        "FR-53",
+        "FR-55"
+      ],
+      "ok": true,
+      "expected": "жодного вилученого рядка; нові константи перед @JsonEnumDefaultValue",
+      "observed": "додано FX, між рядками 11 і 13 (до прогону)"
+    },
+    {
+      "name": "змінено лише src/main/java/com/example/binanceFutures/response/MarketType.java",
+      "ids": [
+        "FR-73"
+      ],
+      "ok": true,
+      "expected": "рівно src/main/java/com/example/binanceFutures/response/MarketType.java",
+      "observed": "src/main/java/com/example/binanceFutures/response/MarketType.java"
+    },
+    {
+      "name": "індекс копії порожній до і після прогону",
+      "ids": [
+        "NFR-10"
+      ],
+      "ok": true,
+      "expected": "git diff --cached --name-only порожній до і після",
+      "observed": "до [], після []"
+    },
+    {
+      "name": "тести бібліотеки не змінено",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "у git status немає src/test/",
+      "observed": "немає"
+    },
+    {
+      "name": "тести бібліотеки не запускались",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "немає target/surefire-reports і target/failsafe-reports",
+      "observed": "немає"
+    },
+    {
+      "name": "історія копії та сама (HEAD, жодного коміту)",
+      "ids": [
+        "FR-90"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a4",
+      "observed": "cee6585f89a4"
+    },
+    {
+      "name": "у stdout і stderr немає Python Traceback",
+      "ids": [
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "немає",
+      "observed": "немає"
+    }
+  ],
+  "runs": [
+    {
+      "label": "run",
+      "argv": [
+        "python3",
+        "-m",
+        "method_sync",
+        "--registry",
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/schedule-unseen.toml"
+      ],
+      "exit_code": 0,
+      "seconds": 48.4,
+      "agent_sessions": [
+        "cab1648c-cfa4-4426-9bb1-6a87dd00d98c"
+      ]
+    }
+  ]
+}

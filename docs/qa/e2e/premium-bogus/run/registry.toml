@@ -1,0 +1,11 @@
+lib = "/Users/akutil/humex/method-sync-v2/.sandbox/e2e/premium-bogus"
+verify_cmd = "mvn -q -DskipTests test-compile"
+
+[live]
+base_url = "https://fapi.binance.com"
+
+[[method]]
+path = "/fapi/v1/premiumIndex"
+model = "com.example.binanceFutures.response.FuturesMarkPriceInfo"
+client_method = "getMarkPrice"
+args = { symbol = "BTCUSDT" }

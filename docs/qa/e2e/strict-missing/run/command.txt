@@ -1,0 +1,7 @@
+cwd: /Users/akutil/humex/method-sync-v2
+env: PYTHONPATH=src
+argv: python3 -m method_sync --registry /var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/strict-missing.toml
+exit: 0
+seconds: 55.5
+harness ceiling: 10335 s
+started: 2026-09-30T13:52:19+00:00

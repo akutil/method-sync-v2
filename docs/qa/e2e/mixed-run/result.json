@@ -1,6 +1,6 @@
 {
   "scenario": "mixed-run",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "ids": [
     "FR-14",
     "FR-15",
@@ -17,11 +17,11 @@
     "NFR-10"
   ],
   "expected": "Один реєстр: зелений `/fapi/v1/premiumIndex`, `/xapi/v1/nothing` (невідомий префікс, код 2) і `/fapi/v1/fundingRate` з `NOSUCHSYMBOL` (біржа віддає `[]` — жива відповідь недоступна, код 3): усі три оброблено в порядку реєстру, рядок на кожен і підсумок; код процесу — найгірший за шкалою 0 < 1 < 3 < 2 < 4, тобто 2.",
-  "observed": "не пройшло 4 з 13 перевірок; перша — «код виходу 2»: очікувалось 2; спостерігалось 1; stderr: /opt/homebrew/opt/python@3.14/bin/python3.14: No module named method_sync.__main__; 'method_sync' is a package and cannot be directly executed; run: код 1, 0 с, сесій агента 0",
-  "started": "2026-09-30T07:41:32+00:00",
-  "finished": "2026-09-30T07:41:35+00:00",
-  "fingerprint": "562fac644ae112c5",
-  "tool_commit": "7929724cb3cf2875456671e62cb732ef77851b1b",
+  "observed": "пройшли всі перевірки (13); run: код 2, 11 с, сесій агента 0",
+  "started": "2026-09-30T13:49:58+00:00",
+  "finished": "2026-09-30T13:50:12+00:00",
+  "fingerprint": "608f6701890b05fe",
+  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
   "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
   "agent": false,
   "notes": [],
@@ -32,9 +32,9 @@
         "NFR-6",
         "NFR-7"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "2",
-      "observed": "1; stderr: /opt/homebrew/opt/python@3.14/bin/python3.14: No module named method_sync.__main__; 'method_sync' is a package and cannot be directly executed"
+      "observed": "2"
     },
     {
       "name": "рядки методів у stdout, у порядку реєстру",
@@ -45,9 +45,9 @@
         "FR-23",
         "FR-26"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "/fapi/v1/premiumIndex refresh ітерацій=1 перевірка=green ⏎ /xapi/v1/nothing … «невідомий префікс» ⏎ /fapi/v1/fundingRate … «жива відповідь недоступна» … «https://fapi.binance.com/fapi/v1/fundingRate?symbol=NOSUCHSYMBOL»",
-      "observed": "рядків методів немає"
+      "observed": "/fapi/v1/premiumIndex  refresh  ітерацій=1  перевірка=green ⏎ /xapi/v1/nothing  невідомий префікс шляху /xapi/v1/nothing: модуль бібліотеки виводиться лише з /fapi/, /dapi/, /sapi/, /papi/, /api/ ⏎ /fapi/v1/fundingRate  жива відповідь недоступна: https://fapi.binance.com/fapi/v1/fundingRate?symbol=NOSUCHSYMBOL — на верхньому рівні тіла немає жодного ключа об'єкта, тож нема з чого вивести склад полів"
     },
     {
       "name": "останній рядок stdout — підсумок",
@@ -55,9 +55,9 @@
         "FR-15",
         "FR-19"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "підсумок: 3 методів, 1 зелених, 2 червоних",
-      "observed": "stdout порожній"
+      "observed": "підсумок: 3 методів, 1 зелених, 2 червоних"
     },
     {
       "name": "сесій агента з cwd = клон: 0",
@@ -73,9 +73,9 @@
       "ids": [
         "FR-15"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "fixture.json, iteration-1.log, report.md",
-      "observed": "нічого"
+      "observed": "fixture.json, iteration-1.log, report.md"
     },
     {
       "name": "цей прогін не лишив runs/fapi-v1-fundingRate/fixture.json",
@@ -159,10 +159,10 @@
         "-m",
         "method_sync",
         "--registry",
-        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-e6bc8sq7/mixed-run.toml"
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/mixed-run.toml"
       ],
-      "exit_code": 1,
-      "seconds": 0.0,
+      "exit_code": 2,
+      "seconds": 11.0,
       "agent_sessions": []
     }
   ]

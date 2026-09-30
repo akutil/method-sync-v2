@@ -1,0 +1,4 @@
+/fapi/v1/premiumIndex  refresh  ітерацій=1  перевірка=green
+/xapi/v1/nothing  невідомий префікс шляху /xapi/v1/nothing: модуль бібліотеки виводиться лише з /fapi/, /dapi/, /sapi/, /papi/, /api/
+/fapi/v1/fundingRate  жива відповідь недоступна: https://fapi.binance.com/fapi/v1/fundingRate?symbol=NOSUCHSYMBOL — на верхньому рівні тіла немає жодного ключа об'єкта, тож нема з чого вивести склад полів
+підсумок: 3 методів, 1 зелених, 2 червоних

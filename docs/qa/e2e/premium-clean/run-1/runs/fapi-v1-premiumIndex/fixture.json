@@ -1,0 +1,18 @@
+{
+  "path": "/fapi/v1/premiumIndex",
+  "args": {
+    "symbol": "BTCUSDT"
+  },
+  "captured_at": "2026-09-30T13:49:21.958858+00:00",
+  "http_status": 200,
+  "body": {
+    "symbol": "BTCUSDT",
+    "markPrice": "84566.80000000",
+    "indexPrice": "84576.00978261",
+    "estimatedSettlePrice": "84931.50556075",
+    "lastFundingRate": "0.00008770",
+    "interestRate": "0.00010000",
+    "nextFundingTime": 1790784000000,
+    "time": 1790776161000
+  }
+}

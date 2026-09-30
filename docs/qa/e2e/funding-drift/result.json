@@ -1,0 +1,268 @@
+{
+  "scenario": "funding-drift",
+  "verdict": "PASS",
+  "ids": [
+    "FR-19",
+    "FR-34",
+    "FR-39",
+    "FR-60",
+    "FR-64",
+    "FR-69",
+    "FR-73",
+    "FR-77",
+    "FR-79",
+    "FR-81",
+    "FR-90",
+    "FR-93",
+    "NFR-6",
+    "NFR-10"
+  ],
+  "expected": "Справжнє розходження: у копії `FuturesFundingRateInfo` немає `markPrice` і `rateType`, які віддає `/fapi/v1/fundingRate`; виклик — `call = '\"BTCUSDT\", 3, null, null'`: код 0 після циклу з агентом; `mismatch` — «бракує в моделі: markPrice, rateType»; обидва поля додано з гетером, сетером і рядком у `toString`; змінено лише цей файл і лише доданими рядками.",
+  "observed": "пройшли всі перевірки (24); run: код 0, 63 с, сесій агента 1",
+  "started": "2026-09-30T13:51:11+00:00",
+  "finished": "2026-09-30T13:52:16+00:00",
+  "fingerprint": "608f6701890b05fe",
+  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": true,
+  "notes": [],
+  "checks": [
+    {
+      "name": "код виходу 0",
+      "ids": [
+        "NFR-6",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "0",
+      "observed": "0"
+    },
+    {
+      "name": "рядки методів у stdout, у порядку реєстру",
+      "ids": [
+        "FR-19",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "/fapi/v1/fundingRate refresh ітерацій=N≥2 перевірка=green",
+      "observed": "/fapi/v1/fundingRate  refresh  ітерацій=2  перевірка=green"
+    },
+    {
+      "name": "останній рядок stdout — підсумок",
+      "ids": [
+        "FR-19"
+      ],
+      "ok": true,
+      "expected": "підсумок: 1 методів, 1 зелених, 0 червоних",
+      "observed": "підсумок: 1 методів, 1 зелених, 0 червоних"
+    },
+    {
+      "name": "цей прогін записав логи ітерацій 1…2",
+      "ids": [
+        "FR-64"
+      ],
+      "ok": true,
+      "expected": "iteration-1.log, iteration-2.log",
+      "observed": "iteration-1.log, iteration-2.log"
+    },
+    {
+      "name": "сесій агента з cwd = клон: 1",
+      "ids": [
+        "FR-60",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "1 (транскрипти Claude Code)",
+      "observed": "1: 5aba47cb-2c5b-4cc1-afc2-25355d95cc9d"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-1.log)",
+      "ids": [
+        "FR-34"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=False"
+    },
+    {
+      "name": "перша перевірка: missing = markPrice, rateType; extra порожній",
+      "ids": [
+        "FR-39",
+        "FR-79"
+      ],
+      "ok": true,
+      "expected": "green=false, missing=[markPrice, rateType], extra=[]",
+      "observed": "green=False, missing=['markPrice', 'rateType'], extra=[]"
+    },
+    {
+      "name": "виклик клієнта з `call` пройшов javac і клієнта без винятку",
+      "ids": [
+        "FR-34"
+      ],
+      "ok": true,
+      "expected": "client_error=null",
+      "observed": "None"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-2.log)",
+      "ids": [
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=True"
+    },
+    {
+      "name": "остання перевірка зелена",
+      "ids": [
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "green=true, client_error=null",
+      "observed": "green=True, client_error=None"
+    },
+    {
+      "name": "звіт runs/fapi-v1-fundingRate/report.md записано: заголовок і 12 полів FR-78 у порядку",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "# Звіт прогону — fapi-v1-fundingRate; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen",
+      "observed": "# Звіт прогону — fapi-v1-fundingRate; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen"
+    },
+    {
+      "name": "звіт: mismatch",
+      "ids": [
+        "FR-79"
+      ],
+      "ok": true,
+      "expected": "зайві в моделі: —; бракує в моделі: markPrice, rateType",
+      "observed": "зайві в моделі: —; бракує в моделі: markPrice, rateType"
+    },
+    {
+      "name": "звіт: removed",
+      "ids": [
+        "FR-81"
+      ],
+      "ok": true,
+      "expected": "нічого не видалено",
+      "observed": "нічого не видалено"
+    },
+    {
+      "name": "звіт: verify_result",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "green",
+      "observed": "green"
+    },
+    {
+      "name": "звіт: iterations",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "2",
+      "observed": "2"
+    },
+    {
+      "name": "markPrice додано: поле, гетер, сетер, рядок у toString",
+      "ids": [
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "усе є",
+      "observed": "усе є"
+    },
+    {
+      "name": "rateType додано: поле, гетер, сетер, рядок у toString",
+      "ids": [
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "усе є",
+      "observed": "усе є"
+    },
+    {
+      "name": "змінено лише src/main/java/com/example/binanceFutures/response/FuturesFundingRateInfo.java",
+      "ids": [
+        "FR-73"
+      ],
+      "ok": true,
+      "expected": "рівно src/main/java/com/example/binanceFutures/response/FuturesFundingRateInfo.java",
+      "observed": "src/main/java/com/example/binanceFutures/response/FuturesFundingRateInfo.java"
+    },
+    {
+      "name": "FuturesFundingRateInfo.java змінено лише доданими рядками відносно стану до прогону",
+      "ids": [
+        "FR-73"
+      ],
+      "ok": true,
+      "expected": "лише доданими рядками",
+      "observed": "додано 22, вилучено 0 рядків"
+    },
+    {
+      "name": "індекс копії порожній до і після прогону",
+      "ids": [
+        "NFR-10"
+      ],
+      "ok": true,
+      "expected": "git diff --cached --name-only порожній до і після",
+      "observed": "до [], після []"
+    },
+    {
+      "name": "тести бібліотеки не змінено",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "у git status немає src/test/",
+      "observed": "немає"
+    },
+    {
+      "name": "тести бібліотеки не запускались",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "немає target/surefire-reports і target/failsafe-reports",
+      "observed": "немає"
+    },
+    {
+      "name": "історія копії та сама (HEAD, жодного коміту)",
+      "ids": [
+        "FR-90"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a4",
+      "observed": "cee6585f89a4"
+    },
+    {
+      "name": "у stdout і stderr немає Python Traceback",
+      "ids": [
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "немає",
+      "observed": "немає"
+    }
+  ],
+  "runs": [
+    {
+      "label": "run",
+      "argv": [
+        "python3",
+        "-m",
+        "method_sync",
+        "--registry",
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/funding-drift.toml"
+      ],
+      "exit_code": 0,
+      "seconds": 62.7,
+      "agent_sessions": [
+        "5aba47cb-2c5b-4cc1-afc2-25355d95cc9d"
+      ]
+    }
+  ]
+}

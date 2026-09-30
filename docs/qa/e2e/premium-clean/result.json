@@ -1,6 +1,6 @@
 {
   "scenario": "premium-clean",
-  "verdict": "FAIL",
+  "verdict": "PASS",
   "ids": [
     "FR-19",
     "FR-23",
@@ -26,11 +26,11 @@
     "NFR-10"
   ],
   "expected": "Метод без розходжень: код 0, одна ітерація, агента немає; фікстура живої відповіді; вердикт раннера зелений — поля моделі — 8 властивостей Jackson `FuturesMarkPriceInfo`, extra і missing порожні, client_error null; звіт із порожніми розходженнями; `git status` копії як до прогону; другий прогін поспіль — `ітерацій=1` і той самий порожній `git diff`.",
-  "observed": "не пройшло 9 з 16 перевірок; перша — «код виходу 0»: очікувалось 0; спостерігалось 1; stderr: /opt/homebrew/opt/python@3.14/bin/python3.14: No module named method_sync.__main__; 'method_sync' is a package and cannot be directly executed; run-1: код 1, 0 с, сесій агента 0",
-  "started": "2026-09-30T07:41:24+00:00",
-  "finished": "2026-09-30T07:41:26+00:00",
-  "fingerprint": "562fac644ae112c5",
-  "tool_commit": "7929724cb3cf2875456671e62cb732ef77851b1b",
+  "observed": "пройшли всі перевірки (38); run-1: код 0, 10 с, сесій агента 0; run-2: код 0, 10 с, сесій агента 0",
+  "started": "2026-09-30T13:49:18+00:00",
+  "finished": "2026-09-30T13:49:42+00:00",
+  "fingerprint": "608f6701890b05fe",
+  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
   "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
   "agent": false,
   "notes": [],
@@ -41,9 +41,9 @@
         "NFR-6",
         "FR-63"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "0",
-      "observed": "1; stderr: /opt/homebrew/opt/python@3.14/bin/python3.14: No module named method_sync.__main__; 'method_sync' is a package and cannot be directly executed"
+      "observed": "0"
     },
     {
       "name": "рядки методів у stdout, у порядку реєстру",
@@ -51,18 +51,18 @@
         "FR-19",
         "FR-63"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "/fapi/v1/premiumIndex refresh ітерацій=1 перевірка=green",
-      "observed": "рядків методів немає"
+      "observed": "/fapi/v1/premiumIndex  refresh  ітерацій=1  перевірка=green"
     },
     {
       "name": "останній рядок stdout — підсумок",
       "ids": [
         "FR-19"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "підсумок: 1 методів, 1 зелених, 0 червоних",
-      "observed": "stdout порожній"
+      "observed": "підсумок: 1 методів, 1 зелених, 0 червоних"
     },
     {
       "name": "цей прогін записав логи ітерацій 1…1",
@@ -70,9 +70,9 @@
         "FR-63",
         "FR-64"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "iteration-1.log",
-      "observed": "жодного"
+      "observed": "iteration-1.log"
     },
     {
       "name": "сесій агента з cwd = клон: 0",
@@ -89,27 +89,72 @@
         "FR-23",
         "FR-24"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "runs/fapi-v1-premiumIndex/fixture.json цього прогону: path=/fapi/v1/premiumIndex, args={'symbol': 'BTCUSDT'}, http_status=200",
-      "observed": "цей прогін фікстури не записав"
+      "observed": "body: ключі estimatedSettlePrice, indexPrice, interestRate, lastFundingRate, markPrice, nextFundingTime, symbol, time"
     },
     {
       "name": "раннер дав вердикт звіряння (iteration-1.log)",
       "ids": [
         "FR-33"
       ],
-      "ok": false,
-      "expected": "runs/fapi-v1-premiumIndex/iteration-1.log з рядком-вердиктом",
-      "observed": "цей прогін не записав iteration-1.log"
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=True"
+    },
+    {
+      "name": "вердикт зелений: extra і missing порожні",
+      "ids": [
+        "FR-39"
+      ],
+      "ok": true,
+      "expected": "green=true, extra=[], missing=[]",
+      "observed": "green=True, extra=[], missing=[]"
+    },
+    {
+      "name": "поля моделі — властивості Jackson FuturesMarkPriceInfo",
+      "ids": [
+        "FR-36"
+      ],
+      "ok": true,
+      "expected": "['estimatedSettlePrice', 'indexPrice', 'interestRate', 'lastFundingRate', 'markPrice', 'nextFundingTime', 'symbol', 'time']",
+      "observed": "['estimatedSettlePrice', 'indexPrice', 'interestRate', 'lastFundingRate', 'markPrice', 'nextFundingTime', 'symbol', 'time']"
+    },
+    {
+      "name": "owners відносить кожне поле до FuturesMarkPriceInfo",
+      "ids": [
+        "FR-36"
+      ],
+      "ok": true,
+      "expected": "{поле: com.example.binanceFutures.response.FuturesMarkPriceInfo} для 8 полів",
+      "observed": "{'estimatedSettlePrice': 'com.example.binanceFutures.response.FuturesMarkPriceInfo', 'indexPrice': 'com.example.binanceFutures.response.FuturesMarkPriceInfo', 'interestRate': 'com.example.binanceFutures.response.FuturesMarkPriceInfo', 'lastFundingRate': 'com.example.binanceFutures.response.FuturesMarkPriceInfo', 'markPrice': 'com.example.binanceFutures.response.FuturesMarkPriceInfo', 'nextFundingTime': 'com.example.binanceFutures.response.FuturesMarkPriceInfo', 'symbol': 'com.example.binanceFutures.response.FuturesMarkPriceInfo', 'time': 'com.example.binanceFutures.response.FuturesMarkPriceInfo'}"
+    },
+    {
+      "name": "клієнт бібліотеки відпрацював виклик без винятку",
+      "ids": [
+        "FR-34"
+      ],
+      "ok": true,
+      "expected": "client_error=null",
+      "observed": "None"
+    },
+    {
+      "name": "енамних полів у моделі немає",
+      "ids": [
+        "FR-56"
+      ],
+      "ok": true,
+      "expected": "enums=[]",
+      "observed": "[]"
     },
     {
       "name": "раннер завершувався сам (жодної стадії timeout)",
       "ids": [
         "FR-42"
       ],
-      "ok": false,
+      "ok": true,
       "expected": "логи ітерацій без стадії timeout",
-      "observed": "логів ітерацій немає"
+      "observed": "timeout немає"
     },
     {
       "name": "звіт runs/fapi-v1-premiumIndex/report.md записано: заголовок і 12 полів FR-78 у порядку",
@@ -117,9 +162,92 @@
         "FR-77",
         "FR-78"
       ],
-      "ok": false,
-      "expected": "report.md цього прогону",
-      "observed": "цей прогін звіту не записав"
+      "ok": true,
+      "expected": "# Звіт прогону — fapi-v1-premiumIndex; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen",
+      "observed": "# Звіт прогону — fapi-v1-premiumIndex; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen"
+    },
+    {
+      "name": "звіт: mode",
+      "ids": [
+        "FR-78"
+      ],
+      "ok": true,
+      "expected": "refresh",
+      "observed": "refresh"
+    },
+    {
+      "name": "звіт: request_source",
+      "ids": [
+        "FR-78"
+      ],
+      "ok": true,
+      "expected": "registry",
+      "observed": "registry"
+    },
+    {
+      "name": "звіт: response_source",
+      "ids": [
+        "FR-78"
+      ],
+      "ok": true,
+      "expected": "/Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json",
+      "observed": "/Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json"
+    },
+    {
+      "name": "звіт: mismatch",
+      "ids": [
+        "FR-63",
+        "FR-79"
+      ],
+      "ok": true,
+      "expected": "зайві в моделі: —; бракує в моделі: —",
+      "observed": "зайві в моделі: —; бракує в моделі: —"
+    },
+    {
+      "name": "звіт: removed",
+      "ids": [
+        "FR-81"
+      ],
+      "ok": true,
+      "expected": "нічого не видалено",
+      "observed": "нічого не видалено"
+    },
+    {
+      "name": "звіт: verify_cmd",
+      "ids": [
+        "FR-78"
+      ],
+      "ok": true,
+      "expected": "mvn -q -DskipTests test-compile",
+      "observed": "mvn -q -DskipTests test-compile"
+    },
+    {
+      "name": "звіт: verify_result",
+      "ids": [
+        "FR-63"
+      ],
+      "ok": true,
+      "expected": "green",
+      "observed": "green"
+    },
+    {
+      "name": "звіт: iterations",
+      "ids": [
+        "FR-63"
+      ],
+      "ok": true,
+      "expected": "1",
+      "observed": "1"
+    },
+    {
+      "name": "звіт: enum_mismatch",
+      "ids": [
+        "FR-56",
+        "FR-63"
+      ],
+      "ok": true,
+      "expected": "розходжень енамів немає",
+      "observed": "розходжень енамів немає"
     },
     {
       "name": "копія бібліотеки та сама: git status, diff і diff --cached як до прогону",
@@ -177,13 +305,85 @@
       "observed": "немає"
     },
     {
-      "name": "другий прогін поспіль",
+      "name": "код виходу 0",
       "ids": [
         "NFR-9"
       ],
-      "ok": false,
-      "expected": "іде після першого з кодом 0",
-      "observed": "не запускався: перший прогін не завершився кодом 0"
+      "ok": true,
+      "expected": "0",
+      "observed": "0"
+    },
+    {
+      "name": "рядки методів у stdout, у порядку реєстру",
+      "ids": [
+        "NFR-9"
+      ],
+      "ok": true,
+      "expected": "/fapi/v1/premiumIndex refresh ітерацій=1 перевірка=green",
+      "observed": "/fapi/v1/premiumIndex  refresh  ітерацій=1  перевірка=green"
+    },
+    {
+      "name": "сесій агента з cwd = клон: 0",
+      "ids": [
+        "NFR-9"
+      ],
+      "ok": true,
+      "expected": "0 (транскрипти Claude Code)",
+      "observed": "0"
+    },
+    {
+      "name": "git diff після другого прогону такий самий, як після першого, і порожній",
+      "ids": [
+        "NFR-9"
+      ],
+      "ok": true,
+      "expected": "порожній diff, той самий status",
+      "observed": "diff 0 байт, status []"
+    },
+    {
+      "name": "індекс копії порожній до і після прогону",
+      "ids": [
+        "NFR-10"
+      ],
+      "ok": true,
+      "expected": "git diff --cached --name-only порожній до і після",
+      "observed": "до [], після []"
+    },
+    {
+      "name": "тести бібліотеки не змінено",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "у git status немає src/test/",
+      "observed": "немає"
+    },
+    {
+      "name": "тести бібліотеки не запускались",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "немає target/surefire-reports і target/failsafe-reports",
+      "observed": "немає"
+    },
+    {
+      "name": "історія копії та сама (HEAD, жодного коміту)",
+      "ids": [
+        "FR-90"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a4",
+      "observed": "cee6585f89a4"
+    },
+    {
+      "name": "у stdout і stderr немає Python Traceback",
+      "ids": [
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "немає",
+      "observed": "немає"
     }
   ],
   "runs": [
@@ -194,10 +394,23 @@
         "-m",
         "method_sync",
         "--registry",
-        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-e6bc8sq7/premium-clean.toml"
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/premium-clean.toml"
       ],
-      "exit_code": 1,
-      "seconds": 0.0,
+      "exit_code": 0,
+      "seconds": 10.3,
+      "agent_sessions": []
+    },
+    {
+      "label": "run-2",
+      "argv": [
+        "python3",
+        "-m",
+        "method_sync",
+        "--registry",
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/premium-clean.toml"
+      ],
+      "exit_code": 0,
+      "seconds": 10.3,
       "agent_sessions": []
     }
   ]

@@ -1,0 +1,8 @@
+[
+  {
+    "session": "8cb09fb5-be0d-4a2b-a57d-420f8c9907f3",
+    "bash_commands": [
+      "mvn -q -DskipTests test-compile"
+    ]
+  }
+]

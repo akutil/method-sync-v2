@@ -1,0 +1,10 @@
+lib = "/Users/akutil/humex/method-sync-v2/.sandbox/e2e/schedule-fx"
+verify_cmd = "mvn -q -DskipTests test-compile"
+
+[live]
+base_url = "https://fapi.binance.com"
+
+[[method]]
+path = "/fapi/v1/tradingSchedule"
+model = "com.example.binanceFutures.response.TradingScheduleResponse"
+client_method = "getTradingSchedule"

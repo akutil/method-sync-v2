@@ -1,0 +1,284 @@
+{
+  "scenario": "strict-missing",
+  "verdict": "PASS",
+  "ids": [
+    "FR-19",
+    "FR-39",
+    "FR-42",
+    "FR-44",
+    "FR-46",
+    "FR-60",
+    "FR-64",
+    "FR-69",
+    "FR-73",
+    "FR-77",
+    "FR-79",
+    "FR-90",
+    "FR-93",
+    "NFR-6",
+    "NFR-10"
+  ],
+  "expected": "У копії з `FuturesMarkPriceInfo` (без `ignoreUnknown`, мапер бібліотеки строгий) прибрано `time` з гетером, сетером і рядком у `toString`: клієнт кидає виняток, а звіряння все одно йде — у першому лозі `client_error` з `Unrecognized field \"time\"` і `missing = time`, раннер завершився сам; агент повертає поле; остання перевірка зелена; змінено лише цей файл і лише доданими рядками. Поле — `time`, а не `interestRate` з підписаного набору: гетер `interestRate` (як і решти шести полів) викликає тест бібліотеки `BinanceFuturesApiRestClientImplTest.java:261`, тож `verify_cmd` (`test-compile`) упав би на стадії `compile` і до клієнта справа не дійшла б; `getTime()` тести не викликають (перевірено компіляцією і пробою 2026-09-30).",
+  "observed": "пройшли всі перевірки (25); run: код 0, 56 с, сесій агента 1; FuturesMarkPriceInfo.java після прогону збігся з HEAD байт у байт",
+  "started": "2026-09-30T13:52:16+00:00",
+  "finished": "2026-09-30T13:53:14+00:00",
+  "fingerprint": "608f6701890b05fe",
+  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": true,
+  "notes": [
+    "FuturesMarkPriceInfo.java після прогону збігся з HEAD байт у байт"
+  ],
+  "checks": [
+    {
+      "name": "код виходу 0",
+      "ids": [
+        "NFR-6",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "0",
+      "observed": "0"
+    },
+    {
+      "name": "рядки методів у stdout, у порядку реєстру",
+      "ids": [
+        "FR-19",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "/fapi/v1/premiumIndex refresh ітерацій=N≥2 перевірка=green",
+      "observed": "/fapi/v1/premiumIndex  refresh  ітерацій=2  перевірка=green"
+    },
+    {
+      "name": "останній рядок stdout — підсумок",
+      "ids": [
+        "FR-19"
+      ],
+      "ok": true,
+      "expected": "підсумок: 1 методів, 1 зелених, 0 червоних",
+      "observed": "підсумок: 1 методів, 1 зелених, 0 червоних"
+    },
+    {
+      "name": "цей прогін записав логи ітерацій 1…2",
+      "ids": [
+        "FR-64"
+      ],
+      "ok": true,
+      "expected": "iteration-1.log, iteration-2.log",
+      "observed": "iteration-1.log, iteration-2.log"
+    },
+    {
+      "name": "сесій агента з cwd = клон: 1",
+      "ids": [
+        "FR-60",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "1 (транскрипти Claude Code)",
+      "observed": "1: 8cb09fb5-be0d-4a2b-a57d-420f8c9907f3"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-1.log)",
+      "ids": [
+        "FR-42",
+        "FR-46"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=False"
+    },
+    {
+      "name": "виняток клієнта у вердикті: client_error",
+      "ids": [
+        "FR-44",
+        "FR-46"
+      ],
+      "ok": true,
+      "expected": "client_error з UnrecognizedPropertyException: Unrecognized field \"time\"",
+      "observed": "'com.binance.api.client.exception.BinanceApiException: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field \"time\" (class com.example.binanceFutures.response.FuturesMarkPriceInfo), not marked as ignorable (7 known properties: \"estimatedSettlePrice\", \"indexPrice\", \"symbol\", \"interestRate\", \"markPrice\", \"lastFundingRate\", \"nextFundingTime\"])\\n at [Source: (okhttp3.ResponseBody$BomAwareReader); line: 1, column: 231] (through reference chain: com.example.binanceFutures.response.FuturesMarkPriceInfo[\"time\"])'"
+    },
+    {
+      "name": "звіряння пройшло попри виняток: missing = time, extra порожній",
+      "ids": [
+        "FR-39",
+        "FR-46"
+      ],
+      "ok": true,
+      "expected": "missing=[time], extra=[]",
+      "observed": "missing=['time'], extra=[]"
+    },
+    {
+      "name": "вердикт із client_error червоний",
+      "ids": [
+        "FR-46"
+      ],
+      "ok": true,
+      "expected": "green=false",
+      "observed": "green=False"
+    },
+    {
+      "name": "текст винятку є в людському лозі першої ітерації",
+      "ids": [
+        "FR-46"
+      ],
+      "ok": true,
+      "expected": "рядок із першим рядком client_error поза рядком-вердиктом",
+      "observed": "2 таких рядків"
+    },
+    {
+      "name": "раннер завершувався сам (жодної стадії timeout)",
+      "ids": [
+        "FR-42"
+      ],
+      "ok": true,
+      "expected": "логи ітерацій без стадії timeout",
+      "observed": "timeout немає"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-2.log)",
+      "ids": [
+        "FR-46",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "рядок-вердикт є",
+      "observed": "green=True"
+    },
+    {
+      "name": "остання перевірка зелена",
+      "ids": [
+        "FR-46",
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "green=true, client_error=null",
+      "observed": "green=True, client_error=None"
+    },
+    {
+      "name": "звіт runs/fapi-v1-premiumIndex/report.md записано: заголовок і 12 полів FR-78 у порядку",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "# Звіт прогону — fapi-v1-premiumIndex; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen",
+      "observed": "# Звіт прогону — fapi-v1-premiumIndex; поля mode, request_source, response_source, mismatch, removed, verify_cmd, verify_result, iterations, reviewer, left_to_human, enum_mismatch, enum_unseen"
+    },
+    {
+      "name": "звіт: mismatch",
+      "ids": [
+        "FR-79"
+      ],
+      "ok": true,
+      "expected": "зайві в моделі: —; бракує в моделі: time",
+      "observed": "зайві в моделі: —; бракує в моделі: time"
+    },
+    {
+      "name": "звіт: verify_result",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "green",
+      "observed": "green"
+    },
+    {
+      "name": "звіт: iterations",
+      "ids": [
+        "FR-77"
+      ],
+      "ok": true,
+      "expected": "2",
+      "observed": "2"
+    },
+    {
+      "name": "time повернуто: поле, гетер, сетер, рядок у toString",
+      "ids": [
+        "FR-69"
+      ],
+      "ok": true,
+      "expected": "усе є",
+      "observed": "усе є"
+    },
+    {
+      "name": "змінено лише src/main/java/com/example/binanceFutures/response/FuturesMarkPriceInfo.java",
+      "ids": [
+        "FR-73"
+      ],
+      "ok": true,
+      "expected": "не більше ніж src/main/java/com/example/binanceFutures/response/FuturesMarkPriceInfo.java",
+      "observed": "нічого"
+    },
+    {
+      "name": "FuturesMarkPriceInfo.java змінено лише доданими рядками відносно стану до прогону",
+      "ids": [
+        "FR-73"
+      ],
+      "ok": true,
+      "expected": "лише доданими рядками",
+      "observed": "додано 11, вилучено 0 рядків"
+    },
+    {
+      "name": "індекс копії порожній до і після прогону",
+      "ids": [
+        "NFR-10"
+      ],
+      "ok": true,
+      "expected": "git diff --cached --name-only порожній до і після",
+      "observed": "до [], після []"
+    },
+    {
+      "name": "тести бібліотеки не змінено",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "у git status немає src/test/",
+      "observed": "немає"
+    },
+    {
+      "name": "тести бібліотеки не запускались",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "немає target/surefire-reports і target/failsafe-reports",
+      "observed": "немає"
+    },
+    {
+      "name": "історія копії та сама (HEAD, жодного коміту)",
+      "ids": [
+        "FR-90"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a4",
+      "observed": "cee6585f89a4"
+    },
+    {
+      "name": "у stdout і stderr немає Python Traceback",
+      "ids": [
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "немає",
+      "observed": "немає"
+    }
+  ],
+  "runs": [
+    {
+      "label": "run",
+      "argv": [
+        "python3",
+        "-m",
+        "method_sync",
+        "--registry",
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/strict-missing.toml"
+      ],
+      "exit_code": 0,
+      "seconds": 55.5,
+      "agent_sessions": [
+        "8cb09fb5-be0d-4a2b-a57d-420f8c9907f3"
+      ]
+    }
+  ]
+}
