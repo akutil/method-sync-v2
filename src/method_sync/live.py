@@ -6,13 +6,15 @@ FR-30): приклад із документації — гіпотеза, і д
 відповідь лягає фікстурою `runs/<slug>/fixture.json` у каталозі інструмента (FR-24, FR-25).
 
 Недоступна відповідь — мережева помилка, адреса, яку відхилив клієнт, відхилена схема, перевищений ліміт, статус
-не 200, порожнє тіло, не-JSON чи тіло без жодного ключа об'єкта (FR-26, FR-29) — дає `LiveUnavailable` з URL і
-причиною, і прогін зупиняє метод до будь-якої дії з бібліотекою (FR-27, слайс `add-run-cli`). Фікстура пишеться
-лише після повного успіху, тож недоступна відповідь власної фікстури не лишає, а фікстура попереднього прогону
-лишається байт у байт (FR-28). Пише вона лише під `runs/` і атомарно (принцип VII, design.md D10).
+не 200, тіло понад `MAX_BODY_BYTES`, порожнє тіло, не-JSON, тіло без жодного ключа об'єкта (FR-26, FR-29) чи тіло,
+якого фікстура не збереже як є (design.md D10), — дає `LiveUnavailable` з URL і причиною, і прогін зупиняє метод до
+будь-якої дії з бібліотекою (FR-27, слайс `add-run-cli`). Фікстура пишеться лише після повного успіху, тож
+недоступна відповідь власної фікстури не лишає, а фікстура попереднього прогону лишається байт у байт (FR-28). Пише
+вона лише під `runs/` і атомарно (принцип VII, design.md D10).
 """
 import contextlib
 import datetime
+import functools
 import http.client
 import json
 import math
@@ -36,6 +38,11 @@ ALLOWED_SCHEMES = frozenset({"http", "https"})
 # пояснення (`Invalid symbol.`), але рядок методу не мусить тонути в кілобайтах (design.md D9).
 EXCERPT_CHARS = 200
 EXCERPT_BYTES = 4096
+# Межа тіла відповіді (design.md D8, D9): читається не більше за `MAX_BODY_BYTES + 1` байтів, а тіло, довше за межу, —
+# недоступна відповідь. Тіло REST Binance важить кілобайти, тож 32 МБ у тисячі разів більше за будь-яке, а сервер
+# не змусить клієнта ні виділити пам'ять під названий ним `Content-Length`, ні тягнути в неї тіло до вердикту
+# ліміту (рецензія R2-06, R2-08).
+MAX_BODY_BYTES = 32 * 1024 * 1024
 # Помилки клієнта, які означають недоступну відповідь (design.md D9): `OSError` — мережа й тайм-аут, зокрема
 # `URLError`; `HTTPException` — адреса, яку відхилив `http.client` (`InvalidURL`), чи обірвана відповідь;
 # `ValueError` — адреса, яку не розібрано (`Invalid IPv6 URL`, мітка IDNA довша за 63 символи).
@@ -101,12 +108,12 @@ _CALL = threading.local()
 class _Line:
     """З'єднання одного живого виклику, яке головний потік обриває на вердикті ліміту (NFR-4, design.md D8).
 
-    Тайм-аут сокета діє на одну операцію, тож сервер, що крапає байти частіше за нього, тримав би після вердикту
-    робочий потік, сокет і буфер тіла до кінця прогону. Тому з'єднання типового відкривача, щойно встановлено
-    TCP-з'єднання, кладе сюди дублікат свого сокета (`attach`), а головний потік на вердикті робить на ньому
-    `shutdown` (`cut`): блоковане читання — рукостискання TLS, заголовки чи тіло — повертає кінець потоку, і
-    робочий потік завершується. Дублікат закриває лише сам робочий потік (`release`), тож `shutdown` не влучить у
-    чужий дескриптор із тим самим номером.
+    Тайм-аут сокета діє на одну операцію, тож сервер чи проксі, що крапає байти частіше за нього, тримав би після
+    вердикту робочий потік, сокет і буфер тіла до кінця прогону. Тому з'єднання типового відкривача, щойно
+    встановлено TCP-з'єднання, кладе сюди дублікат свого сокета (`attach`), а головний потік на вердикті робить на
+    ньому `shutdown` (`cut`): блоковане читання — відповідь проксі на CONNECT, рукостискання TLS, заголовки чи
+    тіло — повертає кінець потоку, і робочий потік завершується. Дублікат закриває лише сам робочий потік
+    (`release`), тож `shutdown` не влучить у чужий дескриптор із тим самим номером.
     """
 
     def __init__(self):
@@ -147,19 +154,38 @@ def _hang_up(sock):
 
 
 class _Connection(http.client.HTTPConnection):
-    """З'єднання типового відкривача: одразу після TCP-з'єднання віддає сокет `_Line` свого живого виклику
-    (design.md D8). Поза живим викликом — наприклад, `no_redirect_open` у головному потоці — звичайне з'єднання."""
+    """З'єднання типового відкривача: віддає сокет `_Line` свого живого виклику, щойно встановлено TCP-з'єднання,
+    — до тунелю проксі й до рукостискання TLS (design.md D8). Поза живим викликом — наприклад, `no_redirect_open`
+    у головному потоці — звичайне з'єднання.
 
-    def connect(self):
-        super().connect()
-        line = getattr(_CALL, "line", None)
-        if line is not None:
-            line.attach(self.sock)
+    `HTTPConnection.connect` створює сокет через атрибут `_create_connection` (типово `socket.create_connection`) і
+    на тому самому сокеті, ще до повернення, веде `_tunnel`: шле проксі CONNECT і читає його відповідь. Тому
+    обгортається `_create_connection`, а не `connect`: сокет, зареєстрований після `connect`, не давав вердиктові
+    обірвати проксі, що крапає відповідь на CONNECT (рецензія R2-05).
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._create_connection = functools.partial(_connect_on_line, self._create_connection)
+
+
+def _connect_on_line(create, *args, **kwargs):
+    """TCP-з'єднання через `create`, чий сокет одразу йде в `_Line` живого виклику цього потоку, якщо той є.
+    Невдалий `attach` (дублікат — теж дескриптор) закриває сокет, а не лишає його збирачеві сміття."""
+    sock = create(*args, **kwargs)
+    line = getattr(_CALL, "line", None)
+    if line is not None:
+        try:
+            line.attach(sock)
+        except BaseException:
+            sock.close()
+            raise
+    return sock
 
 
 class _SecureConnection(http.client.HTTPSConnection, _Connection):
-    """HTTPS: у MRO `_Connection.connect` стоїть між `HTTPSConnection.connect` і `HTTPConnection.connect`, тож
-    сокет потрапляє в `_Line` ще до рукостискання TLS, і обрив на вердикті уриває вже його."""
+    """HTTPS: `HTTPSConnection.__init__` через `super()` доходить до `_Connection.__init__`, тож сокет потрапляє в
+    `_Line` так само — до тунелю проксі й до рукостискання TLS, і обрив на вердикті уриває вже їх."""
 
 
 class _HTTPHandler(urllib.request.HTTPHandler):
@@ -176,7 +202,7 @@ def no_redirect_open(url, timeout):
     """Типовий відкривач шва `open_url` (design.md D7, D8): stdlib-клієнт без перенаправлень, чиє з'єднання
     головний потік може обірвати на вердикті ліміту.
 
-    Віддає відповідь — контекстний менеджер зі `.status` і `.read()`; на статус поза 2xx кидає `HTTPError`.
+    Віддає відповідь — контекстний менеджер зі `.status` і `.read(amt)`; на статус поза 2xx кидає `HTTPError`.
     """
     return urllib.request.build_opener(_NoRedirect, _HTTPHandler, _HTTPSHandler).open(url, timeout=timeout)
 
@@ -184,15 +210,17 @@ def no_redirect_open(url, timeout):
 def fetch(base_url, path, args, *, open_url=None, timeout=TIMEOUT_SECONDS):
     """Одна спроба живого виклику: `(200, розібране тіло)` або `LiveUnavailable` з URL і причиною.
 
-    Порядок — design.md D9: схема до будь-якого відкриття, далі помилка клієнта чи ліміт, статус, порожнє тіло,
-    JSON і ключі об'єкта. Повторної спроби немає (FR-26). `credentials` сюди не доходять: виклик іде без ключів
-    біржі (FR-3, FR-23).
+    Порядок — design.md D9: схема до будь-якого відкриття, далі помилка клієнта чи ліміт, статус, розмір тіла,
+    порожнє тіло, JSON і ключі об'єкта. Повторної спроби немає (FR-26). `credentials` сюди не доходять: виклик іде
+    без ключів біржі (FR-3, FR-23).
     """
     url = build_url(base_url, path, args)
     _require_http(url)
     status, raw = _within_limit(url, no_redirect_open if open_url is None else open_url, timeout)
     if status != 200:
         raise LiveUnavailable(url, _status_reason(status, raw))
+    if len(raw) > MAX_BODY_BYTES:  # `_open_and_read` читає на байт понад межу саме для цієї перевірки
+        raise LiveUnavailable(url, _size_reason(MAX_BODY_BYTES))
     if not raw.strip():
         raise LiveUnavailable(url, "тіло відповіді порожнє")
     # ValueError — JSONDecodeError, UnicodeDecodeError, NaN чи 1e999 (D9); RecursionError — надто глибока вкладеність.
@@ -209,15 +237,23 @@ def capture(base_url, path, args, runs_dir=RUNS_DIR, *, open_url=None, timeout=T
     """Зняти живу відповідь і записати фікстуру `runs/<slug>/fixture.json` поверх наявної; віддати її шлях.
 
     Порядок — design.md D10. Фікстура пишеться лише після повного успіху `fetch`, тож FR-28 виконується за
-    побудовою. Вона кодується в UTF-8 до будь-якої дії з диском, її шлях звіряється з `runs_dir` після розкриття
-    `..` і символьних посилань (принцип VII), а запис атомарний: збій не лишає ні обрізаної фікстури, ні
-    порожньої на місці попередньої. `args`, яких JSON не представляє, — рядком (FR-24): дата — через
-    `default=str` (v1 падав `TypeError`), `nan` і `inf` — через `_json_value`, бо `default` на float не кличеться.
+    побудовою. Вона серіалізується й кодується в UTF-8 до будь-якої дії з диском, каталог запису звіряється з
+    `runs_dir` після розкриття `..` і символьних посилань (принцип VII), а запис атомарний: збій не лишає ні
+    обрізаної фікстури, ні порожньої на місці попередньої. `args`, яких JSON не представляє, — рядком (FR-24): дата
+    — через `default=str` (v1 падав `TypeError`), `nan` і `inf` — через `_json_value`, бо `default` на float не
+    кличеться.
     """
     status, body = fetch(base_url, path, args, open_url=open_url, timeout=timeout)
     captured_at = datetime.datetime.now(datetime.UTC).isoformat(timespec="microseconds")
-    text = json.dumps({"path": path, "args": _json_value(args), "captured_at": captured_at, "http_status": status,
-                       "body": body}, ensure_ascii=False, indent=2, allow_nan=False, default=str)
+    record = {"path": path, "args": _json_value(args), "captured_at": captured_at, "http_status": status, "body": body}
+    try:
+        text = json.dumps(record, ensure_ascii=False, indent=2, allow_nan=False, default=str)
+    except (RecursionError, ValueError) as error:
+        # RecursionError: серіалізація бере на рівень вкладеності більше C-стека, ніж розбір у `fetch`, тож тіло,
+        # яке той прийняв, може не серіалізуватись (рецензія R2-02). ValueError — сітка `allow_nan=False` (D10).
+        what = ("тіло надто глибоко вкладене, щоб записати фікстуру" if isinstance(error, RecursionError)
+                else "фікстура не серіалізується в JSON")
+        raise LiveUnavailable(build_url(base_url, path, args), f"{what}: {error}") from error
     try:
         data = text.encode("utf-8")
     except UnicodeEncodeError as error:
@@ -266,20 +302,26 @@ def _json_value(value):
 
 
 def _require_inside(fixture, runs_dir):
-    """Принцип VII: інструмент пише лише у власний `runs/`, тож шлях фікстури звіряється після розкриття `..` і
-    символьних посилань, як `boundaries.assert_writable` у v1 (FR-91, capability `run-cli`).
+    """Принцип VII: інструмент пише лише у власний `runs/` (FR-91, capability `run-cli`), тож каталог, у якому
+    справді йде запис, звіряється з `runs_dir` після розкриття `..` і символьних посилань.
 
-    Slug `..`, каталог `runs/<slug>` чи файл `fixture.json` — посилання назовні — дають `FixtureWriteError` з
-    розкритим шляхом, і нічого не створено. Розкритий шлях потрібен лише для цієї перевірки: каталог і файл далі
-    створюються за шляхом, як його склав інструмент, і так їх називає `FixtureWriteError`.
+    Звіряється каталог `fixture.parent`, а не розкритий `fixture.json`: `open(…, "xb")` і `os.replace` у
+    `_write_atomically` за останнім компонентом не йдуть, тож байти лягають у розкритий каталог, хай куди веде
+    посилання на місці `fixture.json` (рецензія R2-01, R2-10). v1 (`boundaries.assert_writable`) розкривав увесь
+    шлях, бо писав `write_text` крізь посилання. Каталог мусить бути самим `runs_dir` — slug `""` чи `.` (D10) — або
+    лежати під ним. Slug `..` чи каталог `runs/<slug>` — посилання назовні — дають `FixtureWriteError` з
+    `<розкритий каталог>/fixture.json`, і нічого не створено. Розкритий шлях потрібен лише для цієї перевірки:
+    каталог і файл далі створюються за шляхом, як його склав інструмент, і так їх називають решта
+    `FixtureWriteError`.
     """
     try:
-        target, root = fixture.resolve(), pathlib.Path(runs_dir).resolve()
+        where, root = fixture.parent.resolve(), pathlib.Path(runs_dir).resolve()
     except (OSError, ValueError) as error:  # getcwd() для відносного runs_dir; нуль-байт у шляху
         raise FixtureWriteError(fixture, f"шлях не розкривається: {error}") from error
-    if root not in target.parents:
-        raise FixtureWriteError(target, f"шлях {fixture} після розкриття «..» і символьних посилань лежить поза "
-                                        f"каталогом прогонів {root}; запис не виконано (принцип VII)")
+    if not where.is_relative_to(root):
+        raise FixtureWriteError(where / fixture.name,
+                                f"каталог {fixture.parent} після розкриття «..» і символьних посилань лежить поза "
+                                f"каталогом прогонів {root}; запис не виконано (принцип VII)")
 
 
 def _write_atomically(fixture, data):
@@ -289,7 +331,8 @@ def _write_atomically(fixture, data):
     `open(…, "xb")` створює лише новий файл із правами за umask. Помилка ОС на будь-якому кроці — немає місця,
     ліміт розміру файлу, каталог на місці `fixture.json` — прибирає тимчасовий файл і дає `FixtureWriteError` зі
     шляхом фікстури, а фікстура попереднього прогону лишається байт у байт. `os.replace` підміняє сам запис
-    каталогу, тож і символьне посилання на місці `fixture.json` наскрізь не проходиться.
+    каталогу, тож і символьне посилання на місці `fixture.json` наскрізь не проходиться, а стає звичайним файлом у
+    цьому каталозі; тому `_require_inside` звіряє каталог, а не розкритий `fixture.json`.
     """
     temporary = fixture.with_name(f".{fixture.name}.{secrets.token_hex(8)}.tmp")
     try:
@@ -315,7 +358,7 @@ def _require_http(url):
     try:
         scheme = urllib.parse.urlsplit(url).scheme
     except ValueError as error:  # «Invalid IPv6 URL»: адреса не розбирається ще до схеми
-        raise LiveUnavailable(url, str(error)) from error
+        raise LiveUnavailable(url, _server_text(str(error))) from error  # причина від клієнта — як у _client_reason
     if scheme not in ALLOWED_SCHEMES:
         what = "схема адреси не дозволена" if scheme else "в адресі немає схеми"
         raise LiveUnavailable(url, f"{what}: живий виклик іде лише за HTTP чи захищеним HTTP, адресу не відкрито")
@@ -327,9 +370,9 @@ def _within_limit(url, open_url, timeout):
     Тайм-аут сокета, як у v1, діє на одну операцію, тож тіло, яке сервер віддає по байту, тягнулося б скільки
     завгодно. Тому запит і читання йдуть у daemon-потоці, а головний потік чекає не довше `timeout`
     (design.md D8). На вердикті він обриває з'єднання (`_Line.cut`): блоковане читання в робочому потоці
-    повертає кінець потоку, і той завершується, а не дочитує тіло, яке сервер крапає й далі. До TCP-з'єднання
-    (резолв імені, `connect`) обривати ще нічого — там потік живе до тайм-ауту сокета чи резолвера. Пізній
-    результат потоку відкидається, і він нічого не пише (FR-28).
+    повертає кінець потоку, і той завершується, а не дочитує тіло чи відповідь проксі на CONNECT, які сервер чи
+    проксі крапає й далі. До TCP-з'єднання (резолв імені, `connect`) обривати ще нічого — там потік живе до
+    тайм-ауту сокета чи резолвера. Пізній результат потоку відкидається, і він нічого не пише (FR-28).
     """
     outcome, line = {}, _Line()
 
@@ -359,12 +402,22 @@ def _within_limit(url, open_url, timeout):
 def _open_and_read(url, open_url, timeout):
     """Одна спроба в потоці виклику: `(статус, сирі байти тіла)`.
 
-    Статус поза 2xx urllib віддає як `HTTPError`; тут він стає таким самим результатом зі статусом і початком
-    тіла, бо там біржа пише пояснення (design.md D9).
+    Тіло читається не більше за `MAX_BODY_BYTES + 1` байтів (design.md D8): зайвий байт каже `fetch`, що тіло довше
+    за межу. `read()` без межі виділяв би пам'ять під `Content-Length` чи розмір фрагмента, які назвав сервер, —
+    сирий `OverflowError` чи `MemoryError` (рецензія R2-06), — і тягнув би в пам'ять усе, що сервер устигне віддати
+    до вердикту ліміту (R2-08). Але `read(amt)`, на відміну від `read()`, мовчить, коли з'єднання закрилось раніше,
+    ніж надійшов увесь `Content-Length`, тож `IncompleteRead`, як `_safe_read` у `http.client`, кидає сама функція:
+    обірвана відповідь лишається недоступною (D9), хоч би її початок і розбирався як JSON. Статус поза 2xx urllib
+    віддає як `HTTPError`; тут він стає таким самим результатом зі статусом і початком тіла, бо там біржа пише
+    пояснення (design.md D9).
     """
     try:
         with open_url(url, timeout) as response:
-            return response.status, response.read()
+            raw = response.read(MAX_BODY_BYTES + 1)
+            owed = getattr(response, "length", None)  # http.client: скільки байтів Content-Length ще не надійшло
+            if owed and len(raw) <= MAX_BODY_BYTES:
+                raise http.client.IncompleteRead(raw, owed)
+            return response.status, raw
     except urllib.error.HTTPError as error:
         with error:
             try:
@@ -408,20 +461,25 @@ def _limit_reason(timeout):
     return f"перевищено ліміт {f'{timeout:g}'.replace('.', ',')} с"
 
 
-def _client_reason(error, timeout):
-    """Текст помилки мережевого клієнта дослівно (NFR-13); тайм-аут сокета — той самий ліміт NFR-4.
+def _size_reason(limit):
+    """«тіло більше за 32 МБ»: число виводиться з самої межі в мебібайтах, як її задано (`32 * 1024 * 1024`)."""
+    return f"тіло більше за {f'{limit / (1024 * 1024):g}'.replace('.', ',')} МБ"
 
-    `URLError` загортає первинну помилку (`gaierror`, відмову в з'єднанні, тайм-аут з'єднання) у `reason`;
-    тайм-аут читання приходить голим `TimeoutError`. `HTTPException` може нести текст сервера — `BadStatusLine`
-    кладе в себе сирий статус-рядок до 64 КБ разом із CR/LF, — тож він іде крізь `_server_text`.
+
+def _client_reason(error, timeout):
+    """Текст помилки мережевого клієнта (NFR-13) крізь `_server_text`; тайм-аут сокета — той самий ліміт NFR-4.
+
+    `URLError` загортає первинну помилку (`gaierror`, відмову в з'єднанні, тайм-аут з'єднання, відмову проксі на
+    CONNECT) у `reason`; тайм-аут читання приходить голим `TimeoutError`. Текст сервера може нести не лише
+    `HTTPException` — `BadStatusLine` кладе в себе сирий статус-рядок до 64 КБ разом із CR/LF, — а й `OSError`:
+    `http.client` пише в «Tunnel connection failed: …» фразу, якою проксі відмовив на CONNECT (рецензія R2-04). Тому
+    крізь `_server_text` іде кожна причина від клієнта; друкований текст до 200 символів з одиничними пробілами — як
+    сталі тексти ОС, TLS і резолвера — він лишає як є.
     """
     cause = error.reason if isinstance(error, urllib.error.URLError) else error
     if isinstance(cause, TimeoutError):
         return _limit_reason(timeout)
-    text = str(cause)
-    if isinstance(cause, http.client.HTTPException):
-        text = _server_text(text)
-    return text or type(cause).__name__
+    return _server_text(str(cause)) or type(cause).__name__
 
 
 def _has_object_key(body):
