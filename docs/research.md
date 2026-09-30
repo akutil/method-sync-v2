@@ -93,3 +93,13 @@ FuturesMarkPriceInfo: enum-typed properties = 0
 Наслідок: вивід агента в `iteration-N.log` містить цей чек-лист; на вердикт він не впливає (вердикт дає
 раннер). Ще одна деталь середовища: Maven без `JAVA_HOME` працює на JDK 25, а `java`/`javac` з PATH — 21.0.2
 (помітив `test-engineer` під час e2e-харнесу); збірка і раннер від цього не ламаються.
+
+### R-017. `acceptEdits` дає агентові більше, ніж одну команду; `dontAsk` — ні
+
+Проба 2026-09-30 у пісочниці (git-репо `lib`, `runs/fixture.json`, `--add-dir runs`, дозволено `Bash(echo verifyok)`),
+агентові велено виконати `touch t.txt`, `rm y.txt`, `echo verifyok`, правку `a.txt` і правку фікстури:
+- `--permission-mode acceptEdits`: `t.txt` створено, `y.txt` ВИДАЛЕНО, `a.txt` змінено, фікстуру змінено;
+- `--permission-mode dontAsk --allowedTools Read Edit(./**) Write(./**) "Bash(echo verifyok)"` (або `Edit(//<abs lib>/**)`):
+  `t.txt` не створено, `y.txt` лишився, `a.txt` змінено, фікстура недоторкана, `echo verifyok` виконано;
+- `Edit(/abs/path/**)` з одним `/` не дає правити нічого: шлях читається відносно файлу налаштувань.
+Наслідок: FR-65 змінено на `dontAsk` з явним переліком (розділ 5.8 вимог).

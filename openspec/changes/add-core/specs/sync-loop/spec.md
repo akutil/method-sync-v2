@@ -103,15 +103,18 @@
 ### Requirement: Агент запускається окремим headless-процесом
 
 Кожен виклик агента MUST бути окремим процесом Claude Code CLI без шелу, з порожнім stdin і робочим каталогом `lib`,
-розв'язаним до абсолютного шляху: `claude -p <бриф> --permission-mode acceptEdits` (FR-65), `--add-dir` з абсолютним
-шляхом `runs/` інструмента (FR-66) і `--allowedTools Bash(<verify_cmd>)` з `verify_cmd` дослівно (FR-67). Інших
-дозволів рядок запуску MUST NOT містити (FR-67), як `--dangerously-skip-permissions`, `--settings` чи `--mcp-config`.
+розв'язаним до абсолютного шляху: `claude -p <бриф> --permission-mode dontAsk` (FR-65), `--add-dir` з абсолютним
+шляхом `runs/` інструмента лише для читання фікстури (FR-66) і `--allowedTools` рівно з `Read`, `Edit(/<lib>/**)`,
+`Write(/<lib>/**)` (абсолютний `lib` із префіксом `/`, тобто `//…`) і `Bash(<verify_cmd>)` з `verify_cmd` дослівно
+(FR-67). Інших дозволів рядок запуску MUST NOT містити (FR-67), як `--dangerously-skip-permissions`, `--settings` чи
+`--mcp-config`. `acceptEdits` MUST NOT вживатись: проба 2026-09-30 показала, що в ньому агент виконує `touch`/`rm`
+і правити фікстуру в `runs/` (research R-017).
 
 #### Scenario: Рядок запуску агента
 
 - **GIVEN** інструмент лежить у `/work/method-sync-v2` і запущений звідти, `lib` у реєстрі — відносний `.sandbox/binancefutures`, а `verify_cmd` — `mvn -q -DskipTests test-compile`
 - **WHEN** цикл кличе агента
-- **THEN** рядок запуску починається з `claude`, `-p` і брифу одним аргументом, а далі по одному разу має `--permission-mode` зі значенням `acceptEdits`, `--add-dir` зі значенням `/work/method-sync-v2/runs` і `--allowedTools` з єдиним значенням `Bash(mvn -q -DskipTests test-compile)`
+- **THEN** рядок запуску починається з `claude`, `-p` і брифу одним аргументом, а далі по одному разу має `--permission-mode` зі значенням `dontAsk`, `--add-dir` зі значенням `/work/method-sync-v2/runs` і `--allowedTools` рівно зі значеннями `Read`, `Edit(//work/method-sync-v2/.sandbox/binancefutures/**)`, `Write(//work/method-sync-v2/.sandbox/binancefutures/**)` і `Bash(mvn -q -DskipTests test-compile)`
 - **AND** іншого прапорця, що дає права, у рядку немає, а робочий каталог процесу — `/work/method-sync-v2/.sandbox/binancefutures`
 
 #### Scenario: Бриф доходить без змін, stdin порожній
