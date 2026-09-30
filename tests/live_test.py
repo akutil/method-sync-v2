@@ -14,8 +14,9 @@
 повільне тіло, мовчання чи перенаправлення і записує кожен отриманий запит. У шов `open_url` іде лише шпигун,
 що делегує в `live.no_redirect_open` і рахує виклики; відповіді біржі в Python-об'єктах не підробляються.
 Події `open` і `socket.connect` бачить хук `sys.addaudithook` у дочірньому `python3`, бо хук не знімається.
-Один тест робить справжній виклик `https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT`; без мережі
-він пропускається з причиною.
+Один тест робить справжній виклик `https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT` — лише з
+METHOD_SYNC_LIVE=1 (`npm run test:integration`). Без неї він видимо пропускається з причиною, бо юніт-набір і CI не
+мусять залежати від стану біржі (tasks.md 6.9), а з нею недосяжна біржа — провал із поясненням, а не пропуск.
 
 Ліміт часу (NFR-4) доводиться механізмом на короткому `timeout` — десяті частки секунди, щоб `npm run test:run`
 тривав секунди. Числа зі спеки — окремо: `TimeLimitNumbers` звіряє сталу і типові значення параметрів із 15 с,
@@ -25,6 +26,9 @@ FR-30 тут доведено частково: один запит на мет�
 фікстури. Сирий запит раннера на ту саму адресу доводить `add-field-verification`, заборону документації в брифі —
 `add-sync-loop-and-report`. FR-27 (агента не кликали, бібліотека незмінна) і все, що видно лише на процесі CLI
 (код `3`, рядок методу, stderr без трасування, прогін після невдалого методу), — `add-run-cli` і e2e-харнес.
+
+Регресійні тести рецензії (`openspec/changes/add-input/review-round-1.md`, рішення — tasks.md, розділ 6) позначено
+коментарем `# Regression: review add-input R1-NN`.
 """
 import dataclasses
 import datetime
@@ -92,6 +96,28 @@ OLD_FIXTURE = json.dumps({
     "http_status": 200, "body": {"symbol": "BTCUSDT", "markPrice": "85000.00000000"},
 }, indent=2).encode("utf-8")
 
+# Регресії рецензії, раунд 1 (review-round-1.md; рішення — tasks.md, розділ 6).
+# Непарний сурогат U+D800: JSON-escape і ті самі три байти ED A0 80 сирими. `json.loads` приймає обидва (байти декодує з
+# `surrogatepass`), а в UTF-8 фікстури такий рядок не кодується.
+SURROGATE_ESCAPE_RAW = b'{"symbol": "BTC\\ud800USDT"}'
+SURROGATE_BYTES_RAW = b'{"symbol": "BTC\xed\xa0\x80USDT"}'
+SURROGATE_BODIES = (("JSON-escape \\ud800", SURROGATE_ESCAPE_RAW), ("сирі байти ED A0 80", SURROGATE_BYTES_RAW))
+# Тіло, яке сервер крапає по байту за 0,05 с понад дві хвилини: вердикт ліміту настає задовго до кінця.
+ENDLESS_DRIP_RAW = b'{"symbol":"BTCUSDT","markPrice":"' + b"8" * 2400 + b'"}'
+AFTER_VERDICT = 1.0  # стільки після вердикту ліміту можуть жити робочий потік і з'єднання (tasks.md 6.3)
+FSIZE_LIMIT = 64     # ліміт розміру файлу дочірнього процесу: менший і за стару фікстуру, і за нову
+# Текст сервера, який CLI надрукував би в термінал як є: заголовок вікна (OSC 0), очищення екрана, колір, BEL, NUL,
+# DEL, CR/LF і C1-символ CSI (U+009B, у UTF-8 — C2 9B), а далі 64 КБ тексту з ESC на кожні 16 символів — тож обрізання
+# до 200 символів раніше за заміну escape-послідовностями (1 символ → 4) вийшло б за межу.
+HOSTILE_BODY_RAW = (b'\x1b]0;PWNED\x07\x1b[2J\r\n{"code":-1121,"msg":"\x1b[31mInvalid symbol.\x1b[0m"}\r\n'
+                    b'\x00\x7f\xc2\x9b31m ' + b"\x1b[0mxxxxxxxxxxxx" * 4096)
+# Статус-рядок не за HTTP: `http.client` читає його до 64 КБ як ISO-8859-1 і кладе в `BadStatusLine` разом із CR/LF.
+HOSTILE_STATUS_LINE = b"\x1b]0;PWNED\x07\x1b[2J\x9b31m not-http " + b"\x1b[0mZZZZZZZZZZZZ" * 3750 + b"\r\n"
+SERVER_TEXT_CHARS = 200  # скільки тексту сервера може нести причина (design.md D9, tasks.md 6.8)
+EXCERPT_FRAME = 12       # власні слова інструмента навколо уривка: роздільник і «…»
+RAW_CONTROL = re.compile(r"[\x00-\x1f\x7f-\x9f]")            # керівні символи C0, DEL і C1
+ESCAPED_ESC = re.compile(r"\\(?:x1b|u001b)", re.IGNORECASE)  # ESC як escape-послідовність, а не сирий символ
+
 
 # ----------------------------------------------------------------------------------------------------------
 # Межа: локальний сервер, шпигун у шві open_url, дочірній процес із хуком аудиту
@@ -107,6 +133,7 @@ class Reply:
     delay: float = 0.0          # пауза перед статусом
     drip: float | None = None   # інтервал між байтами тіла: кожен байт вчасно, а все тіло — довго
     silent: bool = False        # прочитати запит і мовчати до кінця тесту
+    raw: bytes | None = None    # уся відповідь дослівно, без статус-рядка й заголовків http.server
 
 
 @dataclasses.dataclass(frozen=True)
@@ -123,12 +150,13 @@ class LocalServer:
 
     def __init__(self, routes, default=None):
         self.routes, self.default = dict(routes), default
-        self.seen, self.lock, self.stopping = [], threading.Lock(), threading.Event()
+        self.seen, self.handlers, self.lock, self.stopping = [], [], threading.Lock(), threading.Event()
         owner = self
 
         class Handler(http.server.BaseHTTPRequestHandler):
             def serve(self):
                 with owner.lock:
+                    owner.handlers.append(threading.current_thread())
                     owner.seen.append(Seen(self.command, self.path, tuple(name.lower() for name in self.headers)))
                 reply = owner.routes.get(urllib.parse.urlsplit(self.path).path, owner.default)
                 if reply is None:
@@ -137,6 +165,9 @@ class LocalServer:
                     owner.stopping.wait()
                     return
                 if reply.delay and owner.stopping.wait(reply.delay):
+                    return
+                if reply.raw is not None:
+                    self.wfile.write(reply.raw)
                     return
                 self.send_response(reply.status)
                 for name, value in reply.headers:
@@ -168,11 +199,26 @@ class LocalServer:
         self.server = Server(("127.0.0.1", 0), Handler)
         self.port = self.server.server_address[1]
         self.url = f"http://127.0.0.1:{self.port}"
-        threading.Thread(target=self.server.serve_forever, kwargs={"poll_interval": 0.01}, daemon=True).start()
+        self.loop = threading.Thread(target=self.server.serve_forever, kwargs={"poll_interval": 0.01}, daemon=True)
+        self.loop.start()
 
     def requests(self):
         with self.lock:
             return list(self.seen)
+
+    def threads(self):
+        """Потоки самого сервера — цикл прийому й обробники запитів, — щоб не сплутати їх із потоками клієнта."""
+        with self.lock:
+            return [self.loop, *self.handlers]
+
+    def quiet(self, until):
+        """Чи завершились до моменту `until` усі обробники запитів. Крапання тіла до кінця тесту уривається лише
+        тоді, коли клієнт закрив з'єднання: наступний запис у сокет падає."""
+        with self.lock:
+            handlers = list(self.handlers)
+        for thread in handlers:
+            thread.join(max(until - time.monotonic(), 0))
+        return not any(thread.is_alive() for thread in handlers)
 
     def targets(self):
         return [seen.target for seen in self.requests()]
@@ -260,10 +306,32 @@ except Exception as error:
 print(json.dumps({"events": events, "refused": refused}))
 '''
 
+# Запис фікстури, який ОС обриває посеред файлу: ліміт розміру файлу процесу (RLIMIT_FSIZE) менший за фікстуру. Python
+# ігнорує SIGXFSZ, тож запис понад ліміт — OSError з EFBIG, а не смерть процесу; на канал stdout ліміт не діє. Канарка —
+# запис на байт понад ліміт в інший файл: доводить, що ліміт у цій ОС справді діє (інакше перевірка була б порожньою).
+FSIZE_CHILD = r'''
+import errno, resource
+server_url, runs, limit, canary = sys.argv[2], sys.argv[3], int(sys.argv[4]), sys.argv[5]
+resource.setrlimit(resource.RLIMIT_FSIZE, (limit, resource.getrlimit(resource.RLIMIT_FSIZE)[1]))
+try:
+    with open(canary, "wb") as handle:
+        handle.write(b"c" * (limit + 1))
+    cut = "written"
+except OSError as error:
+    cut = errno.errorcode.get(error.errno, str(error.errno))
+try:
+    fixture = live.capture(server_url, "/fapi/v1/premiumIndex", {"symbol": "BTCUSDT"}, runs)
+    seen = {"outcome": "returned", "message": str(fixture)}
+except Exception as error:
+    seen = {"outcome": type(error).__name__, "message": str(error)}
+print(json.dumps(dict(seen, canary=cut)))
+'''
 
-def run_child(test, script, *argv):
-    """Дочірній `python3` з хуком аудиту, cwd — тимчасовий каталог тесту; віддає JSON з останнього рядка stdout."""
-    env = dict(os.environ, PYTHONPATH=str(REPO / "src"))
+
+def run_child(test, script, *argv, **env):
+    """Дочірній `python3` з хуком аудиту, cwd — тимчасовий каталог тесту; віддає JSON з останнього рядка stdout.
+    Іменовані аргументи — додаткові змінні оточення дочірнього процесу."""
+    env = dict(os.environ, PYTHONPATH=str(REPO / "src"), **env)
     done = subprocess.run([sys.executable, "-c", AUDIT + script, *argv], cwd=test.tmp, env=env,
                           capture_output=True, text=True, timeout=60)
     test.assertEqual(done.returncode, 0, f"дочірній процес упав:\n{done.stderr}")
@@ -317,6 +385,24 @@ def status_pattern(status):
 
 def read_json(path):
     return json.loads(pathlib.Path(path).read_text(encoding="utf-8"))
+
+
+def strict_json(text):
+    """Розбір за RFC 8259: `NaN`, `Infinity` і `-Infinity` — не JSON, тож на них розбір падає, а не дає float."""
+    def refuse(token):
+        raise ValueError(f"{token} — не JSON (RFC 8259)")
+    return json.loads(text, parse_constant=refuse)
+
+
+def files_outside(root, runs):
+    """Файли під `root` поза піддеревом `runs`, відносно `root`; символьні посилання на каталоги не обходяться."""
+    found = []
+    for directory, _, names in os.walk(root):
+        here = pathlib.Path(directory)
+        if here == runs or runs in here.parents:
+            continue
+        found += [(here / name).relative_to(root).as_posix() for name in names]
+    return sorted(found)
 
 
 def git_init(path):
@@ -404,6 +490,53 @@ class LiveCase(unittest.TestCase):
         threading.excepthook = lambda args: errors.append(f"{args.exc_type.__name__}: {args.exc_value}")
         self.addCleanup(setattr, threading, "excepthook", original)
         return errors
+
+    def outcome(self, base_url, path, args, runs=None, **kwargs):
+        """Що зробив `capture()`: шлях фікстури або виняток будь-якого класу — для перевірок диска, які від класу
+        винятку не залежать (клас перевіряє окремий тест)."""
+        try:
+            return live.capture(base_url, path, args, self.runs if runs is None else runs, **kwargs)
+        except Exception as error:
+            return error
+
+    def write_refused(self, base_url, path, args, runs):
+        """`capture()` відмовився записати фікстуру саме `FixtureWriteError`; віддає виняток."""
+        try:
+            written = live.capture(base_url, path, args, runs)
+        except live.FixtureWriteError as error:
+            return error
+        except Exception as error:  # інший клас CLI показав би трасуванням (NFR-11)
+            self.fail(f"capture() кинув {type(error).__name__}, а не FixtureWriteError: {error}")
+        self.fail(f"capture() записав фікстуру {written} (після розкриття шляху — {os.path.realpath(written)})")
+
+    def threads_left(self, before, server, until):
+        """Потоки клієнта — нові після знімка `before` і не серверні, — що ще живі в момент `until`."""
+        while True:
+            alive = [thread for thread in threading.enumerate()
+                     if thread not in before and thread not in server.threads()
+                     and thread is not threading.current_thread() and thread.is_alive()]
+            remaining = until - time.monotonic()
+            if not alive or remaining <= 0:
+                return alive
+            alive[0].join(min(remaining, 0.05))
+
+    def assertStrictJson(self, path):
+        """Файл — JSON за RFC 8259; віддає розібраний вміст."""
+        text = pathlib.Path(path).read_text(encoding="utf-8")
+        try:
+            return strict_json(text)
+        except ValueError as error:
+            self.fail(f"{path} — не JSON за RFC 8259: {error}")
+
+    def assertServerTextSafe(self, reason, bare):
+        """Текст сервера в причині: жодного сирого керівного символу (C0, DEL, C1), ESC — escape-послідовністю, і не
+        більше ніж 200 символів понад причину `bare`, де тексту сервера немає (плюс роздільник і «…»)."""
+        raw = sorted(set(RAW_CONTROL.findall(reason)))
+        self.assertEqual(raw, [], f"у причині сирі керівні символи: {reason[:160]!r}")
+        self.assertRegex(reason, ESCAPED_ESC, "ESC не замінено escape-послідовністю")
+        extra = len(reason) - len(bare)
+        self.assertLessEqual(extra, SERVER_TEXT_CHARS + EXCERPT_FRAME,
+                             f"текст сервера додав до причини {extra} символів, а межа — {SERVER_TEXT_CHARS}")
 
 
 # ----------------------------------------------------------------------------------------------------------
@@ -567,6 +700,25 @@ class TimeLimit(LiveCase):
         self.assertEqual(len(server.requests()), 1, "після вердикту був ще запит")
         self.assertEqual(errors, [], "потік після вердикту впав")
 
+    # Regression: review add-input R1-03, R1-08, R1-14 — після вердикту ліміту робочий потік і сокет жили, доки сервер крапав тіло
+    def test_worker_and_connection_end_soon_after_the_verdict(self):
+        """Сервер надіслав заголовки і крапає тіло по байту за 0,05 с понад дві хвилини: кожна операція сокета
+        вкладається в його тайм-аут, тож сам по собі потік не відпаде. Після `LiveUnavailable` робочий потік не
+        дочитує тіло, а з'єднання закрито — сервер перестає крапати; обидва не пізніше ніж за 1 с (design.md D8)."""
+        errors = self.record_thread_errors()
+        server = self.serve({PREMIUM: Reply(body=ENDLESS_DRIP_RAW, drip=0.05)})
+        before = set(threading.enumerate())
+        error = self.unavailable(server.url, PREMIUM, {"symbol": "BTCUSDT"}, timeout=SHORT)
+        verdict = time.monotonic()
+        self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=BTCUSDT", limit_pattern(SHORT))
+        left = self.threads_left(before, server, until=verdict + AFTER_VERDICT)
+        self.assertEqual([thread.name for thread in left], [],
+                         f"через {AFTER_VERDICT:g} с після вердикту живий потік клієнта, що дочитує тіло")
+        self.assertTrue(server.quiet(until=verdict + AFTER_VERDICT),
+                        f"через {AFTER_VERDICT:g} с після вердикту з'єднання відкрите: сервер і далі віддає тіло")
+        self.assertEqual(len(server.requests()), 1)
+        self.assertEqual(errors, [], "потік після вердикту впав")
+
 
 class TimeLimitNumbers(unittest.TestCase):
     """Числа NFR-4 там, де їх тримає код: ліміт живого виклику 15 с — стала і типове значення `timeout`.
@@ -656,6 +808,109 @@ class Fixture(LiveCase):
         self.assertEqual(server.targets(), [LONG_PATH, "/fapi/v1/premiumIndex?symbol=BTCUSDT"])
         self.assertEqual(self.written(), ["fapi-v1-premiumIndex/fixture.json"])
 
+    # Regression: review add-input R1-01 — гілка запису FixtureWriteError не мала тесту, а обірваний запис лишав обрізану фікстуру
+    def test_failed_write_names_the_fixture_and_leaves_the_old_one_whole(self):
+        """Сценарій «Фікстуру не вдалося записати» для гілки запису: каталог методу є, а файл не пишеться (FR-24).
+        `fixture.json` — каталог; і запис, який ОС обриває посеред файлу (ліміт розміру файлу процесу в дочірньому
+        `python3`), поверх фікстури попереднього прогону. Щоразу `FixtureWriteError`, що називає шлях фікстури, а в
+        каталозі методу немає ні тимчасових файлів, ні обрізаної фікстури: запис атомарний (design.md D10)."""
+        server = self.serve({PREMIUM: Reply(body=PREMIUM_RAW)})
+        root = self.tmp.resolve()  # без символьних посилань: шлях до й після розкриття однаковий
+        with self.subTest("fixture.json — каталог"):
+            method = root / "runs-directory" / "fapi-v1-premiumIndex"
+            fixture = method / "fixture.json"
+            fixture.mkdir(parents=True)
+            error = self.write_refused(server.url, PREMIUM, {"symbol": "BTCUSDT"}, method.parent)
+            self.assertIn(str(fixture), str(error))
+            self.assertEqual(os.listdir(method), ["fixture.json"], "після збою в каталозі методу лишились інші файли")
+            self.assertEqual(os.listdir(fixture), [], "у каталог fixture.json щось записано")
+        with self.subTest("запис обірвано посеред файлу поверх старої фікстури"):
+            method = root / "runs-cut-off" / "fapi-v1-premiumIndex"
+            fixture = method / "fixture.json"
+            method.mkdir(parents=True)
+            fixture.write_bytes(OLD_FIXTURE)
+            seen = run_child(self, FSIZE_CHILD, "no-file-events", server.url, str(method.parent), str(FSIZE_LIMIT),
+                             str(root / "canary.bin"), PYTHONDONTWRITEBYTECODE="1")
+            self.assertEqual(seen["canary"], "EFBIG", "передумова: ліміт розміру файлу мав обірвати запис канарки")
+            kept = fixture.read_bytes()
+            self.assertEqual(kept, OLD_FIXTURE, f"після обірваного запису фікстура має {len(kept)} байтів замість "
+                                                f"{len(OLD_FIXTURE)} попереднього прогону; capture() дав {seen}")
+            self.assertEqual(seen["outcome"], "FixtureWriteError", seen["message"])
+            self.assertIn(str(fixture), seen["message"])
+            self.assertEqual(os.listdir(method), ["fixture.json"], "після збою в каталозі методу лишились інші файли")
+
+    # Regression: review add-input R1-11, R1-16 — slug «..» і символьне посилання runs/<slug> виводили запис фікстури за межі runs/
+    def test_fixture_is_never_written_outside_runs_dir(self):
+        """Фікстура лежить у `runs/` інструмента (FR-24, принцип VII), а шлях звіряється після розкриття `..` і
+        символьних посилань — половина сценарію FR-91 для фікстури; код `1` і рядок методу на процесі CLI — `add-run-cli`.
+        `path = "/.."` дає slug `..`; `runs/fapi-v1-fundingRate` — символьне посилання на `docs/` поза `runs/`.
+        Щоразу `FixtureWriteError`, що називає розкритий шлях фікстури, а поза `runs/` не з'являється жодного файлу."""
+        server = self.serve(default=Reply(body=FUNDING_RAW))
+        root = self.tmp.resolve()
+        tool, docs = root / "tool", root / "docs"
+        runs = tool / "runs"
+        runs.mkdir(parents=True)
+        docs.mkdir()
+        (runs / "fapi-v1-fundingRate").symlink_to(docs, target_is_directory=True)
+        cases = (('path = "/.." — slug ".."', "/..", tool / "fixture.json"),
+                 ("runs/fapi-v1-fundingRate — посилання на docs/", FUNDING, docs / "fixture.json"))
+        for label, path, target in cases:
+            with self.subTest(label):
+                error = self.write_refused(server.url, path, {}, runs)
+                self.assertIn(str(target), str(error), "повідомлення не називає розкритий шлях фікстури")
+                self.assertEqual(files_outside(root, runs), [], "поза runs/ з'явились файли")
+                self.assertEqual(os.listdir(docs), [], "у каталог, на який веде посилання, щось записано")
+
+    # Regression: review add-input R1-11 — запис фікстури йшов крізь символьне посилання fixture.json і переписував файл поза runs/
+    def test_symlinked_fixture_file_is_not_followed_outside_runs_dir(self):
+        """Той самий принцип VII для самого файлу: `runs/<slug>/fixture.json` — символьне посилання на файл поза
+        `runs/`. Той файл лишається байт у байт. Відмова — лише `FixtureWriteError`; якщо ж фікстуру записано, то
+        звичайним файлом у `runs/<slug>/`, а не крізь посилання."""
+        server = self.serve({PREMIUM: Reply(body=PREMIUM_RAW)})
+        root = self.tmp.resolve()
+        runs = root / "tool" / "runs"
+        outside = root / "docs" / "notes.json"
+        outside.parent.mkdir()
+        outside.write_bytes(OLD_FIXTURE)
+        link = runs / "fapi-v1-premiumIndex" / "fixture.json"
+        link.parent.mkdir(parents=True)
+        link.symlink_to(outside)
+        outcome = self.outcome(server.url, PREMIUM, {"symbol": "BTCUSDT"}, runs)
+        self.assertEqual(outside.read_bytes(), OLD_FIXTURE, f"файл поза runs/ переписано; capture() дав {outcome!r}")
+        if isinstance(outcome, Exception):
+            self.assertIsInstance(outcome, live.FixtureWriteError)
+        else:
+            self.assertFalse(link.is_symlink(), "фікстуру записано крізь посилання")
+            self.assertFixture(link, PREMIUM, {"symbol": "BTCUSDT"}, PREMIUM_RAW)
+
+    # Regression: review add-input R1-04 — nan/inf з args лягали у фікстуру голими NaN/Infinity, і фікстура не була JSON
+    def test_nan_and_infinity_in_args_are_stored_as_strings(self):
+        """FR-24: значення `args`, якого JSON не представляє, — рядком. TOML дає `nan`, `inf` і `-inf` як float, а
+        JSON за RFC 8259 їх не знає: у фікстурі — той самий рядок, що пішов у рядок запиту (`urlencode` бере `str`),
+        а вся фікстура розбирається строгим розбирачем, зокрема з `nan` усередині масиву."""
+        server = self.serve({PREMIUM: Reply(body=PREMIUM_RAW)})
+        for key, value in (("x", float("nan")), ("y", float("inf")), ("z", float("-inf"))):
+            with self.subTest(f"{key} = {value}"):
+                fixture = live.capture(server.url, PREMIUM, {"symbol": "BTCUSDT", key: value}, self.runs)
+                data = self.assertStrictJson(fixture)
+                self.assertEqual(data["args"], {"symbol": "BTCUSDT", key: str(value)})
+                self.assertEqual(server.targets()[-1], f"/fapi/v1/premiumIndex?symbol=BTCUSDT&{key}={value}")
+        with self.subTest("nan усередині масиву"):
+            fixture = live.capture(server.url, PREMIUM, {"symbol": "BTCUSDT", "ids": [float("nan"), 1.5]}, self.runs)
+            self.assertEqual(list(self.assertStrictJson(fixture)["args"]), ["symbol", "ids"])
+
+    # Regression: review add-input R1-04 — число за межами float (1e999) ставало inf і лягало у фікстуру голим Infinity
+    def test_number_beyond_float_range_never_leaves_a_non_json_fixture(self):
+        """Варіант R1-04 без токенів: `1e999` — число за RFC 8259, але `float` його не вміщає і дає `inf`. Хай як
+        `capture()` з ним обійдеться, назовні — лише виняток слайсу, а фікстура, якщо її записано, — JSON за RFC 8259.
+        Яким має бути саме значення, tasks.md 6.4 не каже, тож тест його не фіксує."""
+        server = self.serve({PREMIUM: Reply(body=b'{"symbol":"BTCUSDT","markPrice":1e999}')})
+        outcome = self.outcome(server.url, PREMIUM, {"symbol": "BTCUSDT"})
+        if isinstance(outcome, Exception):
+            self.assertIsInstance(outcome, (live.LiveUnavailable, live.FixtureWriteError), repr(outcome))
+        else:
+            self.assertStrictJson(outcome)
+
 
 class Slug(LiveCase):
     """Вимога «Slug каталогу методу» (FR-25): крайні `/` відкидаються, решта стають `-`, інше — як є."""
@@ -744,6 +999,52 @@ class UnavailableResponse(LiveCase):
                 self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=BTCUSDT", status_pattern(status))
                 self.assertEqual(server.targets(), ["/fapi/v1/premiumIndex?symbol=BTCUSDT"])
 
+    # Regression: review add-input R1-01, R1-10 — непарний сурогат у тілі 200 вилітав із capture() голим UnicodeEncodeError
+    def test_body_with_a_lone_surrogate_is_unavailable(self):
+        """Тіло 200 з непарним сурогатом U+D800 — JSON-escape чи сирі байти ED A0 80: розбір JSON його приймає, а
+        фікстура, що зберігає тіло як є в UTF-8 (FR-24), його не закодує. Це недоступна відповідь з URL (FR-26), а
+        не четвертий клас винятку (design.md, Goals), і фікстури немає."""
+        for label, raw in SURROGATE_BODIES:
+            with self.subTest(label):
+                server = self.serve({PREMIUM: Reply(body=raw)})
+                error = self.unavailable(server.url, PREMIUM, {"symbol": "BTCUSDT"})
+                self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=BTCUSDT")
+                self.assertEqual(len(server.requests()), 1)
+
+    # Regression: review add-input R1-04 — тіло з NaN/Infinity/-Infinity вважалось JSON і лягало у фікстуру голими токенами
+    def test_nan_and_infinity_bodies_are_not_json(self):
+        """RFC 8259 не знає `NaN`, `Infinity` і `-Infinity`, хоча `json.loads` за замовчуванням їх приймає. Тіло з
+        ними — «тіло не розбирається як JSON» (FR-26), фікстури немає."""
+        for token in (b"NaN", b"Infinity", b"-Infinity"):
+            with self.subTest(token.decode()):
+                server = self.serve({PREMIUM: Reply(body=b'{"symbol":"BTCUSDT","markPrice":' + token + b"}")})
+                error = self.unavailable(server.url, PREMIUM, {"symbol": "BTCUSDT"})
+                self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=BTCUSDT", "тіло не розбирається як JSON")
+                self.assertEqual(len(server.requests()), 1)
+
+    # Regression: review add-input R1-09 — ESC, BEL, CR/LF і 64 КБ тексту з тіла 400 доходили до причини сирими
+    def test_server_text_from_the_body_is_escaped_and_bounded(self):
+        """NFR-11, design.md D11: CLI друкує `str(error)` як є, а частину причини пише сервер. Тіло 400 з
+        ESC-послідовностями (заголовок вікна, очищення екрана, колір), BEL, NUL, DEL, CR/LF, C1-символом CSI і 64 КБ
+        тексту з ESC: у причині немає сирих керівних символів, ESC замінено escape-послідовністю, пояснення біржі
+        (`Invalid symbol.`) лишилось, а тіло додало до причини не більше ніж 200 символів."""
+        server = self.serve({PREMIUM: Reply(400, HOSTILE_BODY_RAW), FUNDING: Reply(400, b"")})
+        bare = self.unavailable(server.url, FUNDING, {}).reason
+        error = self.unavailable(server.url, PREMIUM, {"symbol": "NOSUCHSYMBOL"})
+        self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=NOSUCHSYMBOL", status_pattern(400), "Invalid symbol.")
+        self.assertServerTextSafe(error.reason, bare)
+
+    # Regression: review add-input R1-09 — сирий статус-рядок сервера (ESC, CR/LF, 60 000 символів) ставав причиною дослівно
+    def test_server_text_from_the_status_line_is_escaped_and_bounded(self):
+        """Та сама вимога для статус-рядка: `http.client.BadStatusLine` несе сирий рядок сервера до 64 КБ,
+        декодований як ISO-8859-1, разом із CR/LF. Рядок з ESC-послідовностями, BEL, C1-символом CSI і 60 000
+        символів тексту з ESC; порівняння — з причиною для статус-рядка `x`."""
+        server = self.serve({PREMIUM: Reply(raw=HOSTILE_STATUS_LINE), FUNDING: Reply(raw=b"x\r\n")})
+        bare = self.unavailable(server.url, FUNDING, {}).reason
+        error = self.unavailable(server.url, PREMIUM, {"symbol": "BTCUSDT"})
+        self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=BTCUSDT", "not-http")
+        self.assertServerTextSafe(error.reason, bare)
+
 
 class NoRedirectOpener(LiveCase):
     """Шов design.md D7, у який тести підставляють шпигуна: типовий відкривач віддає відповідь як контекстний
@@ -824,6 +1125,21 @@ class NoFixtureWhenUnavailable(LiveCase):
                 self.assertEqual(fixture.read_bytes(), OLD_FIXTURE)
                 self.assertEqual(self.written(), ["fapi-v1-premiumIndex/fixture.json"])
 
+    # Regression: review add-input R1-01, R1-10 — write_text спустошував наявну фікстуру до 0 байтів, перш ніж падало кодування
+    def test_lone_surrogate_leaves_the_old_fixture_byte_for_byte(self):
+        """Сценарій «Наявна фікстура лишається як була» для тіла, яке не кодується в UTF-8: що б не кинув `capture()`
+        (клас винятку — окремий тест), фікстура попереднього прогону байт у байт та сама, і поруч нічого не лишилось."""
+        fixture = self.runs / "fapi-v1-premiumIndex" / "fixture.json"
+        fixture.parent.mkdir(parents=True)
+        for label, raw in SURROGATE_BODIES:
+            with self.subTest(label):
+                fixture.write_bytes(OLD_FIXTURE)
+                outcome = self.outcome(self.serve({PREMIUM: Reply(body=raw)}).url, PREMIUM, {"symbol": "BTCUSDT"})
+                kept = fixture.read_bytes()
+                self.assertEqual(kept, OLD_FIXTURE, f"фікстура попереднього прогону тепер має {len(kept)} байтів замість "
+                                                    f"{len(OLD_FIXTURE)}; capture() дав {outcome!r}")
+                self.assertEqual(self.written(), ["fapi-v1-premiumIndex/fixture.json"])
+
 
 class OnlyThisRunsLiveCall(LiveCase):
     """Вимога «Джерело складу полів і енамів — лише живі виклики цього прогону» (FR-30), частина без раннера й
@@ -864,14 +1180,24 @@ class OnlyThisRunsLiveCall(LiveCase):
         self.assertEqual(connects("refused"), [["127.0.0.1", 9]])
 
 
+# Regression: review add-input R1-02 — тест справжньої біржі в юніт-наборі ставив npm run test:run і CI у залежність від HTTP-стану біржі
+@unittest.skipUnless(os.environ.get("METHOD_SYNC_LIVE") == "1",
+                     "справжній виклик fapi.binance.com — лише з METHOD_SYNC_LIVE=1 (npm run test:integration): юніт-набір "
+                     "і CI не залежать від стану біржі (обмежені локації — 451, бан за частотою — 418/429, збої — 5xx)")
 class LiveExchange(LiveCase):
-    """Один справжній виклик біржі (FR-23, FR-24): https-шлях типового відкривача і типового ліміту, фікстура."""
+    """Один справжній виклик біржі (FR-23, FR-24): https-шлях типового відкривача і типового ліміту, фікстура.
+
+    Шар інтеграції, а не юніт (tasks.md 6.9). Хто ввімкнув METHOD_SYNC_LIVE=1, чекає справжнього виклику, тож недосяжна
+    біржа тут — провал із поясненням, а не пропуск: пропуск дав би зелений прогін без доказу (урок
+    `vacuous-pass-not-earned`).
+    """
 
     def test_premium_index_from_the_live_exchange(self):
         try:
             socket.create_connection(("fapi.binance.com", 443), timeout=5).close()
         except OSError as error:
-            self.skipTest(f"мережа недосяжна (fapi.binance.com:443: {error}) — справжнього виклику не було")
+            self.fail(f"передумова не виконана: fapi.binance.com:443 недосяжний ({error}), а з METHOD_SYNC_LIVE=1 "
+                      "справжній виклик обов'язковий")
         args = {"symbol": "BTCUSDT"}
         fixture = live.capture(EXCHANGE, PREMIUM, args, self.runs)
         data = read_json(fixture)

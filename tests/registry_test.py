@@ -15,6 +15,9 @@
 Процес CLI тут не запускається, тож слайс `add-run-cli` доводить те, що видно лише на ньому (design.md,
 «Покриття сценаріїв у цьому слайсі»): сценарій «Без --registry прогін не починається» (FR-1), код виходу `2`,
 повідомлення в stderr без трасування (NFR-11), stdout без рядків методів, незмінні `runs/` і `git status` `lib`.
+
+Регресійні тести рецензії (`openspec/changes/add-input/review-round-1.md`, рішення — tasks.md, розділ 6) позначено
+коментарем `# Regression: review add-input R1-NN`.
 """
 import contextlib
 import dataclasses
@@ -26,6 +29,7 @@ import os
 import pathlib
 import pwd
 import re
+import stat
 import subprocess
 import sys
 import tempfile
@@ -428,6 +432,23 @@ class RegistryFile(RegistryCase):
         path.write_bytes(self.valid.encode("utf-8") + "# коментар у cp1251\n".encode("cp1251"))
         self.assertIn(str(path), self.rejects_path(str(path)))
 
+    # Regression: review add-input R1-05 — ціле понад 4300 цифр вилітало з load() голим ValueError, а не RegistryError
+    def test_integer_beyond_the_digit_limit_names_the_file(self):
+        """design.md D5, NFR-11: `tomllib` не загортає `ValueError` про ліміт цифр цілого (`sys.get_int_max_str_digits`,
+        4300 за замовчуванням) у `TOMLDecodeError`, тож без обробки він вилітає з `load()` іншим класом, і CLI показав би
+        трасування. Ціле у `status` (його значення не перевіряється, FR-3) і всередині `args`."""
+        limit = sys.get_int_max_str_digits()
+        self.assertGreater(limit, 0, "передумова: ліміт цифр вимкнено (PYTHONINTMAXSTRDIGITS=0) — такий реєстр придатний")
+        huge = "1" * (limit + 700)
+        cases = (("status = <ціле>", self.variant((STATUS, f"status = {huge}\n"))),
+                 ("<ціле> усередині args", self.variant((PREMIUM_ARGS, f'args = {{ symbol = "BTCUSDT", limit = {huge} }}\n'))))
+        for label, text in cases:
+            with self.subTest(label):
+                with self.assertRaises(ValueError):  # оракул: tomllib цього Python такий файл не розбирає
+                    tomllib.loads(text)
+                path = self.write(text)
+                self.assertIn(path, self.rejects_path(path))
+
 
 class LibraryRepository(RegistryCase):
     """Вимога «Цільова бібліотека lib — наявний git-репозиторій» (FR-6): відносний шлях — від поточного каталогу
@@ -472,6 +493,31 @@ class LibraryRepository(RegistryCase):
             pwd.getpwnam(user)
         value = f"~{user}/lib"
         self.assertIn(value, self.rejects(self.variant((self.lib_line, f"lib = {toml_string(value)}\n"))))
+
+    # Regression: review add-input R1-07 — lib за каталогом без права входу називався відсутнім («немає»), а не недоступним
+    def test_unreachable_lib_is_access_denied_not_missing(self):
+        """FR-6, NFR-11: `Path.exists()` у Python 3.14 віддає False на будь-який OSError, зокрема PermissionError, тож
+        наявний, але недосяжний `lib` звучав би як відсутній, і людина шукала б не ту ваду. Каталог без права входу
+        (x): над `lib`, а тоді недосяжний сам `lib`; і сам `lib`, а тоді недосяжний його `.git`."""
+        if os.geteuid() == 0:
+            self.skipTest("root входить у каталог і без права x — відмову в доступі тут не відтворити")
+        closed = self.tmp / "closed"
+        behind = git_init(closed / "lib")
+        itself = git_init(self.tmp / "lib-without-x")
+        for directory in (closed, itself):
+            os.chmod(directory, stat.S_IRUSR | stat.S_IWUSR)
+            self.addCleanup(os.chmod, directory, stat.S_IRWXU)  # до прибирання тимчасового каталогу: LIFO
+        cases = (("каталог над lib без права входу", behind, behind),
+                 ("сам lib без права входу — .git недосяжний", itself, itself / ".git"))
+        for label, lib, denied in cases:
+            with self.subTest(label):
+                with self.assertRaises(PermissionError, msg=f"передумова: доступ до {denied} мав бути відмовлений"):
+                    os.stat(denied)
+                message = self.rejects(self.variant((self.lib_line, f"lib = {toml_string(lib)}\n")))
+                self.assertIn("немає доступу", message)
+                self.assertIn(str(lib), message)
+                self.assertNotIn("не існує", message)
+                self.assertIsNone(re.search(r"немає(?!\s+доступу)", message), f"недосяжний lib названо відсутнім: {message}")
 
     def set_env(self, key, value):
         old = os.environ.get(key)

@@ -88,17 +88,17 @@
 
 ## 5. Перевірка, документи й підготовка до архіву
 
-- [ ] 5.1 `npm run lint`
-- [ ] 5.2 `npm run test:run`
-- [ ] 5.3 `npm run build`
-- [ ] 5.4 `OPENSPEC_TELEMETRY=0 npx openspec validate add-input --strict`
-- [ ] 5.5 `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict`
+- [x] 5.1 `npm run lint`
+- [x] 5.2 `npm run test:run`
+- [x] 5.3 `npm run build`
+- [x] 5.4 `OPENSPEC_TELEMETRY=0 npx openspec validate add-input --strict`
+- [x] 5.5 `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict`
 - [ ] 5.6 Workflow `review-gate`: `scope` — `"add-input"`, `focus` — файли слайсу (`src/method_sync/registry.py`,
   `src/method_sync/live.py`, `tests/registry_test.py`, `tests/live_test.py`, `openspec/changes/add-input/`), без
   `baseRef`: слайс ще не закомічено, тож `git diff <base>..HEAD` був би порожнім. Виправити кожну підтверджену знахідку, а також
   спірну, якщо вона не очевидно хибна; після правок повторити 5.1–5.5. До архіву
   `openspec/changes/add-input/review-findings.json` має містити `"clean": true`.
-- [ ] 5.7 Smoke на справжніх входах. Драйвер `docs/qa/smoke/add-input/driver.py` (stdlib і `method_sync`) виходить із
+- [x] 5.7 Smoke на справжніх входах. Драйвер `docs/qa/smoke/add-input/driver.py` (stdlib і `method_sync`) виходить із
   ненульовим кодом на першій розбіжності; вивід зберігається в `docs/qa/smoke/add-input/output.txt`. Запуск — з
   cwd поза репо, `PYTHONPATH=<корінь репо>/src`. Кроки:
   1. `git -C .sandbox/binancefutures rev-parse --git-dir` успішний; зберегти вивід
@@ -137,3 +137,42 @@
 - [ ] 5.11 `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict` (7 passed) і `npm run check:trace` зелені.
   Рядки 5.9–5.11 відмічаються вже в архівному `openspec/changes/archive/<дата>-add-input/tasks.md`; до коміту в ньому
   не лишається жодного `- [ ]`, бо `check-traceability` валить архівну зміну з невідміченими задачами.
+
+## 6. Рецензія, раунд 1 (`review-round-1.md`) — рішення оркестратора
+
+Регресійні тести (`test-engineer`) пишуться першими і падають на коді `115a1f4`; потім виправлення
+(`capability-implementer`). Нумерація — як у `review-round-1.md`.
+
+- [ ] 6.1 R1-01, R1-10 — фікстура кодується в UTF-8 до відкриття файлу; тіло, яке не кодується (непарний сурогат),
+  дає `LiveUnavailable` з URL; запис атомарний (тимчасовий файл у тому ж каталозі + `os.replace`), тож жоден збій не
+  спустошує наявну фікстуру (D10 оновити). Тести: тіло з `\ud800` → типізований виняток, стара фікстура байт-у-байт;
+  гілка запису `FixtureWriteError` (`fixture.json` — каталог).
+- [ ] 6.2 R1-11, R1-16 — перед записом `capture()` резолвить шлях фікстури і вимагає, щоб він лежав під резолвленим
+  `runs_dir` (FR-91, принцип VII), інакше `FixtureWriteError` з назвою шляху. Тести: `path="/.."` (slug `..`) і
+  `runs/<slug>` — симлінк назовні; поза `runs_dir` нічого не записано.
+- [ ] 6.3 R1-03, R1-08, R1-14 — після вердикту таймауту основний потік закриває з'єднання, і робочий потік
+  завершується (D8 виправити). Тест: сервер крапає байти; після `LiveUnavailable` робочий потік зникає за ≤ 1 с.
+- [ ] 6.4 R1-04 — тіло з `NaN`/`Infinity`/`-Infinity` не є JSON (RFC 8259) → `LiveUnavailable` «тіло не
+  розбирається як JSON»; `args` зі значеннями, яких JSON не представляє (`nan`, `inf`), пишуться у фікстуру рядком
+  (D-20). Тести на обидва.
+- [ ] 6.5 R1-05 — `ValueError` із розбору TOML (ціле понад 4300 цифр) → `RegistryError` з назвою файлу. Тест.
+- [ ] 6.6 R1-06 — типи не міняються (v1 теж мав frozen dataclass із `dict`); design D1 виправити: «frozen — поля не
+  переприсвоюються; вміст `args` і `methods` — звичайні `dict`/`list`, як у v1». Тест не потрібен.
+- [ ] 6.7 R1-07 — `PermissionError` при перевірці `lib` → `RegistryError` «немає доступу до <шлях>», а не «не
+  існує». Тест (каталог без права входу; видимий пропуск, якщо процес — root).
+- [ ] 6.8 R1-09 — у причині з тіла чи статус-рядка сервера керівні символи замінено escape-послідовностями, довжина
+  ≤ 200 символів. Тест з ESC, CR/LF і довгим тілом.
+- [x] 6.9 R1-02 — тест із живою біржею — лише з `METHOD_SYNC_LIVE=1` (інакше видимий пропуск із причиною);
+  `package.json`: `"test:integration": "METHOD_SYNC_LIVE=1 python3 -m unittest discover -s tests -p '*_test.py'"`.
+  Юніт-набір і CI не мусять залежати від стану біржі (обмежені локації, збої).
+- [x] 6.10 R1-12 — докази FR-27 (агент не кличеться, `lib` не змінюється за недоступної відповіді) — у слайсі
+  `add-run-cli` (тест CLI) і в e2e `live-unavailable`; план §4.4 доповнено (оркестратор).
+- [x] 6.11 R1-13 — заборона документації в брифі (друга половина FR-30) — тест у слайсі `add-sync-loop-and-report`;
+  план §4.3 доповнено (оркестратор).
+- [ ] 6.12 R1-15 — формулювання 5.6 виправити: слайс закомічено, `review-gate` іде з `baseRef`.
+- [ ] 6.13 R1-17 — сценарії реєстру, видимі лише на процесі CLI: уже задокументовано в design.md «Покриття сценаріїв»,
+  власник — `add-run-cli`. Дії не треба.
+- [ ] 6.14 R1-18 — уривок тіла в причині не-200 лишається: це «причина» з FR-26 і NFR-11 (`Invalid symbol.` називає
+  винуватця). Design D9 доповнити цим обґрунтуванням; тест лишається.
+- [ ] 6.15 Повторний `review-gate` на диф виправлень (`baseRef` — коміт після 6.1–6.14); `review-findings.json` →
+  `"clean": true`.
