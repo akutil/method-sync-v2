@@ -30,6 +30,7 @@ FR-30 тут доведено частково: один запит на мет�
 Регресійні тести рецензії (`openspec/changes/add-input/review-round-1.md`, рішення — tasks.md, розділ 6) позначено
 коментарем `# Regression: review add-input R1-NN`.
 """
+import contextlib
 import dataclasses
 import datetime
 import http.client
@@ -117,6 +118,22 @@ SERVER_TEXT_CHARS = 200  # скільки тексту сервера може �
 EXCERPT_FRAME = 12       # власні слова інструмента навколо уривка: роздільник і «…»
 RAW_CONTROL = re.compile(r"[\x00-\x1f\x7f-\x9f]")            # керівні символи C0, DEL і C1
 ESCAPED_ESC = re.compile(r"\\(?:x1b|u001b)", re.IGNORECASE)  # ESC як escape-послідовність, а не сирий символ
+
+# Регресії рецензії, раунд 2 (review-round-2.md; рішення — tasks.md, розділ 7). Позначено `# Regression: review add-input R2-NN`.
+WORKER_NAME = "method-sync live call"  # ім'я робочого потоку живого виклику (live._within_limit)
+PROXY_ENV = ("http_proxy", "HTTP_PROXY", "https_proxy", "HTTPS_PROXY",  # змінні, що керують проксі urllib
+             "no_proxy", "NO_PROXY", "all_proxy", "ALL_PROXY")
+# Ворожа причина відмови проксі на CONNECT (R2-04): заголовок вікна (OSC 0), очищення екрана, колір, BEL, C1-символ
+# CSI (0x9b) і ~60 КБ тексту з ESC — усе у фразі статус-рядка, без CR/LF, тож рядок не рветься й лишається під
+# _MAXLINE (64 КБ) `http.client`. `http.client._tunnel` кладе всю фразу в OSError «Tunnel connection failed: 403 …».
+HOSTILE_CONNECT = b"\x1b]0;PWNED\x07\x1b[2J\x9b31m " + b"\x1b[0mZZZZZZZZZZZZ" * 3750
+CONNECT_HOSTILE_REPLY = b"HTTP/1.1 403 " + HOSTILE_CONNECT + b"\r\n\r\n"
+CONNECT_BARE_REPLY = b"HTTP/1.1 403 denied\r\n\r\n"          # та сама відмова без тексту сервера — оракул довжини
+CONNECT_DRIP_PREFIX = b"HTTP/1.1 200 Connection established\r\nX-Pad: "  # статус є, а заголовок проксі крапає по байту
+CONNECT_DRIP = 0.05  # інтервал між байтами заголовка CONNECT: кожен вкладається в тайм-аут сокета, увесь — ні (R2-05)
+# Content-Length, більший за PY_SSIZE_T_MAX: `response.read()` без межі намагається виділити стільки байтів і кидає
+# сирий OverflowError (проба: «byte string is too large»), який не є жодним із трьох класів слайсу (R2-06).
+ABSURD_LENGTH_REPLY = b"HTTP/1.1 200 OK\r\nContent-Length: 9223372036854775807\r\n\r\n"
 
 
 # ----------------------------------------------------------------------------------------------------------
@@ -227,6 +244,68 @@ class LocalServer:
         self.stopping.set()
         self.server.shutdown()
         self.server.server_close()
+
+
+class FakeProxy:
+    """Локальний HTTP-проксі на 127.0.0.1 з ефемерним портом: приймає CONNECT і на нього віддає задану відповідь
+    сирими байтами (ворожий статус-рядок) або крапає її по байту. Межа, на якій тест заступає ворожий проксі чи
+    MITM на відкритому плечі клієнт→проксі (CONNECT іде до рукостискання TLS навіть за `https://` base_url).
+    З'єднання до самої біржі не встановлюється, тіла біржі в Python-об'єктах не підробляються.
+
+    `urllib.request.build_opener` у `no_redirect_open` лишає типовий `ProxyHandler`, тож живий виклик за `https://`
+    зі змінною `https_proxy` іде тунелем через цей проксі — проба підтвердила CONNECT саме з нашими обробниками.
+    """
+
+    def __init__(self, reply=None, drip=None):
+        self.reply, self.drip = reply, drip  # reply: сирі байти відповіді; drip: інтервал крапання (взаємно виключні)
+        self.seen, self.lock, self.stopping = [], threading.Lock(), threading.Event()
+        self.socket = socket.socket()
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.socket.bind(("127.0.0.1", 0))
+        self.socket.listen(8)
+        self.port = self.socket.getsockname()[1]
+        self.loop = threading.Thread(target=self._accept, name="fake-proxy-loop", daemon=True)
+        self.loop.start()
+
+    def _accept(self):
+        while not self.stopping.is_set():
+            try:
+                conn, _ = self.socket.accept()
+            except OSError:
+                return
+            threading.Thread(target=self._handle, args=(conn,), name="fake-proxy-conn", daemon=True).start()
+
+    def _handle(self, conn):
+        try:
+            request = b""
+            while b"\r\n\r\n" not in request:
+                chunk = conn.recv(4096)
+                if not chunk:
+                    return
+                request += chunk
+            with self.lock:
+                self.seen.append(request.split(b"\r\n", 1)[0].decode("latin-1"))
+            if self.drip is not None:
+                conn.sendall(CONNECT_DRIP_PREFIX)
+                while not self.stopping.wait(self.drip):
+                    conn.sendall(b"a")  # заголовок CONNECT, який ніколи не завершується
+            else:
+                conn.sendall(self.reply)
+                self.stopping.wait(1.0)  # потримати з'єднання, щоб клієнт устиг прочитати відповідь
+        except OSError:
+            pass
+        finally:
+            conn.close()
+
+    def connects(self):
+        """Перші рядки отриманих запитів: `CONNECT <host>:443 HTTP/1.1`, якщо проксі справді задіяно."""
+        with self.lock:
+            return list(self.seen)
+
+    def close(self):
+        self.stopping.set()
+        with contextlib.suppress(OSError):
+            self.socket.close()
 
 
 class Spy:
@@ -369,6 +448,48 @@ def json_error(raw):
     except ValueError as error:
         return str(error)
     raise AssertionError(f"{raw!r} розбирається як JSON — кейс побудовано хибно")
+
+
+def nested_body(depth):
+    """Тіло-об'єкт із `depth` рівнями вкладеності: `{"a": [[…1…]]}`. Абсолютне число рівнів довільне; поріг
+    переповнення C-стека шукають бінарним пошуком у цих одиницях (R2-02)."""
+    return b'{"a":' + b"[" * (depth - 1) + b"1" + b"]" * (depth - 1) + b"}"
+
+
+def loads_overflows(depth):
+    """Чи переповнює C-стек уже сам розбір тіла цієї глибини (те, що `fetch` ловить як «не JSON»)."""
+    try:
+        json.loads(nested_body(depth))
+        return False
+    except RecursionError:
+        return True
+
+
+def dumps_overflows(depth):
+    """Чи переповнює C-стек серіалізація фікстури з таким тілом (те, що `capture` робить після `fetch`). Розбір
+    важить менше за серіалізацію, тож поріг тут нижчий — між ними є вікно, де `fetch` приймає тіло, а `dumps` падає."""
+    try:
+        parsed = json.loads(nested_body(depth))
+    except RecursionError:
+        return True  # розбір переповнився перший — на цій глибині це теж переповнення
+    try:
+        json.dumps({"body": parsed}, ensure_ascii=False, indent=2, allow_nan=False, default=str)
+        return False
+    except RecursionError:
+        return True
+
+
+def recursion_boundary(overflows, low=64, high=200000):
+    """Найменша глибина, на якій `overflows(depth)` дає RecursionError. Поріг C-стека детермінований (залежить від
+    кадрів на стеку, а не від запуску), тож бінарний пошук стабільний між прогонами."""
+    if overflows(low):
+        raise AssertionError(f"навіть глибина {low} переповнює стек — вікно для R2-02 не знайти")
+    if not overflows(high):
+        raise AssertionError(f"навіть глибина {high} не переповнила стек — сценарій R2-02 не відтворюється")
+    while high - low > 1:
+        mid = (low + high) // 2
+        high, low = (mid, low) if overflows(mid) else (high, mid)
+    return high
 
 
 def limit_pattern(seconds):
@@ -537,6 +658,54 @@ class LiveCase(unittest.TestCase):
         extra = len(reason) - len(bare)
         self.assertLessEqual(extra, SERVER_TEXT_CHARS + EXCERPT_FRAME,
                              f"текст сервера додав до причини {extra} символів, а межа — {SERVER_TEXT_CHARS}")
+
+    # -- Межа проксі, C-стек і межа тіла (регресії раунду 2) ------------------------------------------------
+    def proxy(self, **kwargs):
+        """`FakeProxy`, який закриється в кінці тесту."""
+        proxy = FakeProxy(**kwargs)
+        self.addCleanup(proxy.close)
+        return proxy
+
+    def use_https_proxy(self, port):
+        """Скерувати живий виклик через локальний проксі: очистити всі змінні проксі (з поверненням) і поставити
+        `https_proxy`. Тести йдуть послідовно, тож глобальне оточення міняється тимчасово й повертається."""
+        saved = {name: os.environ.get(name) for name in PROXY_ENV}
+
+        def restore():
+            for name, value in saved.items():
+                if value is None:
+                    os.environ.pop(name, None)
+                else:
+                    os.environ[name] = value
+
+        self.addCleanup(restore)
+        for name in PROXY_ENV:
+            os.environ.pop(name, None)
+        os.environ["https_proxy"] = f"http://127.0.0.1:{port}"
+
+    def live_workers(self):
+        """Живі робочі потоки живого виклику зараз — за їхнім іменем (`WORKER_NAME`)."""
+        return [thread for thread in threading.enumerate() if thread.name == WORKER_NAME and thread.is_alive()]
+
+    def wait_workers_gone(self, until):
+        """Зачекати, доки зникнуть робочі потоки живого виклику, але не пізніше `until`; віддати ті, що лишились."""
+        while self.live_workers() and time.monotonic() < until:
+            time.sleep(0.02)
+        return self.live_workers()
+
+    def lower_body_cap(self, value):
+        """Тимчасово знизити межу тіла модуля (реальні 32 МБ читалися б довго), повернувши як було. На коді без
+        `MAX_BODY_BYTES` атрибут створюється і в кінці прибирається."""
+        had, old = hasattr(live, "MAX_BODY_BYTES"), getattr(live, "MAX_BODY_BYTES", None)
+
+        def restore():
+            if had:
+                live.MAX_BODY_BYTES = old
+            elif hasattr(live, "MAX_BODY_BYTES"):
+                delattr(live, "MAX_BODY_BYTES")
+
+        self.addCleanup(restore)
+        live.MAX_BODY_BYTES = value
 
 
 # ----------------------------------------------------------------------------------------------------------
@@ -1221,6 +1390,140 @@ class ErrorTypes(unittest.TestCase):
             for other in kinds:
                 if other is not kind:
                     self.assertFalse(issubclass(kind, other), f"{kind.__name__} — підклас {other.__name__}")
+
+
+class ContainmentR2(LiveCase):
+    """Рішення 7.1 (R2-01, R2-10): перевірка вміщення мусить дивитися на каталог, у якому справді йде запис
+    (`fixture.parent.resolve()`), а не на розкритий шлях самого `fixture.json`. Атомарний запис (`os.replace`) не
+    йде за останнім компонентом, тож пара посилань — `runs/<slug>` назовні плюс `fixture.json` назад у `runs/` —
+    проходила перевірку `fixture.resolve()`, а байти лягали поза `runs/` (принцип VII, FR-91, design.md D10)."""
+
+    # Regression: review add-input R2-01, R2-10 — the containment check resolved the final fixture.json symlink but os.replace did not, so a symlink pair wrote outside runs/
+    def test_containment_checks_the_directory_the_write_lands_in(self):
+        """Дві планти з двома посиланнями, одне з яких — назовні `runs/`. Щоразу `FixtureWriteError`, що називає
+        `<каталог назовні>/fixture.json`; посилання лишаються посиланнями; поза `runs/` нічого не записано."""
+        server = self.serve(default=Reply(body=PREMIUM_RAW))
+        root = self.tmp.resolve()  # без символьних посилань: шлях до й після розкриття однаковий
+        with self.subTest("runs/<slug> → каталог назовні, чий fixture.json → назад у runs/"):
+            runs = root / "a-tool" / "runs"
+            docs = root / "a-docs"  # поза runs/
+            inside = runs / "inside"
+            runs.mkdir(parents=True)
+            docs.mkdir()
+            inside.mkdir()
+            (runs / "fapi-v1-premiumIndex").symlink_to(docs, target_is_directory=True)
+            (docs / "fixture.json").symlink_to(inside / "fixture.json")  # звисле, вказує назад у runs/
+            before = files_outside(root, runs)
+            error = self.write_refused(server.url, PREMIUM, {"symbol": "BTCUSDT"}, runs)
+            self.assertIn(str(docs / "fixture.json"), str(error), "повідомлення не називає <каталог назовні>/fixture.json")
+            self.assertTrue((runs / "fapi-v1-premiumIndex").is_symlink(), "посилання runs/<slug> замінено")
+            self.assertTrue((docs / "fixture.json").is_symlink(), "фікстуру записано крізь посилання назовні")
+            self.assertEqual(os.listdir(inside), [], "запис пройшов у runs/inside/")
+            self.assertEqual(files_outside(root, runs), before, "поза runs/ з'явились чи змінились файли")
+        with self.subTest('path="/.." плюс fixture.json — посилання в корені інструмента назад у runs/'):
+            runs = root / "b-tool" / "runs"
+            tool = runs.parent  # runs/.. — корінь інструмента, куди слаг ".." виводить запис
+            inside = runs / "inside"
+            runs.mkdir(parents=True)
+            inside.mkdir()
+            (tool / "fixture.json").symlink_to(inside / "fixture.json")  # звисле, вказує назад у runs/
+            before = files_outside(root, runs)
+            error = self.write_refused(server.url, "/..", {}, runs)
+            self.assertIn(str(tool / "fixture.json"), str(error), "повідомлення не називає <корінь інструмента>/fixture.json")
+            self.assertTrue((tool / "fixture.json").is_symlink(), "посилання fixture.json у корені інструмента замінено")
+            self.assertEqual(os.listdir(inside), [], "запис пройшов у runs/inside/")
+            self.assertEqual(files_outside(root, runs), before, "поза runs/ з'явились чи змінились файли")
+
+
+class SerializationDepthR2(LiveCase):
+    """Рішення 7.2 (R2-02): тіло, яке `fetch` приймає (розбір проходить), а серіалізація фікстури в `capture`
+    переповнює C-стек, дає `LiveUnavailable` з URL, а не сирий `RecursionError` — четвертий клас винятку, який CLI
+    показав би трасуванням (design Goals, NFR-11). Наявна фікстура при цьому лишається байт у байт (FR-28)."""
+
+    # Regression: review add-input R2-02 — a deeply nested 200 body that fetch() accepts made json.dumps in capture() raise a raw RecursionError
+    def test_deeply_nested_body_is_unavailable_not_a_raw_recursion_error(self):
+        # Глибину беруть посередині вікна між порогом серіалізації і порогом розбору, тож дрібна різниця кадрів на
+        # стеку (helper проти реального шляху capture) не виводить за межі: розбір проходить, серіалізація падає.
+        low, high = recursion_boundary(dumps_overflows), recursion_boundary(loads_overflows)
+        self.assertLess(low, high, "серіалізація не переповнює стек раніше за розбір: вікна для R2-02 немає")
+        raw = nested_body((low + high) // 2)
+        json.loads(raw)  # передумова: fetch() прийняв би тіло — розбір його проходить
+        fixture = self.runs / "fapi-v1-premiumIndex" / "fixture.json"
+        fixture.parent.mkdir(parents=True)
+        fixture.write_bytes(OLD_FIXTURE)
+        server = self.serve({PREMIUM: Reply(body=raw)})
+        error = self.unavailable(server.url, PREMIUM, {"symbol": "BTCUSDT"}, timeout=IN_LIMIT)
+        self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=BTCUSDT", nothing_written=False)
+        self.assertEqual(fixture.read_bytes(), OLD_FIXTURE, "глибоко вкладене тіло зачепило стару фікстуру")
+        self.assertEqual(self.written(), ["fapi-v1-premiumIndex/fixture.json"])
+
+
+class ProxyConnectR2(LiveCase):
+    """Рішення 7.4 і 7.5 (R2-04, R2-05): проксі відповідає на CONNECT ще до рукостискання TLS, навіть за `https://`
+    base_url, тож його відмова й затримка мусять проходити ті самі гарантії, що й пряма відповідь сервера.
+
+    Проба підтвердила: із `https_proxy` типовий `ProxyHandler` в `no_redirect_open` веде виклик тунелем, і проксі
+    отримує `CONNECT <host>:443`. Кожен тест звіряє це (`connects()` непорожній), інакше провал був би не про те."""
+
+    # Regression: review add-input R2-04 — proxy CONNECT failure text bypassed _server_text: raw ESC/BEL/C1 and 60 KB reached the LiveUnavailable reason
+    def test_proxy_connect_failure_reason_is_escaped_and_bounded(self):
+        """Ворожий проксі відповідає на CONNECT статусом 403 з ESC/BEL/C1 і ~60 КБ тексту. У причині немає сирих
+        керівних символів, ESC замінено escape-послідовністю, а текст сервера додав не більше ніж 200 символів —
+        як у прямих тілах і статус-рядках (R1-09), бо кожна причина від клієнта має йти крізь `_server_text`."""
+        url = f"https://{UNRESOLVABLE}{PREMIUM}?symbol=BTCUSDT"
+        bare_proxy = self.proxy(reply=CONNECT_BARE_REPLY)
+        self.use_https_proxy(bare_proxy.port)
+        bare = self.unavailable(f"https://{UNRESOLVABLE}", PREMIUM, {"symbol": "BTCUSDT"}, timeout=IN_LIMIT).reason
+        self.assertTrue(bare_proxy.connects(), "проксі не отримав CONNECT — https_proxy не врахований, тест був би не про те")
+        hostile_proxy = self.proxy(reply=CONNECT_HOSTILE_REPLY)
+        self.use_https_proxy(hostile_proxy.port)
+        error = self.unavailable(f"https://{UNRESOLVABLE}", PREMIUM, {"symbol": "BTCUSDT"}, timeout=IN_LIMIT)
+        self.assertTrue(hostile_proxy.connects(), "проксі не отримав CONNECT — https_proxy не врахований, тест був би не про те")
+        self.assertUnavailable(error, url)
+        self.assertServerTextSafe(error.reason, bare)
+
+    # Regression: review add-input R2-05 — the verdict cut missed the proxy CONNECT: a dripping proxy kept the worker thread alive after the verdict
+    def test_dripping_proxy_connect_still_ends_the_worker_after_the_verdict(self):
+        """Проксі надіслав статус-рядок CONNECT і крапає заголовок по байту за 0,05 с: кожна операція сокета
+        вкладається в його тайм-аут, тож сам по собі потік не відпаде. Після вердикту ліміту робочий потік, що
+        читає тунель, зникає не пізніше ніж за 1 с — обрив вердикту має діставати й CONNECT (design.md D8)."""
+        proxy = self.proxy(drip=CONNECT_DRIP)
+        self.use_https_proxy(proxy.port)
+        error = self.unavailable(f"https://{UNRESOLVABLE}", PREMIUM, {"symbol": "BTCUSDT"}, timeout=SHORT)
+        verdict = time.monotonic()
+        self.assertTrue(proxy.connects(), "проксі не отримав CONNECT — https_proxy не врахований, тест був би не про те")
+        self.assertUnavailable(error, f"https://{UNRESOLVABLE}{PREMIUM}?symbol=BTCUSDT", limit_pattern(SHORT))
+        left = self.wait_workers_gone(verdict + AFTER_VERDICT)
+        self.assertEqual([thread.name for thread in left], [],
+                         f"через {AFTER_VERDICT:g} с після вердикту робочий потік ще читає відповідь проксі на CONNECT")
+
+
+class BodySizeCapR2(LiveCase):
+    """Рішення 7.6 (R2-06, R2-08): тіло читається з межею `MAX_BODY_BYTES`. Тіло понад межу — недоступна відповідь
+    «тіло більше за …»; а заголовок із завеликим `Content-Length` не дає сирого `MemoryError`/`OverflowError`, бо
+    жодна вада входу не виходить із модуля четвертим класом винятку (design Goals, NFR-11)."""
+
+    # Regression: review add-input R2-06, R2-08 — the body read had no size cap: an oversized body was read whole instead of refused
+    def test_body_over_the_cap_is_unavailable(self):
+        """Локальний сервер віддає дійсний JSON, більший за межу. Це недоступна відповідь «тіло більше за …», а не
+        мовчазне читання всього тіла в пам'ять. Межу знижено (реальні 32 МБ читалися б довго); поведінка та сама."""
+        self.lower_body_cap(4096)
+        big = b'{"symbol":"BTCUSDT","filler":"' + b"A" * 20000 + b'"}'  # дійсний JSON із ключем, більший за межу
+        self.assertGreater(len(big), live.MAX_BODY_BYTES)
+        server = self.serve({PREMIUM: Reply(body=big)})
+        error = self.unavailable(server.url, PREMIUM, {"symbol": "BTCUSDT"}, timeout=IN_LIMIT)
+        self.assertUnavailable(error, f"{server.url}{PREMIUM}?symbol=BTCUSDT", "тіло більше за")
+
+    # Regression: review add-input R2-06 — a single huge Content-Length header made the unbounded read raise a raw OverflowError/MemoryError
+    def test_absurd_content_length_is_typed_not_a_memory_or_overflow_error(self):
+        """Один заголовок `Content-Length` понад PY_SSIZE_T_MAX. Виклик віддає лише виняток слайсу (чи нічого не
+        кидає), але не сирий `MemoryError`/`OverflowError`, який CLI показав би трасуванням."""
+        server = self.serve({PREMIUM: Reply(raw=ABSURD_LENGTH_REPLY)})
+        outcome = self.outcome(server.url, PREMIUM, {"symbol": "BTCUSDT"}, timeout=IN_LIMIT)
+        self.assertNotIsInstance(outcome, (MemoryError, OverflowError),
+                                 f"заголовок Content-Length дав сирий {type(outcome).__name__}: CLI показав би трасуванням (NFR-11)")
+        if isinstance(outcome, Exception):
+            self.assertIsInstance(outcome, (live.LiveUnavailable, live.FixtureWriteError), repr(outcome))
 
 
 def load_tests(loader, tests, pattern):
