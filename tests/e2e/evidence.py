@@ -53,7 +53,8 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 REPO = Path(__file__).resolve().parents[2]
-ORIGIN = Path("/Users/akutil/humex/binancefutures")  # the human's working copy: a clone source only, never written
+# the human's working copy: a clone source only, never written; a sibling of this repo unless METHOD_SYNC_LIB says otherwise
+ORIGIN = Path(os.environ.get("METHOD_SYNC_LIB", REPO.parent / "binancefutures")).expanduser().resolve()
 SANDBOX = REPO / ".sandbox" / "e2e"
 EVIDENCE = REPO / "docs" / "qa" / "e2e"
 REPORT = REPO / "docs" / "qa" / "e2e-report.md"
@@ -1371,7 +1372,7 @@ def schedule_unseen(ctx: Ctx) -> None:
 # @trace TC-7
 @scenario("boundary", guard=True)
 def boundary(ctx: Ctx) -> None:
-    """Робоча копія людини `/Users/akutil/humex/binancefutures` після всіх сценаріїв така сама, як до першого: HEAD, відбитки `git status --porcelain` і `git diff` (читання з `--no-optional-locks`)."""
+    """Робоча копія людини (`ORIGIN`) після всіх сценаріїв така сама, як до першого: HEAD, відбитки `git status --porcelain` і `git diff` (читання з `--no-optional-locks`)."""
     before, after = ctx.h.origin_before, origin_state()
     ctx.check("HEAD робочої копії людини той самий", ["TC-7"], before["head"] == after["head"], before["head"], after["head"])
     status_moved = sorted(set(before["status"]) ^ set(after["status"]))

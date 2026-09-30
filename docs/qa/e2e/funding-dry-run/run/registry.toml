@@ -1,4 +1,4 @@
-lib = "/Users/akutil/humex/method-sync-v2/.sandbox/e2e/funding-dry-run"
+lib = "~/src/method-sync-v2/.sandbox/e2e/funding-dry-run"
 verify_cmd = "mvn -q -DskipTests test-compile"
 
 [live]

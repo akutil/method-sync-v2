@@ -1,4 +1,4 @@
-lib = "/Users/akutil/humex/method-sync-v2/.sandbox/e2e/schedule-fx"
+lib = "~/src/method-sync-v2/.sandbox/e2e/schedule-fx"
 verify_cmd = "mvn -q -DskipTests test-compile"
 
 [live]

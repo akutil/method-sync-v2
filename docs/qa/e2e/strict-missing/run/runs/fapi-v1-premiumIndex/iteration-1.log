@@ -50,5 +50,5 @@ QA: ✅
 ЛОГІКА: 1/10
 ДОВЕДЕНО: ✅
 НА ПРОД: —
-Permission allow rule (--allowed-tools): Write(//Users/akutil/humex/method-sync-v2/.sandbox/e2e/strict-missing/**) is not matched by file permission checks — only Edit(path) rules are. Use Edit(//Users/akutil/humex/method-sync-v2/.sandbox/e2e/strict-missing/**) instead (Edit rules cover all file-editing tools).
+Permission allow rule (--allowed-tools): Write(/~/src/method-sync-v2/.sandbox/e2e/strict-missing/**) is not matched by file permission checks — only Edit(path) rules are. Use Edit(/~/src/method-sync-v2/.sandbox/e2e/strict-missing/**) instead (Edit rules cover all file-editing tools).
 

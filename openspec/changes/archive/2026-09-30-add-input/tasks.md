@@ -16,7 +16,7 @@
   коментар, що `--registry` (FR-1) і stderr без трасування (NFR-11) доводить `add-run-cli`. `method_sync` імпортується
   через `sys.path` на `src`, як у v1. `lib` — тимчасовий каталог після справжнього `git init`; «придатний реєстр» —
   дослівно зі сценарію «Базовий придатний реєстр приймається»; варіант — заміна названого рядка чи секції. Робоча
-  копія людини (`/Users/akutil/humex/binancefutures`) у тестах не згадується, хоча тести v1 на неї посилались.
+  копія людини (`~/src/binancefutures`) у тестах не згадується, хоча тести v1 на неї посилались.
 - [x] 2.2 Вимоги «Вхід прогону», «Обов'язкові поля верхнього рівня», «Необов'язкові поля status і credentials»:
   базовий реєстр (усі поля, `credentials is None`, порядок і типи `args`); чотири варіанти відсутнього чи порожнього
   поля, у тексті `RegistryError` підрядки зі сценарію; три варіанти `status`/`credentials` — значення з тими самими
@@ -103,7 +103,7 @@
   cwd поза репо, `PYTHONPATH=<корінь репо>/src`. Кроки:
   1. `git -C .sandbox/binancefutures rev-parse --git-dir` успішний; зберегти вивід
      `git -C .sandbox/binancefutures status --porcelain`.
-  2. Скопіювати `/Users/akutil/humex/method-sync/registry.toml` у тимчасовий файл, замінивши лише рядок `lib`
+  2. Скопіювати `~/src/method-sync/registry.toml` у тимчасовий файл, замінивши лише рядок `lib`
      абсолютним шляхом до `.sandbox/binancefutures`. `registry.load()` віддає `verify_cmd`
      `mvn -q -DskipTests test-compile`, `base_url` `https://fapi.binance.com`, `status` `active`, `credentials`
      `None` і два методи: `/fapi/v1/premiumIndex` з `args` `{"symbol": "BTCUSDT"}` без `call`; `/fapi/v1/fundingRate`

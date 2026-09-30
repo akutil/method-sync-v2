@@ -2,7 +2,7 @@
 
 ## Еталон
 
-Код method-sync v1 (`/Users/akutil/humex/method-sync/src/method_sync/{verify,loop,agent,report,library,boundaries,__main__}.py`)
+Код method-sync v1 (`~/src/method-sync/src/method_sync/{verify,loop,agent,report,library,boundaries,__main__}.py`)
 пройшов живі прогони на тій самій бібліотеці і є основою реалізації: структуру, імена, раннер і бриф беремо звідти.
 v2 відрізняється лише там, де це кажуть специфікації цієї зміни:
 

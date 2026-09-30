@@ -1,17 +1,17 @@
-repo=/Users/akutil/humex/method-sync-v2
+repo=~/src/method-sync-v2
 cwd=/private/tmp
-OK    1. /Users/akutil/humex/method-sync-v2/.sandbox/binancefutures — git-репозиторій
+OK    1. ~/src/method-sync-v2/.sandbox/binancefutures — git-репозиторій
 OK    2. verify_cmd з реєстру v1
 OK    2. base_url
 OK    2. status=active, credentials=None
 OK    2. методи ['/fapi/v1/premiumIndex', '/fapi/v1/fundingRate']
 OK    2. premiumIndex args, без call
 OK    2. fundingRate args і call
-OK    3. /Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json до smoke немає
+OK    3. ~/src/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json до smoke немає
       жива відповідь недоступна: http://127.0.0.1:9/fapi/v1/premiumIndex?symbol=BTCUSDT — [Errno 61] Connection refused
 OK    3. повідомлення з URL і причиною
 OK    3. фікстури після недоступного виклику немає
-OK    4. фікстуру записано: /Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json
+OK    4. фікстуру записано: ~/src/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json
       keys=['estimatedSettlePrice', 'indexPrice', 'interestRate', 'lastFundingRate', 'markPrice', 'nextFundingTime', 'symbol', 'time']
 OK    4. http_status, path, args
 OK    4. рівно 8 ключів premiumIndex

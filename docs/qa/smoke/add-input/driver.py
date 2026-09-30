@@ -13,7 +13,7 @@ import tempfile
 
 REPO = pathlib.Path(__file__).resolve().parents[4]
 SANDBOX = REPO / ".sandbox" / "binancefutures"
-V1_REGISTRY = pathlib.Path("/Users/akutil/humex/method-sync/registry.toml")
+V1_REGISTRY = REPO.parent / "method-sync" / "registry.toml"
 HERE = pathlib.Path(__file__).resolve().parent
 
 from method_sync import live, registry  # noqa: E402

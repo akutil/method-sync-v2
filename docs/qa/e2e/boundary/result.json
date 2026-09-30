@@ -4,7 +4,7 @@
   "ids": [
     "TC-7"
   ],
-  "expected": "Робоча копія людини `/Users/akutil/humex/binancefutures` після всіх сценаріїв така сама, як до першого: HEAD, відбитки `git status --porcelain` і `git diff` (читання з `--no-optional-locks`).",
+  "expected": "Робоча копія людини `~/src/binancefutures` після всіх сценаріїв така сама, як до першого: HEAD, відбитки `git status --porcelain` і `git diff` (читання з `--no-optional-locks`).",
   "observed": "пройшли всі перевірки (3)",
   "started": "2026-09-30T14:49:03+00:00",
   "finished": "2026-09-30T14:49:03+00:00",

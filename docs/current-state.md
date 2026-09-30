@@ -65,7 +65,7 @@ Current test expectation: 229 unit tests (21 skipped without `METHOD_SYNC_LIVE=1
 ## Environment / Deployment
 
 - macOS, Python 3.14.0 (homebrew), Node 20.10, Java 21.0.2, Maven 3.9.10, Claude Code CLI 2.1.267.
-- Цільова бібліотека: `/Users/akutil/humex/binancefutures` (приватна). Доказові прогони — лише по
+- Цільова бібліотека: `~/src/binancefutures` (приватна). Доказові прогони — лише по
   її копії в `.sandbox/` (gitignored); робоча копія людини має власну некомічену правку.
 - Ключі біржі не потрібні (публічні ендпоінти).
 

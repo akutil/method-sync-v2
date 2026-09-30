@@ -190,8 +190,8 @@
         "FR-78"
       ],
       "ok": true,
-      "expected": "/Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json",
-      "observed": "/Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json"
+      "expected": "~/src/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json",
+      "observed": "~/src/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json"
     },
     {
       "name": "звіт: mismatch",

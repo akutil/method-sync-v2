@@ -2,7 +2,7 @@
 
 - **Режим** (`mode`): refresh
 - **Джерело параметрів запиту** (`request_source`): registry
-- **Джерело моделі відповіді** (`response_source`): /Users/akutil/humex/method-sync-v2/runs/fapi-v1-fundingRate/fixture.json
+- **Джерело моделі відповіді** (`response_source`): ~/src/method-sync-v2/runs/fapi-v1-fundingRate/fixture.json
 - **Розходження до правки** (`mismatch`): зайві в моделі: —; бракує в моделі: markPrice, rateType
 - **Видалені поля** (`removed`): нічого не видалено
 - **Команда перевірки** (`verify_cmd`): mvn -q -DskipTests test-compile

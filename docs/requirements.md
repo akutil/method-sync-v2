@@ -6,7 +6,7 @@
 
 - **Дата:** 2026-09-29 · **Фаза:** 1 (Project Factory) · **Статус:** підписано власником на checkpoint 1 (2026-09-29); рішення — розділ 5.7
 - **Джерела:** рішення власника про обсяг (2026-09-29); спека, контракти, задачі й код method-sync v1
-  (`/Users/akutil/humex/method-sync`); `docs/constitution.md`, `docs/research.md`, `openspec/project.md`,
+  (`~/src/method-sync`); `docs/constitution.md`, `docs/research.md`, `openspec/project.md`,
   `docs/adr/ADR-0001-stack.md`. Де спека v1 і код v1 розходяться, «що робив v1» — це код.
 - **Супровідний документ:** `docs/product-brief.md` (бізнес-наратив, актори, сценарії).
 

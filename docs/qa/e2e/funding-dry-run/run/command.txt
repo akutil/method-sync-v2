@@ -1,4 +1,4 @@
-cwd: /Users/akutil/humex/method-sync-v2
+cwd: ~/src/method-sync-v2
 env: PYTHONPATH=src
 argv: python3 -m method_sync --registry /var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-5uzed6qu/funding-dry-run.toml --dry-run
 exit: 1

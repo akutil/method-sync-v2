@@ -2,7 +2,7 @@
 
 ## Context
 
-Перепис двох модулів v1 (`/Users/akutil/humex/method-sync/src/method_sync/registry.py`, `live.py`) під базові
+Перепис двох модулів v1 (`~/src/method-sync/src/method_sync/registry.py`, `live.py`) під базові
 специфікації `registry` і `live-capture`. Еталон читаємо, а не копіюємо: де спека v2 вимагає іншого, v2 іде за спекою
 (розділ «Що v1 робив інакше»). CLI ще немає, тож модулі віддають результат або типізований виняток, а коди виходу
 призначає `add-run-cli`.

@@ -47,7 +47,7 @@ class BlocksBulkStaging(unittest.TestCase):
 
     def test_other_repo_via_dash_c(self):
         """Найчастіший випадок інструмента: стейдж у чужій робочій копії через git -C."""
-        self.assertIsNotNone(run("git -C /Users/akutil/humex/binancefutures add ."))
+        self.assertIsNotNone(run("git -C ~/src/binancefutures add ."))
 
     def test_inside_compound_command(self):
         self.assertIsNotNone(run("cd /tmp && git add ."))
@@ -73,7 +73,7 @@ class LetsSafeCommandsThrough(unittest.TestCase):
         self.assertIsNone(run("git add AGENTS.md CLAUDE.md"))
 
     def test_named_file_in_other_repo(self):
-        self.assertIsNone(run("git -C /Users/akutil/humex/binancefutures add src/main/java/Foo.java"))
+        self.assertIsNone(run("git -C ~/src/binancefutures add src/main/java/Foo.java"))
 
     def test_read_only_git(self):
         for cmd in ("git status --short", "git diff", "git log --oneline -5", "git commit -m ok"):

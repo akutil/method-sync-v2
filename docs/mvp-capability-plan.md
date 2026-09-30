@@ -14,7 +14,7 @@ spec change → тести (червоні) → реалізація (зелен
 3. Кожна MVP-вимога має рівно одного власника (таблиця розділу 5). NFR ідуть зі своїм доменом;
    наскрізні — нижче.
 4. Імена — `add-<capability>`, як у фабриці; капабіліті — ті самі, що в базових специфікаціях.
-5. Еталон реалізації — код method-sync v1 (`/Users/akutil/humex/method-sync/src/method_sync/`): його
+5. Еталон реалізації — код method-sync v1 (`~/src/method-sync/src/method_sync/`): його
    читають, а не копіюють наосліп; тести пишуться зі специфікації v2 до коду.
 
 ## 2a. Швидкий шлях (рішення власника 2026-09-30, після слайсу 1)
@@ -69,7 +69,7 @@ flowchart LR
 - **Scope in:** читання TOML, обов'язкові й необов'язкові поля, сувора валідація з назвою поля,
   запис `[[method]]` з `path`, `model`, `client_method`, `args`, `call`.
 - **Scope out:** коротка форма як повноцінний запис (FR-11), дублі (FR-12), неоднозначний метод (FR-13).
-- **Smoke:** реєстр method-sync v1 (`/Users/akutil/humex/method-sync/registry.toml`) читається без змін
+- **Smoke:** реєстр method-sync v1 (`~/src/method-sync/registry.toml`) читається без змін
   (FR-3: `status`, `credentials`), шлях `lib` замінено на `.sandbox/binancefutures`.
 - **Ризики:** немає.
 

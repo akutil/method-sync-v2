@@ -2,7 +2,7 @@
 
 - **Режим** (`mode`): refresh
 - **Джерело параметрів запиту** (`request_source`): registry
-- **Джерело моделі відповіді** (`response_source`): /Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json
+- **Джерело моделі відповіді** (`response_source`): ~/src/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json
 - **Розходження до правки** (`mismatch`): зайві в моделі: —; бракує в моделі: —
 - **Видалені поля** (`removed`): нічого не видалено
 - **Команда перевірки** (`verify_cmd`): mvn -q -DskipTests test-compile
