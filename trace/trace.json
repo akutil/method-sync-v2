@@ -162,7 +162,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -171,7 +173,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -181,7 +185,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -190,7 +196,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -199,7 +207,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -208,7 +218,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -217,7 +229,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -227,7 +241,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -236,7 +252,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -245,7 +263,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/registry_test.py"
+      ],
       "recordings": []
     },
     {
@@ -351,7 +371,9 @@
         "openspec/changes/add-input/specs/live-capture/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/live_test.py"
+      ],
       "recordings": []
     },
     {
@@ -361,7 +383,9 @@
         "openspec/changes/add-input/specs/live-capture/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/live_test.py"
+      ],
       "recordings": []
     },
     {
@@ -370,7 +394,9 @@
         "openspec/changes/add-input/specs/live-capture/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/live_test.py"
+      ],
       "recordings": []
     },
     {
@@ -383,7 +409,9 @@
         "openspec/changes/add-input/specs/registry/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/live_test.py"
+      ],
       "recordings": []
     },
     {
@@ -401,7 +429,9 @@
         "openspec/changes/add-input/specs/live-capture/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/live_test.py"
+      ],
       "recordings": []
     },
     {
@@ -411,7 +441,9 @@
         "openspec/changes/add-input/specs/live-capture/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/live_test.py"
+      ],
       "recordings": []
     },
     {
@@ -422,7 +454,9 @@
         "openspec/changes/add-input/specs/live-capture/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/live_test.py"
+      ],
       "recordings": []
     },
     {
@@ -968,46 +1002,6 @@
   "warnings": [
     {
       "check": "test-trace",
-      "msg": "FR-1 has no test annotated \"@trace FR-1\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-2 has no test annotated \"@trace FR-2\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-3 has no test annotated \"@trace FR-3\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-4 has no test annotated \"@trace FR-4\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-5 has no test annotated \"@trace FR-5\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-6 has no test annotated \"@trace FR-6\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-7 has no test annotated \"@trace FR-7\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-8 has no test annotated \"@trace FR-8\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-9 has no test annotated \"@trace FR-9\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-10 has no test annotated \"@trace FR-10\""
-    },
-    {
-      "check": "test-trace",
       "msg": "FR-14 has no test annotated \"@trace FR-14\""
     },
     {
@@ -1044,35 +1038,7 @@
     },
     {
       "check": "test-trace",
-      "msg": "FR-23 has no test annotated \"@trace FR-23\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-24 has no test annotated \"@trace FR-24\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-25 has no test annotated \"@trace FR-25\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-26 has no test annotated \"@trace FR-26\""
-    },
-    {
-      "check": "test-trace",
       "msg": "FR-27 has no test annotated \"@trace FR-27\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-28 has no test annotated \"@trace FR-28\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-29 has no test annotated \"@trace FR-29\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-30 has no test annotated \"@trace FR-30\""
     },
     {
       "check": "test-trace",
