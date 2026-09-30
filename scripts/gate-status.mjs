@@ -167,6 +167,9 @@ function runCheck(key) {
   else status = "PASS";
   // Vacuity flip (mechanism 3): pending emptiness over product code is unearned.
   if (status === "SKIP-pending" && productCode) status = "NOT-EARNED";
+  // PD-7: a PASS that holds only because a waiver suppressed failures renders WAIVED, never PASS
+  // (ADR-0001: the owner's checkpoint-1 coverage waiver must show as WAIVED at G5).
+  if (status === "PASS" && /^WAIVED\b/m.test(out)) status = "WAIVED";
   return { status, out, scopeN };
 }
 const checks = {};
@@ -177,7 +180,7 @@ for (const key of Object.keys(GATE_COMMANDS)) checks[key] = runCheck(key);
 // "n/a" (check not installed) counts as SKIP-pending: absence of a check is
 // pending evidence, not proof.
 // ---------------------------------------------------------------------------
-const SEVERITY = ["PASS", "SKIP-pending", "needs sign-off", "NOT-EARNED", "FAIL"];
+const SEVERITY = ["PASS", "WAIVED", "SKIP-pending", "needs sign-off", "NOT-EARNED", "FAIL"];
 function worst(...statuses) {
   let w = "PASS";
   for (const raw of statuses) {
@@ -263,7 +266,7 @@ if (productCode) {
 // header in docs/current-state.md (kept in the exact template formats
 // "Phase <N>" / "G<N>"). Freeform done-claim prose stays advisory.
 // ---------------------------------------------------------------------------
-const earnedStatus = (s) => s === "PASS" || s === "needs sign-off";
+const earnedStatus = (s) => s === "PASS" || s === "WAIVED" || s === "needs sign-off";
 let frontier = -1;
 for (const row of gateRows) {
   if (earnedStatus(row.status)) frontier = row.idx;
@@ -491,7 +494,8 @@ if (anyCheckFail || divergences.length || open.length || unrecorded.length) {
   resultWord = "PASS";
   exitCode = 0;
 }
-const warnings = advisories.length + (boundaryWarn ? 1 : 0) + (detectorWarn ? 1 : 0);
+const waivedGates = gateRows.filter((r) => r.status === "WAIVED").length;
+const warnings = advisories.length + (boundaryWarn ? 1 : 0) + (detectorWarn ? 1 : 0) + waivedGates;
 console.log(`\nScope: ${gateRows.length} gate(s)`);
 console.log(`Result: ${resultWord}${warnings ? `, ${warnings} warning(s)` : ""}`);
 
