@@ -158,8 +158,8 @@
     {
       "id": "FR-1",
       "specs": [
-        "openspec/specs/run-cli/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md",
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -170,7 +170,7 @@
     {
       "id": "FR-2",
       "specs": [
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -181,8 +181,8 @@
     {
       "id": "FR-3",
       "specs": [
-        "openspec/changes/add-input/specs/live-capture/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -193,7 +193,7 @@
     {
       "id": "FR-4",
       "specs": [
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -204,7 +204,7 @@
     {
       "id": "FR-5",
       "specs": [
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -215,7 +215,7 @@
     {
       "id": "FR-6",
       "specs": [
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -226,7 +226,7 @@
     {
       "id": "FR-7",
       "specs": [
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -238,7 +238,7 @@
       "id": "FR-8",
       "specs": [
         "openspec/specs/field-verification/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -249,7 +249,7 @@
     {
       "id": "FR-9",
       "specs": [
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -260,7 +260,7 @@
     {
       "id": "FR-10",
       "specs": [
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -271,10 +271,10 @@
     {
       "id": "FR-14",
       "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md",
         "openspec/specs/run-cli/spec.md",
-        "openspec/specs/run-report/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -283,9 +283,9 @@
     {
       "id": "FR-15",
       "specs": [
+        "openspec/specs/live-capture/spec.md",
         "openspec/specs/run-cli/spec.md",
-        "openspec/specs/run-report/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -331,11 +331,11 @@
     {
       "id": "FR-20",
       "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md",
         "openspec/specs/run-cli/spec.md",
         "openspec/specs/run-report/spec.md",
-        "openspec/specs/sync-loop/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -355,10 +355,10 @@
     {
       "id": "FR-22",
       "specs": [
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md",
         "openspec/specs/run-cli/spec.md",
-        "openspec/specs/run-report/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -367,8 +367,8 @@
     {
       "id": "FR-23",
       "specs": [
-        "openspec/specs/run-cli/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -379,8 +379,8 @@
     {
       "id": "FR-24",
       "specs": [
-        "openspec/specs/run-cli/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -391,7 +391,7 @@
     {
       "id": "FR-25",
       "specs": [
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -403,10 +403,10 @@
       "id": "FR-26",
       "specs": [
         "openspec/specs/field-verification/spec.md",
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/registry/spec.md",
         "openspec/specs/run-cli/spec.md",
-        "openspec/specs/run-report/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -417,7 +417,7 @@
     {
       "id": "FR-27",
       "specs": [
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -426,7 +426,7 @@
     {
       "id": "FR-28",
       "specs": [
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -437,8 +437,8 @@
     {
       "id": "FR-29",
       "specs": [
-        "openspec/specs/run-cli/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -450,8 +450,8 @@
       "id": "FR-30",
       "specs": [
         "openspec/specs/field-verification/spec.md",
-        "openspec/specs/sync-loop/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -481,7 +481,7 @@
       "id": "FR-33",
       "specs": [
         "openspec/specs/field-verification/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -491,7 +491,7 @@
       "id": "FR-34",
       "specs": [
         "openspec/specs/field-verification/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -502,7 +502,7 @@
       "specs": [
         "openspec/specs/enum-verification/spec.md",
         "openspec/specs/field-verification/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -770,9 +770,9 @@
     {
       "id": "FR-65",
       "specs": [
+        "openspec/specs/registry/spec.md",
         "openspec/specs/run-cli/spec.md",
-        "openspec/specs/sync-loop/spec.md",
-        "openspec/changes/add-input/specs/registry/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -828,8 +828,8 @@
       "id": "FR-71",
       "specs": [
         "openspec/specs/enum-verification/spec.md",
-        "openspec/specs/sync-loop/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/live-capture/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -884,9 +884,9 @@
     {
       "id": "FR-77",
       "specs": [
+        "openspec/specs/live-capture/spec.md",
         "openspec/specs/run-cli/spec.md",
-        "openspec/specs/run-report/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -980,9 +980,9 @@
     {
       "id": "FR-92",
       "specs": [
+        "openspec/specs/live-capture/spec.md",
         "openspec/specs/run-cli/spec.md",
-        "openspec/specs/sync-loop/spec.md",
-        "openspec/changes/add-input/specs/live-capture/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -1595,10 +1595,6 @@
     {
       "check": "recording-evidence",
       "msg": "FR-93 is not referenced by any recording manifest under docs/qa/"
-    },
-    {
-      "check": "active-changes",
-      "msg": "active change \"add-input\" is not archived"
     }
   ]
 }

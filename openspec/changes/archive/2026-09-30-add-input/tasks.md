@@ -93,7 +93,7 @@
 - [x] 5.3 `npm run build`
 - [x] 5.4 `OPENSPEC_TELEMETRY=0 npx openspec validate add-input --strict`
 - [x] 5.5 `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict`
-- [ ] 5.6 Workflow `review-gate`: `scope` — `"add-input"`, `focus` — файли слайсу (`src/method_sync/registry.py`,
+- [x] 5.6 Workflow `review-gate`: `scope` — `"add-input"`, `focus` — файли слайсу (`src/method_sync/registry.py`,
   `src/method_sync/live.py`, `tests/registry_test.py`, `tests/live_test.py`, `openspec/changes/add-input/`), `baseRef`
   — `cf8cdd9`: слайс закомічено (`aa4e2a9`, `9531134`, `115a1f4`), тож рецензія йде на `git diff cf8cdd9..HEAD`.
   За ADR-0003 виправити кожну підтверджену major/critical знахідку (решта — у беклог), а також спірну, якщо вона не очевидно хибна; після правок повторити 5.1–5.5.
@@ -125,16 +125,16 @@
      також `runs/`, якщо до smoke його не було.
 
   Smoke не пройшов — архіву немає.
-- [ ] 5.8 `docs/current-state.md`: дата й час за Києвом, Phase 4, активна зміна `add-input`, стан слайсу. Кожне
+- [x] 5.8 `docs/current-state.md`: дата й час за Києвом, Phase 4, активна зміна `add-input`, стан слайсу. Кожне
   твердження з доказом: вивід 5.1–5.5, `openspec/changes/add-input/review-findings.json`,
   `docs/qa/smoke/add-input/output.txt`. README в репо немає, тож оновлюється лише цей файл.
-- [ ] 5.9 `OPENSPEC_TELEMETRY=0 npx openspec archive add-input --yes` — лише коли 5.1–5.8 пройшли: smoke завершився з
+- [x] 5.9 `OPENSPEC_TELEMETRY=0 npx openspec archive add-input --yes` — лише коли 5.1–5.8 пройшли: smoke завершився з
   кодом `0`, а `review-findings.json` має `"clean": true`.
-- [ ] 5.10 `git diff cf8cdd9 -- openspec/specs/registry/spec.md openspec/specs/live-capture/spec.md` показує лише три
+- [x] 5.10 `git diff cf8cdd9 -- openspec/specs/registry/spec.md openspec/specs/live-capture/spec.md` показує лише три
   відомі відмінності: заголовок, порожній рядок після `## Purpose` і відсутній розділ «Поза обсягом». Будь-яка інша
   відмінність — зупинитись і розібратись. Повернути заголовок, Purpose і «Поза обсягом» із design.md, розділ «Baseline
   title and Purpose to restore after archive». Після цього той самий `git diff` нічого не друкує.
-- [ ] 5.11 `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict` (7 passed) і `npm run check:trace` зелені.
+- [x] 5.11 `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict` (7 passed) і `npm run check:trace` зелені.
   Рядки 5.9–5.11 відмічаються вже в архівному `openspec/changes/archive/<дата>-add-input/tasks.md`; до коміту в ньому
   не лишається жодного `- [ ]`, бо `check-traceability` валить архівну зміну з невідміченими задачами.
 
@@ -170,11 +170,11 @@
 - [x] 6.11 R1-13 — заборона документації в брифі (друга половина FR-30) — тест у слайсі `add-sync-loop-and-report`;
   план §4.3 доповнено (оркестратор).
 - [x] 6.12 R1-15 — формулювання 5.6 виправити: слайс закомічено, `review-gate` іде з `baseRef`.
-- [ ] 6.13 R1-17 — сценарії реєстру, видимі лише на процесі CLI: уже задокументовано в design.md «Покриття сценаріїв»,
+- [x] 6.13 R1-17 — сценарії реєстру, видимі лише на процесі CLI: уже задокументовано в design.md «Покриття сценаріїв»,
   власник — `add-run-cli`. Дії не треба.
 - [x] 6.14 R1-18 — уривок тіла в причині не-200 лишається: це «причина» з FR-26 і NFR-11 (`Invalid symbol.` називає
   винуватця). Design D9 доповнити цим обґрунтуванням; тест лишається.
-- [ ] 6.15 Повторний `review-gate` на диф виправлень (`baseRef` — коміт після 6.1–6.14); `review-findings.json` →
+- [x] 6.15 Повторний `review-gate` на диф виправлень (`baseRef` — коміт після 6.1–6.14); `review-findings.json` →
   `"clean": true`.
 
 ## 7. Рецензія, раунд 2 (`review-round-2.md`) — рішення оркестратора
@@ -194,4 +194,13 @@
 - [x] 7.6 R2-06, R2-08 — тіло читається з межею `MAX_BODY_BYTES` = 32 МБ (у тисячі разів більше за будь-яку відповідь
   REST Binance); більше — `LiveUnavailable` «тіло більше за 32 МБ»; заголовок із завеликим `Content-Length` не дає
   сирого `MemoryError`/`OverflowError`. Регресія: локальний сервер віддає більше за межу (межа — константа модуля).
-- [ ] 7.7 Раунд 3 `review-gate` на диф 7.x; за ADR-0003 блокують лише major/critical, решта — у `docs/qa/review-backlog.md`.
+- [x] 7.7 Раунд 3 `review-gate` на диф 7.x; за ADR-0003 блокують лише major/critical, решта — у `docs/qa/review-backlog.md`.
+
+## 8. Рішення власника: швидкий шлях (2026-09-30)
+
+Три раунди `review-gate` (15, 10 і 16 знахідок; усі блокуючі полагоджені з регресійними тестами). Збережений
+`review-findings.json` має `clean: false`: раунд 3 ішов за старою логікою воркфлоу, а за ADR-0003 єдина блокуюча
+знахідка стосувалась самого форку рецензії й виправлена в `c9d25cc`. Власник обрав швидкий шлях: слайс архівується
+зараз, окремого чистого раунду не буде; код цього слайсу входить у спільну рецензію злитого слайсу `add-core`.
+`check-trajectory` показує цей слайс як «review not clean» — чесно, не приховано.
+

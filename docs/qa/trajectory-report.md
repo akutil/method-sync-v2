@@ -5,12 +5,12 @@ archived slice took: review evidence, `Slice:` trailers, and module scope.
 It does NOT verify test-first ordering or test integrity (not derivable from
 one-commit-per-slice history) — those are graded by the trajectory-eval workflow.
 
-Scope: 0 archived slice(s).
+Scope: 1 archived slice(s).
 Result: PASS, 1 warning(s)
 
 | Slice | Review evidence | Trailer commits | design+tasks | lib domains touched |
 |---|---|---|---|---|
-
+| 2026-09-30-add-input | **unclean** | 4 | yes | live, registry |
 
 ## Cross-slice module overlap
 
@@ -22,4 +22,4 @@ None.
 
 ## Warnings
 
-- **slices**: no archived slices found under openspec/changes/archive/ (nothing to audit yet)
+- **review-evidence**: 2026-09-30-add-input: review-findings.json is unclean (review must have run clean before archive)

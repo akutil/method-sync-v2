@@ -1,12 +1,23 @@
 {
   "generatedBy": "scripts/check-trajectory.mjs",
-  "slices": [],
+  "slices": [
+    {
+      "slice": "2026-09-30-add-input",
+      "reviewEvidence": "unclean",
+      "trailerCommits": 4,
+      "libDomains": [
+        "live",
+        "registry"
+      ],
+      "processComplete": true
+    }
+  ],
   "overlaps": [],
   "failures": [],
   "warnings": [
     {
-      "check": "slices",
-      "msg": "no archived slices found under openspec/changes/archive/ (nothing to audit yet)"
+      "check": "review-evidence",
+      "msg": "2026-09-30-add-input: review-findings.json is unclean (review must have run clean before archive)"
     }
   ]
 }
