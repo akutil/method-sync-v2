@@ -277,7 +277,9 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -288,7 +290,9 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -297,7 +301,9 @@
         "openspec/changes/add-core/specs/run-cli/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -306,7 +312,9 @@
         "openspec/changes/add-core/specs/run-cli/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -316,7 +324,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -325,7 +335,9 @@
         "openspec/changes/add-core/specs/run-cli/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -338,7 +350,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/library_test.py"
+      ],
       "recordings": []
     },
     {
@@ -349,7 +364,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/library_test.py"
+      ],
       "recordings": []
     },
     {
@@ -361,7 +379,10 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/library_test.py"
+      ],
       "recordings": []
     },
     {
@@ -420,7 +441,9 @@
         "openspec/specs/live-capture/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -455,6 +478,7 @@
       ],
       "planned": true,
       "tests": [
+        "tests/agent_test.py",
         "tests/live_test.py"
       ],
       "recordings": []
@@ -465,7 +489,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -474,7 +501,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -484,7 +513,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -494,7 +526,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -505,7 +540,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -515,7 +553,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -524,7 +565,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -533,7 +576,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -542,7 +587,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -562,7 +609,10 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -571,7 +621,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -580,7 +633,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -590,7 +645,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -599,7 +657,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -609,7 +670,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -618,7 +681,9 @@
         "openspec/changes/add-core/specs/enum-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -627,7 +692,9 @@
         "openspec/changes/add-core/specs/enum-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -636,7 +703,9 @@
         "openspec/changes/add-core/specs/enum-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -646,7 +715,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -656,7 +727,10 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py",
+        "tests/verify_test.py"
+      ],
       "recordings": []
     },
     {
@@ -665,7 +739,10 @@
         "openspec/changes/add-core/specs/enum-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -684,7 +761,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py"
+      ],
       "recordings": []
     },
     {
@@ -695,7 +774,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -705,7 +786,9 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -724,7 +807,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/loop_test.py"
+      ],
       "recordings": []
     },
     {
@@ -735,7 +820,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/loop_test.py"
+      ],
       "recordings": []
     },
     {
@@ -744,7 +832,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/loop_test.py"
+      ],
       "recordings": []
     },
     {
@@ -753,7 +843,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/loop_test.py"
+      ],
       "recordings": []
     },
     {
@@ -764,7 +856,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/loop_test.py"
+      ],
       "recordings": []
     },
     {
@@ -775,7 +870,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -784,7 +882,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -794,7 +895,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -803,7 +907,11 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/cli_test.py",
+        "tests/loop_test.py"
+      ],
       "recordings": []
     },
     {
@@ -832,7 +940,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/cli_test.py"
+      ],
       "recordings": []
     },
     {
@@ -841,7 +952,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/library_test.py"
+      ],
       "recordings": []
     },
     {
@@ -850,7 +964,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py"
+      ],
       "recordings": []
     },
     {
@@ -859,7 +975,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py"
+      ],
       "recordings": []
     },
     {
@@ -868,7 +986,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py",
+        "tests/loop_test.py"
+      ],
       "recordings": []
     },
     {
@@ -878,7 +999,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/agent_test.py"
+      ],
       "recordings": []
     },
     {
@@ -889,7 +1012,10 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -900,7 +1026,9 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -910,7 +1038,10 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -920,7 +1051,10 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -929,7 +1063,10 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -938,7 +1075,10 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/cli_test.py",
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -947,7 +1087,9 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -956,7 +1098,9 @@
         "openspec/changes/add-core/specs/run-report/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/report_test.py"
+      ],
       "recordings": []
     },
     {
@@ -965,7 +1109,9 @@
         "openspec/changes/add-core/specs/run-cli/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/boundaries_test.py"
+      ],
       "recordings": []
     },
     {
@@ -974,7 +1120,9 @@
         "openspec/changes/add-core/specs/run-cli/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/boundaries_test.py"
+      ],
       "recordings": []
     },
     {
@@ -985,7 +1133,9 @@
         "openspec/changes/add-core/specs/sync-loop/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/boundaries_test.py"
+      ],
       "recordings": []
     },
     {
@@ -1002,131 +1152,7 @@
   "warnings": [
     {
       "check": "test-trace",
-      "msg": "FR-14 has no test annotated \"@trace FR-14\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-15 has no test annotated \"@trace FR-15\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-16 has no test annotated \"@trace FR-16\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-17 has no test annotated \"@trace FR-17\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-18 has no test annotated \"@trace FR-18\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-19 has no test annotated \"@trace FR-19\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-20 has no test annotated \"@trace FR-20\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-21 has no test annotated \"@trace FR-21\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-22 has no test annotated \"@trace FR-22\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-27 has no test annotated \"@trace FR-27\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-31 has no test annotated \"@trace FR-31\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-32 has no test annotated \"@trace FR-32\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-33 has no test annotated \"@trace FR-33\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-34 has no test annotated \"@trace FR-34\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-35 has no test annotated \"@trace FR-35\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-36 has no test annotated \"@trace FR-36\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-37 has no test annotated \"@trace FR-37\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-38 has no test annotated \"@trace FR-38\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-39 has no test annotated \"@trace FR-39\""
-    },
-    {
-      "check": "test-trace",
       "msg": "FR-40 has no test annotated \"@trace FR-40\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-41 has no test annotated \"@trace FR-41\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-42 has no test annotated \"@trace FR-42\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-43 has no test annotated \"@trace FR-43\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-44 has no test annotated \"@trace FR-44\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-46 has no test annotated \"@trace FR-46\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-47 has no test annotated \"@trace FR-47\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-48 has no test annotated \"@trace FR-48\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-49 has no test annotated \"@trace FR-49\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-50 has no test annotated \"@trace FR-50\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-51 has no test annotated \"@trace FR-51\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-52 has no test annotated \"@trace FR-52\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-53 has no test annotated \"@trace FR-53\""
     },
     {
       "check": "test-trace",
@@ -1134,55 +1160,7 @@
     },
     {
       "check": "test-trace",
-      "msg": "FR-55 has no test annotated \"@trace FR-55\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-56 has no test annotated \"@trace FR-56\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-57 has no test annotated \"@trace FR-57\""
-    },
-    {
-      "check": "test-trace",
       "msg": "FR-58 has no test annotated \"@trace FR-58\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-60 has no test annotated \"@trace FR-60\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-61 has no test annotated \"@trace FR-61\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-62 has no test annotated \"@trace FR-62\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-63 has no test annotated \"@trace FR-63\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-64 has no test annotated \"@trace FR-64\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-65 has no test annotated \"@trace FR-65\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-66 has no test annotated \"@trace FR-66\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-67 has no test annotated \"@trace FR-67\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-68 has no test annotated \"@trace FR-68\""
     },
     {
       "check": "test-trace",
@@ -1191,74 +1169,6 @@
     {
       "check": "test-trace",
       "msg": "FR-70 has no test annotated \"@trace FR-70\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-71 has no test annotated \"@trace FR-71\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-72 has no test annotated \"@trace FR-72\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-73 has no test annotated \"@trace FR-73\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-74 has no test annotated \"@trace FR-74\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-75 has no test annotated \"@trace FR-75\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-76 has no test annotated \"@trace FR-76\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-77 has no test annotated \"@trace FR-77\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-78 has no test annotated \"@trace FR-78\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-79 has no test annotated \"@trace FR-79\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-80 has no test annotated \"@trace FR-80\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-81 has no test annotated \"@trace FR-81\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-82 has no test annotated \"@trace FR-82\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-83 has no test annotated \"@trace FR-83\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-84 has no test annotated \"@trace FR-84\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-90 has no test annotated \"@trace FR-90\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-91 has no test annotated \"@trace FR-91\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-92 has no test annotated \"@trace FR-92\""
     },
     {
       "check": "test-trace",
