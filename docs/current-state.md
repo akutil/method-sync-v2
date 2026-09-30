@@ -6,20 +6,21 @@
 
 ## Last Updated
 
-- **Date and time:** 2026-09-29 23:15:19 (Europe/Kyiv)
-- **Current phase:** Phase 0
-- **Last completed gate:** G0
-- **Active change:** none
-- **Progress:** Цикл фабрики встановлено й адаптовано під Python CLI (ADR-0001): агенти, workflow,
-  `scripts/check-*`, git-хуки, PostToolUse-хук, CI, OpenSpec, уроки в `AGENTS.md`, integrity-lock.
-  Із method-sync перенесено гейт стейджу з селф-тестом, рецензента `method-sync-reviewer`, принципи
-  конституції і факти research. Коду інструмента ще немає.
-- **Next task:** Phase 1 — `requirements-analyst` складає `docs/product-brief.md` і
-  `docs/requirements.md` з method-sync і рішення власника про обсяг; далі checkpoint 1 (sign-off).
+- **Date and time:** 2026-09-30 03:38:40 (Europe/Kyiv)
+- **Current phase:** Phase 2
+- **Last completed gate:** G2
+- **Active change:** none (7 `improve-PD-*` proposals wait for the owner at checkpoint 2)
+- **Progress:** G0 (цикл фабрики, адаптований під Python), G1 (вимоги підписано на checkpoint 1: 83 MVP FR,
+  принцип IX ратифіковано), G2 (7 базових специфікацій: 103 вимоги, 165 сценаріїв; `spec-pipeline` дав 441 сценарій
+  і 10 суперечностей, прохід `spec-reconcile` звів їх за рішеннями D-1…D-33). Ретро: `process-auditor` дав PD-1…PD-7
+  з виконаними red→green пробами. Чернетка плану — `docs/mvp-capability-plan.md`.
+- **Next task:** checkpoint 2 — власник схвалює план слайсів і покращення PD-1…PD-7; потім кожне PD окремим
+  комітом `Refs: PD-x`, e2e-механізм (`test:e2e`, test-engineer) і G3.
 - **Claims:**
-  - Хуки git спрацьовують — evidence: коміт `f393beb chore: verify hooks fire` (вивід pre-commit у сесії)
-  - Integrity-lock на 23 файли, PASS — evidence: `factory-lock.json`, `node scripts/check-factory-integrity.mjs`
-  - Селф-тест гейта стейджу зелений, 12 тестів — evidence: `python3 -m unittest discover -s .claude/hooks -p '*_test.py'`
+  - Специфікації валідні — evidence: `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict` → 14 passed, 0 failed
+  - Кожна MVP-вимога процитована в специфікації — evidence: `node scripts/check-traceability.mjs` (0 spec-mention warnings)
+  - Проби PD-1…PD-7 виконані й зелені — evidence: розділ «EXECUTED red→green proof» у кожному `openspec/changes/improve-PD-*/proposal.md`
+  - Хуки git спрацьовують — evidence: коміт `f393beb chore: verify hooks fire`
 
 ## Source Of Truth
 
