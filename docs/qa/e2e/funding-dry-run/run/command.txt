@@ -1,7 +1,7 @@
 cwd: /Users/akutil/humex/method-sync-v2
 env: PYTHONPATH=src
-argv: python3 -m method_sync --registry /var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/funding-dry-run.toml --dry-run
+argv: python3 -m method_sync --registry /var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-5uzed6qu/funding-dry-run.toml --dry-run
 exit: 1
-seconds: 10.4
+seconds: 11.6
 harness ceiling: 1455 s
-started: 2026-09-30T13:49:44+00:00
+started: 2026-09-30T14:43:04+00:00

@@ -11,16 +11,16 @@ WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.i
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
 WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 
-$ mvn -q dependency:build-classpath -Dmdep.outputFile=/private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-o641wt3v/cp.txt
+$ mvn -q dependency:build-classpath -Dmdep.outputFile=/private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-2lmb7qb5/cp.txt
 WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.10/libexec/lib/guice-5.1.0-classes.jar)
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
 WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 
-$ javac -proc:none -encoding UTF-8 -cp <класпас бібліотеки> -d /private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-o641wt3v MethodSyncVerify.java
+$ javac -proc:none -encoding UTF-8 -cp <класпас бібліотеки> -d /private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-2lmb7qb5 MethodSyncVerify.java
 
 $ java MethodSyncVerify
-клієнт бібліотеки повернув: FuturesMarkPriceInfo{symbol='BTCUSDT', markPrice='84488.90000000', indexPrice='84541.03021739', estimatedSettlePrice='84841.19123973', lastFundingRate='0.00008443', nextFundingTime=1790784000000, interestRate='0.00010000', time=1790776393000}
+клієнт бібліотеки повернув: FuturesMarkPriceInfo{symbol='BTCUSDT', markPrice='83605.00000000', indexPrice='83643.38000000', estimatedSettlePrice='83752.72914251', lastFundingRate='0.00006471', nextFundingTime=1790784000000, interestRate='0.00010000', time=1790779625001}
 модель = [estimatedSettlePrice, indexPrice, interestRate, lastFundingRate, markPrice, nextFundingTime, symbol, time]
 жива   = [estimatedSettlePrice, indexPrice, interestRate, lastFundingRate, markPrice, nextFundingTime, symbol, time]
 ЗАЙВІ в моделі  = []

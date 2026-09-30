@@ -17,11 +17,11 @@
     "NFR-10"
   ],
   "expected": "Один реєстр: зелений `/fapi/v1/premiumIndex`, `/xapi/v1/nothing` (невідомий префікс, код 2) і `/fapi/v1/fundingRate` з `NOSUCHSYMBOL` (біржа віддає `[]` — жива відповідь недоступна, код 3): усі три оброблено в порядку реєстру, рядок на кожен і підсумок; код процесу — найгірший за шкалою 0 < 1 < 3 < 2 < 4, тобто 2.",
-  "observed": "пройшли всі перевірки (13); run: код 2, 11 с, сесій агента 0",
-  "started": "2026-09-30T13:49:58+00:00",
-  "finished": "2026-09-30T13:50:12+00:00",
-  "fingerprint": "608f6701890b05fe",
-  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
+  "observed": "пройшли всі перевірки (13); run: код 2, 14 с, сесій агента 0",
+  "started": "2026-09-30T14:43:19+00:00",
+  "finished": "2026-09-30T14:43:37+00:00",
+  "fingerprint": "b3d065828e658325",
+  "tool_commit": "a14272ecc53ea3f814484ee459856d8351520e1b",
   "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
   "agent": false,
   "notes": [],
@@ -159,10 +159,10 @@
         "-m",
         "method_sync",
         "--registry",
-        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/mixed-run.toml"
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-5uzed6qu/mixed-run.toml"
       ],
       "exit_code": 2,
-      "seconds": 11.0,
+      "seconds": 14.2,
       "agent_sessions": []
     }
   ]

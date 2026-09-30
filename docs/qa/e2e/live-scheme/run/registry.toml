@@ -2,7 +2,7 @@ lib = "/Users/akutil/humex/method-sync-v2/.sandbox/e2e/live-scheme"
 verify_cmd = "mvn -q -DskipTests test-compile"
 
 [live]
-base_url = "file:///var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/file-scheme"
+base_url = "file:///var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-5uzed6qu/file-scheme"
 
 [[method]]
 path = "/fapi/v1/tradingSchedule"

@@ -9,3 +9,5 @@ __pycache__/
 .sandbox/
 .claude/settings.local.json
 .claude/worktrees/
+# Робочий вихід CLI; доказові копії — у docs/qa/e2e/.
+runs/

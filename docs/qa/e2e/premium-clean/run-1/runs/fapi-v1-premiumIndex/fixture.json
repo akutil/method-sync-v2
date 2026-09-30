@@ -3,16 +3,16 @@
   "args": {
     "symbol": "BTCUSDT"
   },
-  "captured_at": "2026-09-30T13:49:21.958858+00:00",
+  "captured_at": "2026-09-30T14:42:39.680720+00:00",
   "http_status": 200,
   "body": {
     "symbol": "BTCUSDT",
-    "markPrice": "84566.80000000",
-    "indexPrice": "84576.00978261",
-    "estimatedSettlePrice": "84931.50556075",
-    "lastFundingRate": "0.00008770",
+    "markPrice": "83651.90802899",
+    "indexPrice": "83682.22934783",
+    "estimatedSettlePrice": "83858.77317911",
+    "lastFundingRate": "0.00006557",
     "interestRate": "0.00010000",
     "nextFundingTime": 1790784000000,
-    "time": 1790776161000
+    "time": 1790779359002
   }
 }

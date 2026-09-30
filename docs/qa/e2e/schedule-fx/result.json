@@ -19,10 +19,10 @@
   ],
   "expected": "`/fapi/v1/tradingSchedule` віддає в `marketSchedules` ключ `FX`, якого немає в `MarketType`: код 0 після циклу з агентом; перша перевірка — розходження енаму `marketSchedules` (`MarketType`: `FX`); `enum_mismatch` у звіті називає його; `MarketType.java` оголошує кожне значення, якого бракувало, — лише доданими рядками після останньої справжньої константи й перед запасником `UNKNOWN`; інших файлів не змінено.",
   "observed": "пройшли всі перевірки (22); run: код 0, 48 с, сесій агента 1",
-  "started": "2026-09-30T13:53:14+00:00",
-  "finished": "2026-09-30T13:54:05+00:00",
-  "fingerprint": "608f6701890b05fe",
-  "tool_commit": "db8018e84bce60f09011ff9b7ae5d0e445171feb",
+  "started": "2026-09-30T14:47:07+00:00",
+  "finished": "2026-09-30T14:47:58+00:00",
+  "fingerprint": "b3d065828e658325",
+  "tool_commit": "a14272ecc53ea3f814484ee459856d8351520e1b",
   "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
   "agent": true,
   "notes": [],
@@ -73,7 +73,7 @@
       ],
       "ok": true,
       "expected": "1 (транскрипти Claude Code)",
-      "observed": "1: 94b53e36-1c1b-4020-8947-6e367bdf4542"
+      "observed": "1: 330a8cac-0832-40b9-b202-2fe58cf5410d"
     },
     {
       "name": "раннер дав вердикт звіряння (iteration-1.log)",
@@ -237,12 +237,12 @@
         "-m",
         "method_sync",
         "--registry",
-        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/schedule-fx.toml"
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-5uzed6qu/schedule-fx.toml"
       ],
       "exit_code": 0,
-      "seconds": 48.1,
+      "seconds": 48.3,
       "agent_sessions": [
-        "94b53e36-1c1b-4020-8947-6e367bdf4542"
+        "330a8cac-0832-40b9-b202-2fe58cf5410d"
       ]
     }
   ]

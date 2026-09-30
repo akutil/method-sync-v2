@@ -1,7 +1,7 @@
 {
   "path": "/fapi/v1/tradingSchedule",
   "args": {},
-  "captured_at": "2026-09-30T13:53:17.678480+00:00",
+  "captured_at": "2026-09-30T14:47:13.230900+00:00",
   "http_status": 200,
   "body": {
     "updateTime": 1790776045279,

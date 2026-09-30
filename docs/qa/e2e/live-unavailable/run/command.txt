@@ -1,7 +1,7 @@
 cwd: /Users/akutil/humex/method-sync-v2
 env: PYTHONPATH=src
-argv: python3 -m method_sync --registry /var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/live-unavailable.toml
+argv: python3 -m method_sync --registry /var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-5uzed6qu/live-unavailable.toml
 exit: 3
 seconds: 0.2
 harness ceiling: 1455 s
-started: 2026-09-30T13:49:56+00:00
+started: 2026-09-30T14:43:17+00:00

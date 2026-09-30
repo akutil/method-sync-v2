@@ -1,2 +1,2 @@
-/fapi/v1/tradingSchedule  жива відповідь недоступна: file:///var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-44epw9va/file-scheme/fapi/v1/tradingSchedule — схема адреси не дозволена: живий виклик іде лише за HTTP чи захищеним HTTP, адресу не відкрито
+/fapi/v1/tradingSchedule  жива відповідь недоступна: file:///var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-5uzed6qu/file-scheme/fapi/v1/tradingSchedule — схема адреси не дозволена: живий виклик іде лише за HTTP чи захищеним HTTP, адресу не відкрито
 підсумок: 1 методів, 0 зелених, 1 червоних

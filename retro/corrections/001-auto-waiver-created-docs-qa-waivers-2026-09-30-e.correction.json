@@ -1,0 +1,13 @@
+{
+  "id": "COR-1",
+  "ts": "2026-09-30T14:50:42.860Z",
+  "utterance": "AUTO: waiver created (docs/qa/waivers/2026-09-30-evals-NFR-11-NFR-12.md) — an evidence requirement was waived; record why and disposition this correction.",
+  "contradictedClaim": null,
+  "mappedReqIds": [],
+  "gateThatShouldHaveCaught": null,
+  "failureMode": "skipped-convention",
+  "failureModeSource": "detector",
+  "source": "auto-waiver",
+  "autoKey": "waiver-created:docs/qa/waivers/2026-09-30-evals-NFR-11-NFR-12.md",
+  "disposition": null
+}

@@ -5,11 +5,12 @@ archived slice took: review evidence, `Slice:` trailers, and module scope.
 It does NOT verify test-first ordering or test integrity (not derivable from
 one-commit-per-slice history) — those are graded by the trajectory-eval workflow.
 
-Scope: 1 archived slice(s).
-Result: PASS, 1 warning(s)
+Scope: 2 archived slice(s).
+Result: PASS, 2 warning(s)
 
 | Slice | Review evidence | Trailer commits | design+tasks | lib domains touched |
 |---|---|---|---|---|
+| 2026-09-30-add-core | **unclean** | 3 | yes | agent, verify, __main__, boundaries, library, loop, report |
 | 2026-09-30-add-input | **unclean** | 5 | yes | live, registry |
 
 ## Cross-slice module overlap
@@ -22,4 +23,5 @@ None.
 
 ## Warnings
 
+- **review-evidence**: 2026-09-30-add-core: review-findings.json is unclean (review must have run clean before archive)
 - **review-evidence**: 2026-09-30-add-input: review-findings.json is unclean (review must have run clean before archive)

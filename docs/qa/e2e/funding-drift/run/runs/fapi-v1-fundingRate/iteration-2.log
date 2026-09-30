@@ -11,13 +11,13 @@ WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.i
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
 WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 
-$ mvn -q dependency:build-classpath -Dmdep.outputFile=/private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-tzkopih_/cp.txt
+$ mvn -q dependency:build-classpath -Dmdep.outputFile=/private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-fflx_vga/cp.txt
 WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
 WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.10/libexec/lib/guice-5.1.0-classes.jar)
 WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
 WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
 
-$ javac -proc:none -encoding UTF-8 -cp <класпас бібліотеки> -d /private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-tzkopih_ MethodSyncVerify.java
+$ javac -proc:none -encoding UTF-8 -cp <класпас бібліотеки> -d /private/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-verify-fflx_vga MethodSyncVerify.java
 
 $ java MethodSyncVerify
 клієнт бібліотеки повернув: [FuturesFundingRateInfo{symbol='BTCUSDT', fundingRate='0.00001399', fundingTime=1790697600000, markPrice='83039.30000000', rateType='Regular'}, FuturesFundingRateInfo{symbol='BTCUSDT', fundingRate='0.00007697', fundingTime=1790726400000, markPrice='83624.50000000', rateType='Regular'}, FuturesFundingRateInfo{symbol='BTCUSDT', fundingRate='-0.00000244', fundingTime=1790755200000, markPrice='83259.62923913', rateType='Regular'}]

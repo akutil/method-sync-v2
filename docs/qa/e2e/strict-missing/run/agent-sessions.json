@@ -1,6 +1,6 @@
 [
   {
-    "session": "8cb09fb5-be0d-4a2b-a57d-420f8c9907f3",
+    "session": "3f03b91d-561e-4a1e-b7b2-9cbbbd3a7d9e",
     "bash_commands": [
       "mvn -q -DskipTests test-compile"
     ]

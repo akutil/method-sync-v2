@@ -159,7 +159,7 @@
       "id": "FR-1",
       "specs": [
         "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -237,8 +237,8 @@
     {
       "id": "FR-8",
       "specs": [
-        "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -273,8 +273,8 @@
       "specs": [
         "openspec/specs/live-capture/spec.md",
         "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -286,8 +286,8 @@
       "id": "FR-15",
       "specs": [
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -298,7 +298,7 @@
     {
       "id": "FR-16",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -309,7 +309,7 @@
     {
       "id": "FR-17",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -320,8 +320,8 @@
     {
       "id": "FR-18",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -332,7 +332,7 @@
     {
       "id": "FR-19",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -345,9 +345,9 @@
       "specs": [
         "openspec/specs/live-capture/spec.md",
         "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -359,9 +359,9 @@
     {
       "id": "FR-21",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -375,8 +375,8 @@
       "specs": [
         "openspec/specs/live-capture/spec.md",
         "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -389,7 +389,7 @@
       "id": "FR-23",
       "specs": [
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -401,7 +401,7 @@
       "id": "FR-24",
       "specs": [
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -423,11 +423,11 @@
     {
       "id": "FR-26",
       "specs": [
+        "openspec/specs/field-verification/spec.md",
         "openspec/specs/live-capture/spec.md",
         "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -461,7 +461,7 @@
       "id": "FR-29",
       "specs": [
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -472,9 +472,9 @@
     {
       "id": "FR-30",
       "specs": [
+        "openspec/specs/field-verification/spec.md",
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -486,7 +486,7 @@
     {
       "id": "FR-31",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -498,7 +498,7 @@
     {
       "id": "FR-32",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -509,8 +509,8 @@
     {
       "id": "FR-33",
       "specs": [
-        "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -522,8 +522,8 @@
     {
       "id": "FR-34",
       "specs": [
-        "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/registry/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -535,9 +535,9 @@
     {
       "id": "FR-35",
       "specs": [
-        "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/live-capture/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -549,8 +549,8 @@
     {
       "id": "FR-36",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -562,7 +562,7 @@
     {
       "id": "FR-37",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -573,7 +573,7 @@
     {
       "id": "FR-38",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -584,7 +584,7 @@
     {
       "id": "FR-39",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -595,7 +595,7 @@
     {
       "id": "FR-40",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -606,9 +606,9 @@
     {
       "id": "FR-41",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -620,7 +620,7 @@
     {
       "id": "FR-42",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -632,7 +632,7 @@
     {
       "id": "FR-43",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -644,8 +644,8 @@
     {
       "id": "FR-44",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -657,7 +657,7 @@
     {
       "id": "FR-46",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -669,8 +669,8 @@
     {
       "id": "FR-47",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -681,7 +681,7 @@
     {
       "id": "FR-48",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -692,7 +692,7 @@
     {
       "id": "FR-49",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -703,7 +703,7 @@
     {
       "id": "FR-50",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -714,8 +714,8 @@
     {
       "id": "FR-51",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -726,8 +726,8 @@
     {
       "id": "FR-52",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/field-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/field-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -739,7 +739,7 @@
     {
       "id": "FR-53",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -751,7 +751,7 @@
     {
       "id": "FR-54",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -762,8 +762,8 @@
     {
       "id": "FR-55",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -774,9 +774,9 @@
     {
       "id": "FR-56",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/run-report/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -787,8 +787,8 @@
     {
       "id": "FR-57",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -799,7 +799,7 @@
     {
       "id": "FR-58",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md"
+        "openspec/specs/enum-verification/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -808,8 +808,8 @@
     {
       "id": "FR-60",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -820,9 +820,9 @@
     {
       "id": "FR-61",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -834,7 +834,7 @@
     {
       "id": "FR-62",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -845,7 +845,7 @@
     {
       "id": "FR-63",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -856,9 +856,9 @@
     {
       "id": "FR-64",
       "specs": [
-        "openspec/changes/add-core/specs/field-verification/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/field-verification/spec.md",
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -871,8 +871,8 @@
       "id": "FR-65",
       "specs": [
         "openspec/specs/registry/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -884,7 +884,7 @@
     {
       "id": "FR-66",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -896,8 +896,8 @@
     {
       "id": "FR-67",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -909,7 +909,7 @@
     {
       "id": "FR-68",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -922,7 +922,7 @@
     {
       "id": "FR-69",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -931,7 +931,7 @@
     {
       "id": "FR-70",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [],
@@ -940,9 +940,9 @@
     {
       "id": "FR-71",
       "specs": [
+        "openspec/specs/enum-verification/spec.md",
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -954,7 +954,7 @@
     {
       "id": "FR-72",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -966,7 +966,7 @@
     {
       "id": "FR-73",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -977,7 +977,7 @@
     {
       "id": "FR-74",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -988,7 +988,7 @@
     {
       "id": "FR-75",
       "specs": [
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1000,8 +1000,8 @@
     {
       "id": "FR-76",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1013,8 +1013,8 @@
       "id": "FR-77",
       "specs": [
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1026,9 +1026,9 @@
     {
       "id": "FR-78",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1039,8 +1039,8 @@
     {
       "id": "FR-79",
       "specs": [
-        "openspec/changes/add-core/specs/run-report/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-report/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1052,8 +1052,8 @@
     {
       "id": "FR-80",
       "specs": [
-        "openspec/changes/add-core/specs/enum-verification/spec.md",
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/enum-verification/spec.md",
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1065,7 +1065,7 @@
     {
       "id": "FR-81",
       "specs": [
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1077,7 +1077,7 @@
     {
       "id": "FR-82",
       "specs": [
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1089,7 +1089,7 @@
     {
       "id": "FR-83",
       "specs": [
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1100,7 +1100,7 @@
     {
       "id": "FR-84",
       "specs": [
-        "openspec/changes/add-core/specs/run-report/spec.md"
+        "openspec/specs/run-report/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1111,7 +1111,7 @@
     {
       "id": "FR-90",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1122,7 +1122,7 @@
     {
       "id": "FR-91",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1134,8 +1134,8 @@
       "id": "FR-92",
       "specs": [
         "openspec/specs/live-capture/spec.md",
-        "openspec/changes/add-core/specs/run-cli/spec.md",
-        "openspec/changes/add-core/specs/sync-loop/spec.md"
+        "openspec/specs/run-cli/spec.md",
+        "openspec/specs/sync-loop/spec.md"
       ],
       "planned": true,
       "tests": [
@@ -1146,10 +1146,12 @@
     {
       "id": "FR-93",
       "specs": [
-        "openspec/changes/add-core/specs/run-cli/spec.md"
+        "openspec/specs/run-cli/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/boundaries_run_test.py"
+      ],
       "recordings": []
     }
   ],
@@ -1166,10 +1168,6 @@
     {
       "check": "test-trace",
       "msg": "FR-70 has no test annotated \"@trace FR-70\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-93 has no test annotated \"@trace FR-93\""
     },
     {
       "check": "recording-evidence",
@@ -1502,10 +1500,6 @@
     {
       "check": "recording-evidence",
       "msg": "FR-93 is not referenced by any recording manifest under docs/qa/"
-    },
-    {
-      "check": "active-changes",
-      "msg": "active change \"add-core\" is not archived"
     }
   ]
 }

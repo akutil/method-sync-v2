@@ -2,6 +2,21 @@
   "generatedBy": "scripts/check-trajectory.mjs",
   "slices": [
     {
+      "slice": "2026-09-30-add-core",
+      "reviewEvidence": "unclean",
+      "trailerCommits": 3,
+      "libDomains": [
+        "agent",
+        "verify",
+        "__main__",
+        "boundaries",
+        "library",
+        "loop",
+        "report"
+      ],
+      "processComplete": true
+    },
+    {
       "slice": "2026-09-30-add-input",
       "reviewEvidence": "unclean",
       "trailerCommits": 5,
@@ -15,6 +30,10 @@
   "overlaps": [],
   "failures": [],
   "warnings": [
+    {
+      "check": "review-evidence",
+      "msg": "2026-09-30-add-core: review-findings.json is unclean (review must have run clean before archive)"
+    },
     {
       "check": "review-evidence",
       "msg": "2026-09-30-add-input: review-findings.json is unclean (review must have run clean before archive)"
