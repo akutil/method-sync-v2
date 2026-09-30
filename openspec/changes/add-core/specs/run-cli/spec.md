@@ -14,7 +14,7 @@
 `call = '"BTCUSDT", 3, null, null'` і червону першу перевірку (у `FuturesFundingRateInfo` немає `markPrice` і
 `rateType`).
 
-## Requirements
+## ADDED Requirements
 
 ### Requirement: Порядок обробки методів
 

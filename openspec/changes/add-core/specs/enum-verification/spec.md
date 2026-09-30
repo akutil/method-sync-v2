@@ -13,7 +13,7 @@
 вигадані класи на класпасі раннера. «Копія `.sandbox/`» — одноразовий клон `binancefutures` на коміті `cee6585`
 (TC-7).
 
-## Requirements
+## ADDED Requirements
 
 ### Requirement: Енамне поле моделі
 

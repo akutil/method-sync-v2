@@ -9,7 +9,7 @@
 перевірку визначає capability `field-verification`, енами — `enum-verification`, звіт — `run-report`, командний
 рядок, `--dry-run` і коди виходу — `run-cli`.
 
-## Requirements
+## ADDED Requirements
 
 ### Requirement: Цикл іде до першого зеленого вердикту
 
