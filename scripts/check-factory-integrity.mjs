@@ -98,7 +98,15 @@ function collectLockTargets() {
   if (existsSync(scriptsDir)) {
     for (const e of readdirSync(scriptsDir)) {
       if (statSync(join(scriptsDir, e)).isDirectory()) continue;
-      if (/^check-.*\.mjs$/.test(e) || /^(qa-verify|gate-status)(\.reference)?\.mjs$/.test(e)) {
+      // PD-4: .githooks/* are one-line `exec node scripts/hooks-*.mjs` wrappers, so the hook LOGIC
+      // lives in scripts/hooks-*.mjs; correct.mjs decides gate-status's UNRECORDED-CORRECTION red;
+      // ledger.mjs + ledger-report.mjs produce the digest and the process-defects fallback G7 keys on.
+      if (
+        /^check-.*\.mjs$/.test(e) ||
+        /^(qa-verify|gate-status)(\.reference)?\.mjs$/.test(e) ||
+        /^hooks-.*\.mjs$/.test(e) ||
+        /^(correct|ledger|ledger-report)(\.reference)?\.mjs$/.test(e)
+      ) {
         files.push(`scripts/${e}`);
       }
     }
