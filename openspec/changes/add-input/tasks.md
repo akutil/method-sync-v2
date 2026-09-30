@@ -5,7 +5,7 @@
 
 ## 1. Залежності
 
-- [ ] 1.1 Нових залежностей немає: `package.json` не змінено, модулі слайсу імпортують лише stdlib Python 3.14
+- [x] 1.1 Нових залежностей немає: `package.json` не змінено, модулі слайсу імпортують лише stdlib Python 3.14
   (`tomllib`, `pathlib`, `dataclasses`, `os`, `urllib.request`, `urllib.parse`, `urllib.error`, `http.client`, `json`,
   `datetime`, `threading`). Автоматичний тест імпортів проти `sys.stdlib_module_names` (NFR-14) з'явиться в
   `add-run-cli`, не тут.
@@ -73,11 +73,11 @@
 
 ## 3. Доменна логіка (зелені)
 
-- [ ] 3.1 `src/method_sync/registry.py` за design.md D1–D5: `RegistryError`, `slug_for`, `Method`, `Registry`,
+- [x] 3.1 `src/method_sync/registry.py` за design.md D1–D5: `RegistryError`, `slug_for`, `Method`, `Registry`,
   `load`; докстрінги пояснюють «чому» з посиланням на FR і принцип конституції.
-- [ ] 3.2 `src/method_sync/live.py` за design.md D6–D11: `TIMEOUT_SECONDS`, `RUNS_DIR`, `LiveUnavailable` (`url`,
+- [x] 3.2 `src/method_sync/live.py` за design.md D6–D11: `TIMEOUT_SECONDS`, `RUNS_DIR`, `LiveUnavailable` (`url`,
   `reason`), `FixtureWriteError` (`path`), `build_url`, `no_redirect_open`, `fetch`, `capture`.
-- [ ] 3.3 `npm run test:run` — усі тести слайсу зелені, жоден не послаблено, не пропущено й не видалено. Тест, що
+- [x] 3.3 `npm run test:run` — усі тести слайсу зелені, жоден не послаблено, не пропущено й не видалено. Тест, що
   суперечить спеці, — окремим рядком оркестраторові, а не правкою тесту.
 
 ## 4. CLI — не в цьому слайсі
