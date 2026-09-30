@@ -59,12 +59,13 @@ const has = (rel) => existsSync(join(root, rel));
 const GATE_COMMANDS = {
   traceability: { script: "check-traceability", args: [] },
   trajectory: { script: "check-trajectory", args: [] },
-  recordings: { script: "check-recordings", args: [] },
   coverage: { script: "check-coverage-ratchet", args: [] },
   evals: { script: "check-eval-ratchet", args: [] },
   acceptanceExistence: { script: "check-acceptance-methods", args: ["--mode=existence"] },
   acceptanceArtifact: { script: "check-acceptance-methods", args: ["--mode=artifact"] },
-  visual: { script: "check-visual-fidelity", args: [] },
+  // PD-3, method-sync-v2 adaptation (ADR-0001: CLI, no UI), the one qa-verify got at G0:
+  // check-recordings and check-visual-fidelity are not gate constituents here. CLI evidence is
+  // the e2e token (docs/qa/e2e-report.md), audited by acceptanceArtifact in G4/G6/G7.
   // EXPERIMENTAL per RULES-CHANGELOG.md — no --strict until promoted there.
   processRatchet: { script: "check-process-ratchet", args: [] },
   integrity: { script: "check-factory-integrity", args: [] },
@@ -73,7 +74,8 @@ const GATE_COMMANDS = {
   // (release strictness over an empty scaffold is pending, not broken).
   traceabilityRelease: {
     script: "check-traceability",
-    args: ["--release", "--strict-tests", "--strict-recordings"],
+    // PD-3 (ADR-0001): no --strict-recordings; a CLI has no recording manifests (e2e evidence: acceptanceArtifact).
+    args: ["--release", "--strict-tests"],
     releaseTier: true,
   },
   trajectoryRelease: {
@@ -193,8 +195,8 @@ const GATES = [
   { g: "G3", desc: "capability plan + acceptance methods exist", keys: ["acceptanceExistence"], fixed: (fold) => worst(has("docs/mvp-capability-plan.md") ? "needs sign-off" : "FAIL", fold) },
   { g: "G4", desc: "per-slice", keys: ["traceability", "trajectory", "acceptanceArtifact", "integrity"] },
   { g: "G5", desc: "hardening (coverage)", keys: ["coverage"] },
-  { g: "G6", desc: "QA proof", keys: ["recordings", "evals", "acceptanceArtifact", "visual"] },
-  { g: "G7", desc: "release", keys: ["traceabilityRelease", "trajectoryRelease", "recordings", "acceptanceArtifact", "integrity"] },
+  { g: "G6", desc: "QA proof", keys: ["evals", "acceptanceArtifact"] },
+  { g: "G7", desc: "release", keys: ["traceabilityRelease", "trajectoryRelease", "acceptanceArtifact", "integrity"] },
   { g: "G8", desc: "UAT (trace regressions)", keys: ["traceability"] },
 ];
 const gateRows = GATES.map((gate, idx) => {
