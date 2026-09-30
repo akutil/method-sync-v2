@@ -1,4 +1,4 @@
-# @trace FR-31, FR-33, FR-34, FR-35, FR-36, FR-38, FR-39, FR-41, FR-42, FR-44, FR-46, FR-47, FR-48, FR-49, FR-50, FR-51, FR-52, FR-53, NFR-2
+# @trace FR-31, FR-33, FR-34, FR-35, FR-36, FR-38, FR-39, FR-40, FR-41, FR-42, FR-43, FR-44, FR-46, FR-47, FR-48, FR-49, FR-50, FR-51, FR-52, FR-53, FR-54, NFR-2
 """Раннер перевірки проти справжньої бібліотеки і живої біржі (capability `field-verification`,
 `enum-verification`, зміна `add-core`): інтеграційний шар, unittest зі stdlib.
 
@@ -42,6 +42,9 @@ MARK_MODEL = f"{PKG}.FuturesMarkPriceInfo"
 FUNDING_MODEL = f"{PKG}.FuturesFundingRateInfo"
 SCHEDULE_MODEL = f"{PKG}.TradingScheduleResponse"
 TRADES_MODEL = f"{PKG}.FuturesTradeHistoryItem"
+TICKER_MODEL = f"{PKG}.FuturesTickerPrice"  # extends TickerPrice з артефакту com.binance.api:binance-api-client
+TICKER_PARENT = "com.binance.api.client.domain.market.TickerPrice"
+EXCHANGE_INFO_MODEL = f"{PKG}.FuturesExchangeInfo"
 MARKET_ENUM = f"{PKG}.MarketType"
 ORDER_ENUM = "com.example.binanceFutures.request.FuturesOrderType"
 MARK_FIELDS = ["estimatedSettlePrice", "indexPrice", "interestRate", "lastFundingRate", "markPrice",
@@ -262,6 +265,54 @@ class RunnerOnTheClone(RunnerCase):
         self.assertEqual(set(verdict), {"green", "stage", "reason", "limit_s"}, verdict)
         self.assertEqual((verdict["stage"], verdict["limit_s"]), ("timeout", 5))
         self.assertIn("5 с", verdict["reason"])
+
+    def assertRunnerStage(self, verdict, output, status):
+        """Сирий запит не дав живої відповіді: вердикт стадії `runner` із кодом статусу, без переліків полів."""
+        self.assertEqual(set(verdict), {"green", "stage", "reason"}, f"{verdict}\n{output[-2000:]}")
+        self.assertEqual((verdict["green"], verdict["stage"]), (False, "runner"))
+        self.assertIn(status, verdict["reason"])
+
+    def test_raw_429_with_an_error_body_is_a_runner_stage(self):
+        """FR-35, FR-43: 429 з тілом-помилкою біржі — не жива відповідь; інакше extra — кожне поле моделі."""
+        # Regression: review add-core — a 429 error body became the live keys, so extra listed every model field
+        server = self.serve(Reply(status=429, body=b'{"code":-1003,"msg":"Too many requests"}'))
+        verdict, output = self.check("/fapi/v1/premiumIndex", MARK_MODEL, "getMarkPrice", {"symbol": "BTCUSDT"},
+                                     url=f"{server.url}/fapi/v1/premiumIndex?symbol=BTCUSDT", verify_cmd="true")
+        self.assertRunnerStage(verdict, output, "429")
+
+    def test_raw_empty_503_is_a_runner_stage(self):
+        """FR-35, FR-43: порожня 503 — не жива відповідь без ключів."""
+        # Regression: review add-core — an empty 503 was compared as a body with no keys, so extra = every model field
+        server = self.serve(Reply(status=503, body=b""))
+        verdict, output = self.check("/fapi/v1/premiumIndex", MARK_MODEL, "getMarkPrice", {"symbol": "BTCUSDT"},
+                                     url=f"{server.url}/fapi/v1/premiumIndex?symbol=BTCUSDT", verify_cmd="true")
+        self.assertRunnerStage(verdict, output, "503")
+
+    def test_property_of_an_external_class_reddens(self):
+        """FR-40: `price` оголошено в `TickerPrice` зовнішнього артефакту; без ключа `price` — extra і червоний."""
+        # Regression: review add-core — FR-40 (inherited property from an external artifact) had no test
+        server = self.serve(Reply(body=b'{"symbol":"BTCUSDT","time":1790150400000}'))
+        verdict, output = self.check("/fapi/v1/ticker/price", TICKER_MODEL, "getLatestPrice", {"symbol": "BTCUSDT"},
+                                     url=f"{server.url}/fapi/v1/ticker/price?symbol=BTCUSDT", verify_cmd="true")
+        self.assertCompared(verdict, output)
+        self.assertEqual(verdict["model"], ["price", "symbol", "time"])
+        self.assertEqual((verdict["extra"], verdict["missing"]), (["price"], []))
+        self.assertEqual(verdict["owners"], {"price": TICKER_PARENT, "symbol": TICKER_PARENT, "time": TICKER_MODEL})
+        self.assertIs(verdict["green"], False)
+
+    def test_nested_enum_fields_are_not_compared(self):
+        """FR-54: `symbols[].orderTypes`/`timeInForce` — енами вкладеного класу; неоголошене значення там не
+        дає запису в `enums` і вердикт не червонить."""
+        # Regression: review add-core — FR-54 (enum check is top-level only) had no test
+        server = self.serve(Reply(body=b'{"timezone":"UTC","serverTime":1790150400000,"rateLimits":[],'
+                                       b'"exchangeFilters":[],"assets":[],"symbols":[{"symbol":"BTCUSDT",'
+                                       b'"orderTypes":["LIMIT","BOGUS_TYPE"],"timeInForce":["GTC","BOGUS_TIF"]}]}'))
+        verdict, output = self.check("/fapi/v1/exchangeInfo", EXCHANGE_INFO_MODEL, "getExchangeInfo",
+                                     url=f"{server.url}/fapi/v1/exchangeInfo", verify_cmd="true")
+        self.assertCompared(verdict, output)
+        self.assertEqual((verdict["extra"], verdict["missing"]), ([], []))
+        self.assertEqual(verdict["enums"], [])
+        self.assertIs(verdict["green"], verdict["client_error"] is None)
 
 
 @unittest.skipUnless(LIVE, SKIP)

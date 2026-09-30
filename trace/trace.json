@@ -598,7 +598,9 @@
         "openspec/changes/add-core/specs/field-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -634,6 +636,7 @@
       ],
       "planned": true,
       "tests": [
+        "tests/runner_integration_test.py",
         "tests/verify_test.py"
       ],
       "recordings": []
@@ -751,7 +754,9 @@
         "openspec/changes/add-core/specs/enum-verification/spec.md"
       ],
       "planned": true,
-      "tests": [],
+      "tests": [
+        "tests/runner_integration_test.py"
+      ],
       "recordings": []
     },
     {
@@ -1150,14 +1155,6 @@
   ],
   "failures": [],
   "warnings": [
-    {
-      "check": "test-trace",
-      "msg": "FR-40 has no test annotated \"@trace FR-40\""
-    },
-    {
-      "check": "test-trace",
-      "msg": "FR-54 has no test annotated \"@trace FR-54\""
-    },
     {
       "check": "test-trace",
       "msg": "FR-58 has no test annotated \"@trace FR-58\""

@@ -199,8 +199,8 @@ class BriefKeepsTheAgentInsideTheLibrary(unittest.TestCase):
 
 
 class CommandRunsTheAgentHeadless(unittest.TestCase):
-    """FR-65, FR-66, FR-67: `claude -p <бриф> --permission-mode acceptEdits --add-dir <runs> --allowedTools
-    Bash(<verify_cmd>)` і більше жодного прапорця, що дає права."""
+    """FR-65, FR-66, FR-67: `claude -p <бриф> --permission-mode dontAsk --add-dir <runs> --allowedTools Read
+    Edit(//<lib>/**) Write(//<lib>/**) Bash(<verify_cmd>)` і більше жодного прапорця, що дає права."""
 
     def setUp(self):
         self.text = "бриф"
@@ -214,7 +214,8 @@ class CommandRunsTheAgentHeadless(unittest.TestCase):
         self.assertEqual(self.argv[:3], ["claude", "-p", self.text])
 
     def test_each_flag_once(self):
-        self.assertEqual(self.value_of("--permission-mode"), "acceptEdits")
+        # Spec change 961991f: acceptEdits -> dontAsk (R-017)
+        self.assertEqual(self.value_of("--permission-mode"), "dontAsk")
         self.assertEqual(self.value_of("--add-dir"), f"{ROOT}/runs")
         self.assertEqual(self.value_of("--allowedTools"), f"Bash({VERIFY_CMD})")
         self.assertEqual([arg for arg in self.argv if arg.startswith("Bash(")], [f"Bash({VERIFY_CMD})"])
@@ -275,6 +276,42 @@ class InvokeHandsTheBriefOverUnchanged(InvokeCase):
         self.assertEqual(seen["stdin"], "")
         self.assertEqual(seen["cwd"], os.path.realpath(self.lib))
         self.assertIn("агент відпрацював", reply)
+
+
+def values_after(argv, flag):
+    """Значення прапорця — аргументи після нього до наступного прапорця."""
+    start = argv.index(flag) + 1
+    end = next((i for i in range(start, len(argv)) if argv[i].startswith("-")), len(argv))
+    return argv[start:end]
+
+
+class InvokeGrantsOnlyTheAllowList(InvokeCase):
+    """FR-65, FR-66, FR-67, сценарій «Рядок запуску агента»: dontAsk і `--allowedTools` рівно `Read`,
+    `Edit(//<lib>/**)`, `Write(//<lib>/**)`, `Bash(<verify_cmd>)`, де `lib` — робочий каталог процесу агента."""
+
+    def test_dont_ask_and_the_allow_list_scoped_to_lib(self):
+        # Regression: review add-core — acceptEdits let the agent run touch/rm and edit runs/ (R-017)
+        record = self.tmp / "record.json"
+        self.fake_claude(
+            f"#!{sys.executable}\n"
+            "import json, os, sys\n"
+            f"json.dump({{'argv': sys.argv[1:], 'cwd': os.getcwd()}}, open({str(record)!r}, 'w', encoding='utf-8'))\n")
+        runs = self.tmp / "runs"
+        runs.mkdir()
+        invoke("бриф", cwd=self.lib, add_dirs=[str(runs)], allowed_commands=[VERIFY_CMD])
+        seen = json.loads(record.read_text(encoding="utf-8"))
+        argv = seen["argv"]
+        self.assertEqual(seen["cwd"], os.path.realpath(self.lib))
+        self.assertEqual(values_after(argv, "--add-dir"), [str(runs)])
+        self.assertEqual(argv.count("--allowedTools"), 1, argv)
+        tools = sorted(values_after(argv, "--allowedTools"))
+        # `lib` абсолютний, з префіксом `/` (тобто `//…`): однослешний шлях Claude Code читає відносно налаштувань.
+        expected = [sorted(["Read", f"Edit(/{lib}/**)", f"Write(/{lib}/**)", f"Bash({VERIFY_CMD})"])
+                    for lib in (str(self.lib), os.path.realpath(self.lib))]
+        self.assertIn(tools, expected)
+        self.assertNotIn("acceptEdits", argv)
+        self.assertEqual(argv.count("--permission-mode"), 1, argv)
+        self.assertEqual(values_after(argv, "--permission-mode"), ["dontAsk"])
 
 
 class InvokeNeverFailsTheRun(InvokeCase):
