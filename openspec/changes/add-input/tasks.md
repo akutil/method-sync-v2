@@ -194,4 +194,4 @@
 - [x] 7.6 R2-06, R2-08 — тіло читається з межею `MAX_BODY_BYTES` = 32 МБ (у тисячі разів більше за будь-яку відповідь
   REST Binance); більше — `LiveUnavailable` «тіло більше за 32 МБ»; заголовок із завеликим `Content-Length` не дає
   сирого `MemoryError`/`OverflowError`. Регресія: локальний сервер віддає більше за межу (межа — константа модуля).
-- [ ] 7.7 Раунд 3 `review-gate` на диф 7.x.
+- [ ] 7.7 Раунд 3 `review-gate` на диф 7.x; за ADR-0003 блокують лише major/critical, решта — у `docs/qa/review-backlog.md`.

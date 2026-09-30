@@ -47,6 +47,9 @@ const scope = args?.scope ?? 'working tree'
 const baseRef = args?.baseRef
 const headRef = args?.headRef ?? 'HEAD'
 const focus = args?.focus ?? ''
+// method-sync-v2 fork (ADR-0003, owner's decision 2026-09-30): only confirmed or contested findings of these
+// severities block a slice; lower ones are still found and adversarially verified, and land in the backlog.
+const blockingSeverities = Array.isArray(args?.blockingSeverities) ? args.blockingSeverities : ['critical', 'major']
 const diffInstruction = baseRef
   ? `Review the changes in \`git diff ${baseRef}..${headRef}\` (run that command yourself; also read surrounding context of changed files).`
   : 'Review the entire current codebase (use AGENTS.md and openspec/ to scope what matters).'
@@ -119,6 +122,8 @@ phase('Report')
 const confirmed = verified.filter(Boolean).filter((f) => f.verdict === 'confirmed')
 const contested = verified.filter(Boolean).filter((f) => f.verdict === 'contested')
 const rejected = verified.filter(Boolean).filter((f) => f.verdict === 'rejected')
+const blocking = [...confirmed, ...contested].filter((f) => blockingSeverities.includes(f.severity))
+const backlog = [...confirmed, ...contested].filter((f) => !blockingSeverities.includes(f.severity))
 log(`confirmed: ${confirmed.length}, contested: ${contested.length}, rejected: ${rejected.length}`)
 
 // Persist per-slice review evidence so check-trajectory can PROVE review ran
@@ -139,7 +144,10 @@ if (change) {
     headRef,
     dimensions: dims,
     confirmedTitles: confirmed.map((f) => f.title),
-    clean: confirmed.length === 0,
+    blockingSeverities,
+    blockingTitles: blocking.map((f) => f.title),
+    backlogTitles: backlog.map((f) => `[${f.severity}] ${f.title} (${f.file}:${f.line ?? 0})`),
+    clean: blocking.length === 0,
     generatedAt: 'WRITER_FILL_ISO_UTC',
   }
   await agent(
@@ -150,7 +158,9 @@ if (change) {
 
 return {
   scope,
-  summary: `Review gate for ${scope}: ${confirmed.length} confirmed, ${contested.length} contested (treat as confirmed unless trivially wrong), ${rejected.length} rejected.`,
+  summary: `Review gate for ${scope}: ${confirmed.length} confirmed, ${contested.length} contested (treat as confirmed unless trivially wrong), ${rejected.length} rejected; ${blocking.length} blocking (${blockingSeverities.join('/')}), ${backlog.length} to the backlog.`,
+  blocking,
+  backlog,
   confirmed,
   contested,
   rejected,
