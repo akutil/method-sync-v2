@@ -1,0 +1,40 @@
+# Приклад реєстру методів method-sync-v2 для першої цілі — binancefutures.
+# Реєстр веде людина: що тут записано, те інструмент і перевіряє. Формат — TOML (tomllib зі stdlib).
+#
+# Запуск із кореня цього репозиторію:
+#   PYTHONPATH=src python3 -m method_sync --registry registry.toml [--only /fapi/v1/fundingRate] [--dry-run]
+
+# Робоча копія цільової бібліотеки. Відносний шлях рахується від поточного каталогу процесу, тож CLI запускають
+# із кореня репозиторію. Тут — одноразова копія в .sandbox/, а не робоча копія людини: доказові прогони йдуть лише
+# по ній.
+lib = ".sandbox/binancefutures"
+
+# Єдина команда перевірки бібліотеки. Вона ж — єдина команда, яку дозволено агентові. Рядок розбирається
+# shlex.split і запускається без шелу, тож «&&» і «|» тут не працюють. Зірочки бути не повинно: Claude Code
+# прочитав би її як шаблон дозволу, і агента тоді не кличуть.
+verify_cmd = "mvn -q -DskipTests test-compile"
+
+[live]
+# Біржа, з якої знімається жива відповідь. Методи нижче публічні — ключі біржі не потрібні.
+base_url = "https://fapi.binance.com"
+
+[[method]]
+path = "/fapi/v1/premiumIndex"
+model = "com.example.binanceFutures.response.FuturesMarkPriceInfo"
+client_method = "getMarkPrice"
+args = { symbol = "BTCUSDT" }
+
+[[method]]
+path = "/fapi/v1/fundingRate"
+model = "com.example.binanceFutures.response.FuturesFundingRateInfo"
+client_method = "getFundingRates"
+args = { symbol = "BTCUSDT", limit = 3 }
+# Підпис у бібліотеці — getFundingRates(String, Integer, Long, Long): самих args на виклик не досить, тож аргументи
+# виклику клієнта задано дослівно. Живий виклик інструмента однаково йде з args.
+call = '"BTCUSDT", 3, null, null'
+
+[[method]]
+# Модель із мапою Map<MarketType, MarketSchedule>: тут перевірка звіряє ще й значення енама MarketType.
+path = "/fapi/v1/tradingSchedule"
+model = "com.example.binanceFutures.response.TradingScheduleResponse"
+client_method = "getTradingSchedule"
