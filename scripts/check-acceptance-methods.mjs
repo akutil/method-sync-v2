@@ -402,7 +402,7 @@ function thresholdFor(id, spec) {
 }
 
 // ---------- artifact validation ----------
-function validateArtifact(rel, kind, threshold) {
+function validateArtifact(rel, kind, threshold, id = null) {
   const raw = read(rel);
   if (raw === null || raw.length === 0) return { ok: false, msg: `${rel} is empty` };
   const isJson = rel.endsWith(".json");
@@ -429,6 +429,15 @@ function validateArtifact(rel, kind, threshold) {
   // exists-passed
   if (data && typeof data.status === "string" && !["passed", "pass", "ok", "green"].includes(data.status.toLowerCase()))
     return { ok: false, msg: `${rel}: status is "${data.status}", not passed` };
+  // PD-6: a Markdown report is not self-validating; its mere existence passed every requirement
+  // declaring the method (30 e2e contracts here). It must carry a final "Result:"/"Status:"
+  // verdict AND cite the requirement it vouches for.
+  if (rel.endsWith(".md")) {
+    const verdict = [...raw.matchAll(/^\s*\**\s*(?:result|status)\s*\**\s*:\s*\**\s*([A-Za-z-]+)/gim)].pop()?.[1]?.toLowerCase();
+    if (!verdict) return { ok: false, msg: `${rel}: no "Result:"/"Status:" line; a Markdown report's existence is not a pass` };
+    if (!["passed", "pass", "ok", "green"].includes(verdict)) return { ok: false, msg: `${rel}: verdict is "${verdict}", not passed` };
+    if (id && !new RegExp(`\\b${id}\\b`).test(raw)) return { ok: false, msg: `${rel} does not cite ${id}; it does not vouch for this requirement` };
+  }
   return { ok: true, msg: "artifact present" };
 }
 
@@ -468,7 +477,7 @@ function checkArtifact(id, method, spec) {
   let staleOnly = null;
   for (const f of matches) {
     const ageH = (Date.now() - statSync(join(root, f)).mtimeMs) / 3_600_000;
-    const v = validateArtifact(f, spec.artifactCheck ?? "exists-passed", threshold);
+    const v = validateArtifact(f, spec.artifactCheck ?? "exists-passed", threshold, id);
     if (v.ok && ageH <= maxAgeHours) okFresh = okFresh ?? { f, msg: v.msg };
     else if (v.ok) staleOnly = staleOnly ?? { f, ageH };
     else if (ageH <= maxAgeHours) freshBad = freshBad ?? v;

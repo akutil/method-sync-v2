@@ -1644,10 +1644,6 @@
     },
     {
       "check": "active-changes",
-      "msg": "active change \"improve-PD-6\" is not archived"
-    },
-    {
-      "check": "active-changes",
       "msg": "active change \"improve-PD-7\" is not archived"
     }
   ]
