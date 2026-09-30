@@ -2,7 +2,7 @@
 
 - **Defect:** PD-4 (`docs/qa/process-defects.json`): the integrity lock seals `.githooks/pre-commit` and `.githooks/commit-msg`, but those are one-line `exec node scripts/hooks-*.mjs` wrappers. The hook logic is unlocked, and so are `correct.mjs` (decides gate-status's UNRECORDED-CORRECTION red) and `ledger.mjs`/`ledger-report.mjs` (write the process-defects fallback that G7 keys on). Editing any of them produces no red and not even a WARN.
 - **Class / severity:** check-too-weak / P1
-- **Status:** draft
+- **Status:** landed (approved by the owner at checkpoint 2, 2026-09-30)
 
 ## Scope
 
@@ -111,5 +111,5 @@ PROOF OK
 
 ## Approval & trailer convention
 
-- Human approver: ________ · Date: ________
+- Human approver: Andrii Kutil (owner), checkpoint 2 in the Claude Code session · Date: 2026-09-30
 - The commit containing this diff and the resealed `factory-lock.json` MUST end with the trailer line `Refs: PD-4`.

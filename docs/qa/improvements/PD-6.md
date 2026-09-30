@@ -2,7 +2,7 @@
 
 - **Defect:** PD-6 (`docs/qa/process-defects.json`): under `exists-passed`, a Markdown artifact passes on mere existence (`check-acceptance-methods.mjs:429-432`). This project's e2e evidence is `docs/qa/e2e-report.md` (factory-lock adaptation 6; the path is also a built-in e2e glob at line 135). So any non-empty, fresh file with any content satisfies all 30 e2e contracts. It does not have to report a pass or cite them.
 - **Class / severity:** check-too-weak / P1
-- **Status:** draft, rev 2. In rev 1's executed proof, `1 out of 3 hunks failed`: hunk 1 had 1 leading and 0 trailing context lines, and `patch` anchors such a hunk to the end of the file. Rev 2 changes no code, only the hunk shape: every hunk now carries 3 context lines before and after.
+- **Status:** landed (approved by the owner at checkpoint 2, 2026-09-30)
 
 ## Scope
 
@@ -115,5 +115,5 @@ PROOF OK
 
 ## Approval & trailer convention
 
-- Human approver: ________ · Date: ________
+- Human approver: Andrii Kutil (owner), checkpoint 2 in the Claude Code session · Date: 2026-09-30
 - The commit containing this diff MUST end with the trailer line `Refs: PD-6`.

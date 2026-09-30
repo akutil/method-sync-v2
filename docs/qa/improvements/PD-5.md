@@ -2,7 +2,7 @@
 
 - **Defect:** PD-5 (`docs/qa/process-defects.json`): `factory-lock.json` is outside its own protection. Drift is measured against whatever the lock currently says (`check-factory-integrity.mjs:209`), and `--init-lock` only WARNs "not routine" before printing `Result: PASS` (lines 180, 185). One commit can weaken a gate script, reseal, and verify clean with no `Refs: PD-<n>`. Every other PD protection rests on this lock.
 - **Class / severity:** check-too-weak / P1
-- **Status:** draft
+- **Status:** landed (approved by the owner at checkpoint 2, 2026-09-30)
 
 ## Scope
 
@@ -110,5 +110,5 @@ PROOF OK
 
 ## Approval & trailer convention
 
-- Human approver: ________ · Date: ________
+- Human approver: Andrii Kutil (owner), checkpoint 2 in the Claude Code session · Date: 2026-09-30
 - The commit containing this diff MUST end with the trailer line `Refs: PD-5`.

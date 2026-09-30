@@ -2,7 +2,7 @@
 
 - **Defect:** PD-3 (`docs/qa/process-defects.json`): gate-status still keys G6 on `recordings` and `visual`, and G7 on `recordings` plus `check-traceability --strict-recordings`, although ADR-0001 (owner-accepted) removed recordings and visual-fidelity from the qa-verify battery. For a CLI all four are red forever: `--strict-recordings` fails every MVP FR that has no recording manifest (`check-traceability.mjs:181-186`, class `recording-evidence`). G6/G7 cannot be passed honestly, which leaves only forged manifests or an unapproved edit.
 - **Class / severity:** label-drift / P1
-- **Status:** draft, rev 2. Rev 1's executed proof failed because G7 was still keyed on `--strict-recordings` (the proof's own assertion caught it). Rev 2 drops that flag, and every hunk now carries symmetric 3-line context.
+- **Status:** landed (approved by the owner at checkpoint 2, 2026-09-30)
 
 ## Scope
 
@@ -140,5 +140,5 @@ PROOF OK
 
 ## Approval & trailer convention
 
-- Human approver: ________ · Date: ________
+- Human approver: Andrii Kutil (owner), checkpoint 2 in the Claude Code session · Date: 2026-09-30
 - The commit containing this diff MUST end with the trailer line `Refs: PD-3`.

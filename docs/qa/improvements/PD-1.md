@@ -2,7 +2,7 @@
 
 - **Defect:** PD-1 (`docs/qa/process-defects.json`): G2 "baseline specs" and G8 render PASS while `openspec/specs/` holds zero specs. check-traceability prints no `Scope:`/`Result:` line on stdout, so gate-status's three-valued parser falls through to PASS on exit 0.
 - **Class / severity:** vacuous-pass / P0
-- **Status:** draft
+- **Status:** landed (approved by the owner at checkpoint 2, 2026-09-30)
 
 ## Scope
 
@@ -100,5 +100,5 @@ PROOF OK
 
 ## Approval & trailer convention
 
-- Human approver: ________ · Date: ________
+- Human approver: Andrii Kutil (owner), checkpoint 2 in the Claude Code session · Date: 2026-09-30
 - The commit containing this diff MUST end with the trailer line `Refs: PD-1`.

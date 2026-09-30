@@ -2,7 +2,7 @@
 
 - **Defect:** PD-7 (`docs/qa/process-defects.json`): ADR-0001:58 records the owner's checkpoint-1 decision that "G5 показує його явно як WAIVED, не PASS". gate-status has no WAIVED state (`SEVERITY`, line 178; `Result:` parser, line 159). A check that passes only because a waiver suppressed its failures (for example check-acceptance-methods' `WAIVED [...]` lines followed by `Result: PASS, N warning(s)`) renders plain PASS. This matters at checkpoint 2 if any of the 30 e2e contracts is waived.
 - **Class / severity:** wrong-claim / P1
-- **Status:** draft
+- **Status:** landed (approved by the owner at checkpoint 2, 2026-09-30)
 
 ## Scope
 
@@ -102,5 +102,5 @@ PROOF OK
 
 ## Approval & trailer convention
 
-- Human approver: ________ · Date: ________
+- Human approver: Andrii Kutil (owner), checkpoint 2 in the Claude Code session · Date: 2026-09-30
 - The commit containing this diff MUST end with the trailer line `Refs: PD-7`.

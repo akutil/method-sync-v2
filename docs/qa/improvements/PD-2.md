@@ -2,7 +2,7 @@
 
 - **Defect:** PD-2 (`docs/qa/process-defects.json`): in artifact mode, check-acceptance-methods cannot see `tests/*_test.py`. The G0 adaptation reached check-traceability but not this copy of the same predicate, and the unadapted version was then locked.
 - **Class / severity:** skipped-convention / P1
-- **Status:** draft
+- **Status:** landed (approved by the owner at checkpoint 2, 2026-09-30)
 
 ## Scope
 
@@ -82,5 +82,5 @@ PROOF OK
 
 ## Approval & trailer convention
 
-- Human approver: ________ · Date: ________
+- Human approver: Andrii Kutil (owner), checkpoint 2 in the Claude Code session · Date: 2026-09-30
 - The commit containing this diff MUST end with the trailer line `Refs: PD-2`.
