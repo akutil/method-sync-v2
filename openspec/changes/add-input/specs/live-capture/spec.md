@@ -9,7 +9,7 @@
 Спека покриває FR-23–FR-30, NFR-4 і NFR-11 для повідомлень із кодом `3`; лише stdlib — див. capability `run-cli`,
 NFR-14. Якщо не сказано іншого, `base_url` — `https://fapi.binance.com`.
 
-## Requirements
+## ADDED Requirements
 
 ### Requirement: Живий виклик методу
 
