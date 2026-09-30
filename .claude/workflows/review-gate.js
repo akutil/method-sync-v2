@@ -49,7 +49,11 @@ const headRef = args?.headRef ?? 'HEAD'
 const focus = args?.focus ?? ''
 // method-sync-v2 fork (ADR-0003, owner's decision 2026-09-30): only confirmed or contested findings of these
 // severities block a slice; lower ones are still found and adversarially verified, and land in the backlog.
+const SEVERITIES = ['minor', 'major', 'critical']
 const blockingSeverities = Array.isArray(args?.blockingSeverities) ? args.blockingSeverities : ['critical', 'major']
+if (blockingSeverities.length === 0 || blockingSeverities.some((x) => !SEVERITIES.includes(x))) {
+  return { error: `blockingSeverities must be a non-empty subset of ${SEVERITIES.join(', ')}` }
+}
 const diffInstruction = baseRef
   ? `Review the changes in \`git diff ${baseRef}..${headRef}\` (run that command yourself; also read surrounding context of changed files).`
   : 'Review the entire current codebase (use AGENTS.md and openspec/ to scope what matters).'
@@ -113,7 +117,14 @@ const verified = await parallel(
     ).then((votes) => {
       const valid = votes.filter(Boolean)
       const refutes = valid.filter((v) => v.refuted).length
-      return { ...f, verdict: refutes >= 2 ? 'rejected' : refutes === 1 ? 'contested' : 'confirmed', verifierNotes: valid.map((v) => v.reasoning) }
+      // method-sync-v2 fork (ADR-0003, review round 3): the verifiers' severityAdjustment is applied by majority,
+      // so blocking is decided on the verified severity, not the finder's own label.
+      const ups = valid.filter((v) => v.severityAdjustment === 'upgrade').length
+      const downs = valid.filter((v) => v.severityAdjustment === 'downgrade').length
+      const at = SEVERITIES.indexOf(f.severity)
+      const shift = ups * 2 > valid.length ? 1 : downs * 2 > valid.length ? -1 : 0
+      const severity = at < 0 ? f.severity : SEVERITIES[Math.min(SEVERITIES.length - 1, Math.max(0, at + shift))]
+      return { ...f, reportedSeverity: f.severity, severity, verdict: refutes >= 2 ? 'rejected' : refutes === 1 ? 'contested' : 'confirmed', verifierNotes: valid.map((v) => v.reasoning) }
     }),
   ),
 )

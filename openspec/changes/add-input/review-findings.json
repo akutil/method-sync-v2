@@ -1,0 +1,48 @@
+{
+  "generatedBy": "review-gate",
+  "scope": "add-input",
+  "change": "add-input",
+  "baseRef": "949d74b",
+  "headRef": "HEAD",
+  "dimensions": {
+    "correctness": {
+      "confirmed": 6,
+      "contested": 0,
+      "rejected": 0
+    },
+    "security": {
+      "confirmed": 4,
+      "contested": 0,
+      "rejected": 0
+    },
+    "spec-compliance": {
+      "confirmed": 5,
+      "contested": 1,
+      "rejected": 0
+    },
+    "visual": {
+      "confirmed": 0,
+      "contested": 0,
+      "rejected": 0
+    }
+  },
+  "confirmedTitles": [
+    "review-round-2.md adds 8 raw U+202E characters, the same Trojan Source defect that 7.3 removed from design.md",
+    "For 2xx statuses other than 200, _status_reason decodes and splits the whole capped body: a 32 MiB body reached 760 MiB RSS",
+    "The stated rationale for MAX_BODY_BYTES is wrong: real Binance REST bodies reach 16.9 MiB, not kilobytes",
+    "The review-gate fork decides blocking from the finder's own severity and drops the verifiers' severityAdjustment",
+    "blockingSeverities accepts any array, and check-trajectory never checks which policy produced clean:true",
+    "Committed review record adds scratchpad paths that carry the company name and the owner's username",
+    "Body cap does not bound memory for chunked responses: chunk size -1 reads to EOF, and 2-byte chunks turn the 32 MB cap into a 1.7 GB peak (R2-06/R2-08 fix incomplete)",
+    "review-round-2.md reintroduces 8 raw U+202E RIGHT-TO-LEFT OVERRIDE characters: the transcription decoded the reviewers' escape into the character that R2-03/R2-07/R2-09 removed from design.md",
+    "review-gate fork makes severity decide 'clean' but discards the verifiers' severityAdjustment, so an under-rated confirmed finding never blocks",
+    "review-round-2.md adds the owner's local username and the company name through scratchpad paths, against the 2026-09-30 AGENTS.md boundary rule",
+    "Fix 7.3 is incomplete: review-round-2.md, added in the same commit, contains 8 raw U+202E RIGHT-TO-LEFT OVERRIDE characters (the R2-03/R2-07/R2-09 Trojan-Source pattern again)",
+    "R2-08 is only partly fixed: MAX_BODY_BYTES caps the bytes read, not memory. A stream of tiny chunks reached 949 MB, and a 206 reply with a 32 MB body reached 760 MB",
+    "The stated reason for the 32 MB cap is wrong: Binance REST bodies reach megabytes, so 32 MB is about 29x the largest one, not \"thousands of times\"",
+    "ADR-0003 was not carried into the slice's process files: tasks 5.6 still says fix every confirmed finding, current-state.md is stale, and the backlog has no dates",
+    "New texts written after the 2026-09-30 naming rule add a person's name and company-bearing paths"
+  ],
+  "clean": false,
+  "generatedAt": "2026-09-30T12:52:06Z"
+}

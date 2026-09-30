@@ -2,7 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-09-30
-- **Deciders:** власник (Andrii Kutil), за пропозицією оркестратора
+- **Deciders:** власник, за пропозицією оркестратора
 
 ## Context
 
@@ -16,7 +16,7 @@ Workflow `review-gate` фабрики вважає слайс чистим ли�
 
 Проєктний форк `.claude/workflows/review-gate.js`: аргумент `blockingSeverities` (типово `['critical', 'major']`).
 Шукають і адверсарно верифікують, як і раніше, усі знахідки; `clean` означає «немає підтверджених чи спірних
-знахідок блокуючої серйозності». Нижчі йдуть у `backlogTitles` доказу `review-findings.json`, а оркестратор
+знахідок блокуючої серйозності», де серйозність — після поправки верифікаторів (`severityAdjustment` більшістю голосів; додано після раунду 3). Нижчі йдуть у `backlogTitles` доказу `review-findings.json`, а оркестратор
 переносить їх у `docs/qa/review-backlog.md` — видимо, з місцем і датою.
 
 ## Alternatives considered

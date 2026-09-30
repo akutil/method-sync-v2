@@ -96,7 +96,7 @@
 - [ ] 5.6 Workflow `review-gate`: `scope` — `"add-input"`, `focus` — файли слайсу (`src/method_sync/registry.py`,
   `src/method_sync/live.py`, `tests/registry_test.py`, `tests/live_test.py`, `openspec/changes/add-input/`), `baseRef`
   — `cf8cdd9`: слайс закомічено (`aa4e2a9`, `9531134`, `115a1f4`), тож рецензія йде на `git diff cf8cdd9..HEAD`.
-  Виправити кожну підтверджену знахідку, а також спірну, якщо вона не очевидно хибна; після правок повторити 5.1–5.5.
+  За ADR-0003 виправити кожну підтверджену major/critical знахідку (решта — у беклог), а також спірну, якщо вона не очевидно хибна; після правок повторити 5.1–5.5.
   До архіву `openspec/changes/add-input/review-findings.json` має містити `"clean": true`.
 - [x] 5.7 Smoke на справжніх входах. Драйвер `docs/qa/smoke/add-input/driver.py` (stdlib і `method_sync`) виходить із
   ненульовим кодом на першій розбіжності; вивід зберігається в `docs/qa/smoke/add-input/output.txt`. Запуск — з

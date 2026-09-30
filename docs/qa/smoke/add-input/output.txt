@@ -1,0 +1,29 @@
+repo=/Users/akutil/humex/method-sync-v2
+cwd=/private/tmp
+OK    1. /Users/akutil/humex/method-sync-v2/.sandbox/binancefutures — git-репозиторій
+OK    2. verify_cmd з реєстру v1
+OK    2. base_url
+OK    2. status=active, credentials=None
+OK    2. методи ['/fapi/v1/premiumIndex', '/fapi/v1/fundingRate']
+OK    2. premiumIndex args, без call
+OK    2. fundingRate args і call
+OK    3. /Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json до smoke немає
+      жива відповідь недоступна: http://127.0.0.1:9/fapi/v1/premiumIndex?symbol=BTCUSDT — [Errno 61] Connection refused
+OK    3. повідомлення з URL і причиною
+OK    3. фікстури після недоступного виклику немає
+OK    4. фікстуру записано: /Users/akutil/humex/method-sync-v2/runs/fapi-v1-premiumIndex/fixture.json
+      keys=['estimatedSettlePrice', 'indexPrice', 'interestRate', 'lastFundingRate', 'markPrice', 'nextFundingTime', 'symbol', 'time']
+OK    4. http_status, path, args
+OK    4. рівно 8 ключів premiumIndex
+      жива відповідь недоступна: http://127.0.0.1:9/fapi/v1/premiumIndex?symbol=BTCUSDT — [Errno 61] Connection refused
+OK    5. BTCUSDT: у повідомленні «недоступна»
+      жива відповідь недоступна: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=NOSUCHSYMBOL — статус HTTP 400, а не 200; тіло: {"code":-1121,"msg":"Invalid symbol."}
+OK    5. NOSUCHSYMBOL: у повідомленні «400»
+OK    5. SHA-256 фікстури не змінився
+      жива відповідь недоступна: https://fapi.binance.com/fapi/v1/fundingRate?symbol=NOSUCHSYMBOL&limit=3 — на верхньому рівні тіла немає жодного ключа об'єкта, тож нема з чого вивести склад полів
+OK    6. «немає жодного ключа»
+OK    6. фікстури fundingRate немає
+OK    7. git status копії бібліотеки той самий
+OK    8. фікстура скопійована в docs/qa/smoke/add-input/
+SMOKE PASS
+exit=0
