@@ -1629,10 +1629,6 @@
     {
       "check": "recording-evidence",
       "msg": "FR-93 is not referenced by any recording manifest under docs/qa/"
-    },
-    {
-      "check": "active-changes",
-      "msg": "active change \"improve-PD-5\" is not archived"
     }
   ]
 }

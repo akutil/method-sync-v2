@@ -258,6 +258,28 @@ if (lock?.files) {
   }
 }
 
+// PD-5: the lock is the trust root, but factory-lock.json itself was never checked. A commit that
+// edits a gate script AND reseals with --init-lock verified clean without any "Refs: PD-<n>".
+// Every commit touching the lock after the first one (the post-adaptation G0 lock) must carry one.
+if (lock) {
+  if (git(["rev-parse", "--is-shallow-repository"]) === "true") {
+    warn("lock", "shallow clone: factory-lock.json reseal provenance cannot be verified (check out with fetch-depth: 0).");
+  } else {
+    const hist = git(["log", "--format=%H%x1f%B%x1e", "--", LOCK_PATH]);
+    if (hist === null) {
+      warn("lock", "git history unavailable: factory-lock.json reseal provenance cannot be verified.");
+    } else {
+      const commits = hist.split("\u001e").map((c) => c.trim()).filter(Boolean);
+      for (const c of commits.slice(0, -1)) {
+        const [sha, body = ""] = c.split("\u001f");
+        if (!/Refs:\s*PD-\d+/i.test(body)) {
+          fail("lock", `factory-lock.json was resealed in ${sha.slice(0, 7)} without a "Refs: PD-<n>" trailer; a reseal launders every gate-script drift it absorbs. Revert that reseal or re-land it inside an approved improvement.`);
+        }
+      }
+    }
+  }
+}
+
 // Echo-stub scan over the npm scripts the qa battery actually names.
 function batteryScriptNames() {
   const names = new Set();
