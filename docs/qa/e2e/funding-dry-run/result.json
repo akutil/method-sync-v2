@@ -1,0 +1,175 @@
+{
+  "scenario": "funding-dry-run",
+  "verdict": "FAIL",
+  "ids": [
+    "FR-18",
+    "FR-19",
+    "FR-24",
+    "FR-39",
+    "FR-64",
+    "FR-77",
+    "FR-79",
+    "FR-90",
+    "FR-93",
+    "NFR-6",
+    "NFR-10"
+  ],
+  "expected": "`--dry-run` на справжньому розходженні `/fapi/v1/fundingRate`: код 1; одна перевірка — `перевірка=red`; агента немає; фікстура, `iteration-1.log` і звіт записані, `verify_result` — «dry-run: агента не кликали», `mismatch` — бракує markPrice, rateType; копія без змін.",
+  "observed": "не пройшло 6 з 14 перевірок; перша — «рядки методів у stdout, у порядку реєстру»: очікувалось /fapi/v1/fundingRate refresh ітерацій=1 перевірка=red; спостерігалось рядків методів немає; stderr run: /opt/homebrew/opt/python@3.14/bin/python3.14: No module named method_sync.__main__; 'method_sync' is a package and cannot be directly executed; run: код 1, 0 с, сесій агента 0",
+  "started": "2026-09-30T07:41:26+00:00",
+  "finished": "2026-09-30T07:41:29+00:00",
+  "fingerprint": "562fac644ae112c5",
+  "tool_commit": "7929724cb3cf2875456671e62cb732ef77851b1b",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": false,
+  "notes": [],
+  "checks": [
+    {
+      "name": "код виходу 1",
+      "ids": [
+        "FR-18",
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "1",
+      "observed": "1"
+    },
+    {
+      "name": "рядки методів у stdout, у порядку реєстру",
+      "ids": [
+        "FR-18",
+        "FR-19"
+      ],
+      "ok": false,
+      "expected": "/fapi/v1/fundingRate refresh ітерацій=1 перевірка=red",
+      "observed": "рядків методів немає"
+    },
+    {
+      "name": "останній рядок stdout — підсумок",
+      "ids": [
+        "FR-19"
+      ],
+      "ok": false,
+      "expected": "підсумок: 1 методів, 0 зелених, 1 червоних",
+      "observed": "stdout порожній"
+    },
+    {
+      "name": "сесій агента з cwd = клон: 0",
+      "ids": [
+        "FR-18"
+      ],
+      "ok": true,
+      "expected": "0 (транскрипти Claude Code)",
+      "observed": "0"
+    },
+    {
+      "name": "цей прогін записав логи ітерацій 1…1",
+      "ids": [
+        "FR-18",
+        "FR-64"
+      ],
+      "ok": false,
+      "expected": "iteration-1.log",
+      "observed": "жодного"
+    },
+    {
+      "name": "фікстура живої відповіді: path, args, HTTP 200, body з ключами, captured_at в UTC",
+      "ids": [
+        "FR-18",
+        "FR-24"
+      ],
+      "ok": false,
+      "expected": "runs/fapi-v1-fundingRate/fixture.json цього прогону: path=/fapi/v1/fundingRate, args={'symbol': 'BTCUSDT', 'limit': 3}, http_status=200",
+      "observed": "цей прогін фікстури не записав"
+    },
+    {
+      "name": "раннер дав вердикт звіряння (iteration-1.log)",
+      "ids": [
+        "FR-18"
+      ],
+      "ok": false,
+      "expected": "runs/fapi-v1-fundingRate/iteration-1.log з рядком-вердиктом",
+      "observed": "цей прогін не записав iteration-1.log"
+    },
+    {
+      "name": "звіт runs/fapi-v1-fundingRate/report.md записано: заголовок і 12 полів FR-78 у порядку",
+      "ids": [
+        "FR-18",
+        "FR-77"
+      ],
+      "ok": false,
+      "expected": "report.md цього прогону",
+      "observed": "цей прогін звіту не записав"
+    },
+    {
+      "name": "копія бібліотеки та сама: git status, diff і diff --cached як до прогону",
+      "ids": [
+        "FR-18"
+      ],
+      "ok": true,
+      "expected": "status [], diff 0 байт",
+      "observed": "status [], diff 0 байт"
+    },
+    {
+      "name": "індекс копії порожній до і після прогону",
+      "ids": [
+        "NFR-10"
+      ],
+      "ok": true,
+      "expected": "git diff --cached --name-only порожній до і після",
+      "observed": "до [], після []"
+    },
+    {
+      "name": "тести бібліотеки не змінено",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "у git status немає src/test/",
+      "observed": "немає"
+    },
+    {
+      "name": "тести бібліотеки не запускались",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "немає target/surefire-reports і target/failsafe-reports",
+      "observed": "немає"
+    },
+    {
+      "name": "історія копії та сама (HEAD, жодного коміту)",
+      "ids": [
+        "FR-90"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a4",
+      "observed": "cee6585f89a4"
+    },
+    {
+      "name": "у stdout і stderr немає Python Traceback",
+      "ids": [
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "немає",
+      "observed": "немає"
+    }
+  ],
+  "runs": [
+    {
+      "label": "run",
+      "argv": [
+        "python3",
+        "-m",
+        "method_sync",
+        "--registry",
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-e6bc8sq7/funding-dry-run.toml",
+        "--dry-run"
+      ],
+      "exit_code": 1,
+      "seconds": 0.0,
+      "agent_sessions": []
+    }
+  ]
+}

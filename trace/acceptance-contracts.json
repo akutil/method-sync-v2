@@ -94,9 +94,9 @@
     "FR-15": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -124,9 +124,9 @@
     "FR-18": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -170,9 +170,9 @@
     "FR-23": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -200,9 +200,9 @@
     "FR-26": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -214,9 +214,9 @@
     "FR-27": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -268,9 +268,9 @@
     "FR-33": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -282,9 +282,9 @@
     "FR-34": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -304,9 +304,9 @@
     "FR-36": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -334,9 +334,9 @@
     "FR-39": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -364,9 +364,9 @@
     "FR-42": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -386,9 +386,9 @@
     "FR-44": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -400,9 +400,9 @@
     "FR-46": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -446,9 +446,9 @@
     "FR-51": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -468,9 +468,9 @@
     "FR-53": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -498,9 +498,9 @@
     "FR-56": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -512,9 +512,9 @@
     "FR-57": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -526,9 +526,9 @@
     "FR-58": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       }
     ],
     "FR-60": [
@@ -558,9 +558,9 @@
     "FR-63": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -612,17 +612,17 @@
     "FR-69": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       }
     ],
     "FR-70": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       }
     ],
     "FR-71": [
@@ -644,9 +644,9 @@
     "FR-73": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -682,9 +682,9 @@
     "FR-77": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -704,9 +704,9 @@
     "FR-79": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -726,9 +726,9 @@
     "FR-81": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -788,9 +788,9 @@
     "FR-93": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -842,9 +842,9 @@
     "NFR-6": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -864,9 +864,9 @@
     "NFR-8": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -878,17 +878,17 @@
     "NFR-9": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       }
     ],
     "NFR-10": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       },
       {
         "method": "local-verifiable",
@@ -938,9 +938,9 @@
     "NFR-15": [
       {
         "method": "e2e",
-        "mechanism": null,
+        "mechanism": "npm:test:e2e",
         "artifact": null,
-        "status": "missing-mechanism"
+        "status": "mechanism-ok"
       }
     ]
   }

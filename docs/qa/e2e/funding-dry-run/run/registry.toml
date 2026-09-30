@@ -1,0 +1,12 @@
+lib = "/Users/akutil/humex/method-sync-v2/.sandbox/e2e/funding-dry-run"
+verify_cmd = "mvn -q -DskipTests test-compile"
+
+[live]
+base_url = "https://fapi.binance.com"
+
+[[method]]
+path = "/fapi/v1/fundingRate"
+model = "com.example.binanceFutures.response.FuturesFundingRateInfo"
+client_method = "getFundingRates"
+args = { symbol = "BTCUSDT", limit = 3 }
+call = '"BTCUSDT", 3, null, null'

@@ -250,9 +250,9 @@
 
 #### Scenario: Клієнт працює зі строгою конфігурацією бібліотеки
 
-- **GIVEN** у копії `.sandbox/` з `FuturesMarkPriceInfo`, яка не має `ignoreUnknown`, прибрано властивість `indexPrice`
+- **GIVEN** у копії `.sandbox/` з `FuturesMarkPriceInfo`, яка не має `ignoreUnknown`, прибрано властивість `time` (гетер `indexPrice` потрібен тестам бібліотеки, тож без нього падає вже `test-compile`)
 - **WHEN** запускається перевірка `/fapi/v1/premiumIndex`
-- **THEN** `missing` дорівнює `["indexPrice"]`, а `client_error` починається з `com.binance.api.client.exception.BinanceApiException: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "indexPrice"`
+- **THEN** `missing` дорівнює `["time"]`, а `client_error` починається з `com.binance.api.client.exception.BinanceApiException: com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException: Unrecognized field "time"`
 
 ### Requirement: Людський лог раннера і пояснення стадій — українською
 

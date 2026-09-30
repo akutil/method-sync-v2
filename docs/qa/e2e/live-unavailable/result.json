@@ -1,0 +1,152 @@
+{
+  "scenario": "live-unavailable",
+  "verdict": "FAIL",
+  "ids": [
+    "FR-19",
+    "FR-23",
+    "FR-26",
+    "FR-27",
+    "FR-28",
+    "FR-90",
+    "FR-93",
+    "NFR-6",
+    "NFR-10"
+  ],
+  "expected": "`base_url = \"http://127.0.0.1:9\"` (порт ніхто не слухає): код 3; рядок методу — «жива відповідь недоступна» з URL виклику; цей прогін не лишив ні фікстури, ні логів, ні звіту; агента немає; копія без змін.",
+  "observed": "не пройшло 3 з 12 перевірок; перша — «код виходу 3»: очікувалось 3; спостерігалось 1; stderr: /opt/homebrew/opt/python@3.14/bin/python3.14: No module named method_sync.__main__; 'method_sync' is a package and cannot be directly executed; run: код 1, 0 с, сесій агента 0",
+  "started": "2026-09-30T07:41:29+00:00",
+  "finished": "2026-09-30T07:41:30+00:00",
+  "fingerprint": "562fac644ae112c5",
+  "tool_commit": "7929724cb3cf2875456671e62cb732ef77851b1b",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": false,
+  "notes": [],
+  "checks": [
+    {
+      "name": "код виходу 3",
+      "ids": [
+        "FR-26",
+        "NFR-6"
+      ],
+      "ok": false,
+      "expected": "3",
+      "observed": "1; stderr: /opt/homebrew/opt/python@3.14/bin/python3.14: No module named method_sync.__main__; 'method_sync' is a package and cannot be directly executed"
+    },
+    {
+      "name": "рядки методів у stdout, у порядку реєстру",
+      "ids": [
+        "FR-23",
+        "FR-26"
+      ],
+      "ok": false,
+      "expected": "/fapi/v1/premiumIndex … «жива відповідь недоступна» … «http://127.0.0.1:9/fapi/v1/premiumIndex?symbol=BTCUSDT»",
+      "observed": "рядків методів немає"
+    },
+    {
+      "name": "останній рядок stdout — підсумок",
+      "ids": [
+        "FR-19"
+      ],
+      "ok": false,
+      "expected": "підсумок: 1 методів, 0 зелених, 1 червоних",
+      "observed": "stdout порожній"
+    },
+    {
+      "name": "цей прогін не лишив runs/fapi-v1-premiumIndex/fixture.json",
+      "ids": [
+        "FR-26",
+        "FR-28"
+      ],
+      "ok": true,
+      "expected": "файл не записано і не змінено",
+      "observed": "не записано"
+    },
+    {
+      "name": "перевірки не було: ні логів ітерацій, ні звіту",
+      "ids": [
+        "FR-27"
+      ],
+      "ok": true,
+      "expected": "нічого з iteration-*.log і report.md",
+      "observed": "нічого"
+    },
+    {
+      "name": "сесій агента з cwd = клон: 0",
+      "ids": [
+        "FR-27"
+      ],
+      "ok": true,
+      "expected": "0 (транскрипти Claude Code)",
+      "observed": "0"
+    },
+    {
+      "name": "копія бібліотеки та сама: git status, diff і diff --cached як до прогону",
+      "ids": [
+        "FR-27"
+      ],
+      "ok": true,
+      "expected": "status [], diff 0 байт",
+      "observed": "status [], diff 0 байт"
+    },
+    {
+      "name": "індекс копії порожній до і після прогону",
+      "ids": [
+        "NFR-10"
+      ],
+      "ok": true,
+      "expected": "git diff --cached --name-only порожній до і після",
+      "observed": "до [], після []"
+    },
+    {
+      "name": "тести бібліотеки не змінено",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "у git status немає src/test/",
+      "observed": "немає"
+    },
+    {
+      "name": "тести бібліотеки не запускались",
+      "ids": [
+        "FR-93"
+      ],
+      "ok": true,
+      "expected": "немає target/surefire-reports і target/failsafe-reports",
+      "observed": "немає"
+    },
+    {
+      "name": "історія копії та сама (HEAD, жодного коміту)",
+      "ids": [
+        "FR-90"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a4",
+      "observed": "cee6585f89a4"
+    },
+    {
+      "name": "у stdout і stderr немає Python Traceback",
+      "ids": [
+        "NFR-6"
+      ],
+      "ok": true,
+      "expected": "немає",
+      "observed": "немає"
+    }
+  ],
+  "runs": [
+    {
+      "label": "run",
+      "argv": [
+        "python3",
+        "-m",
+        "method_sync",
+        "--registry",
+        "/var/folders/_q/tyzk2xtn60g4s6czg3zmy4380000gn/T/method-sync-e2e-e6bc8sq7/live-unavailable.toml"
+      ],
+      "exit_code": 1,
+      "seconds": 0.0,
+      "agent_sessions": []
+    }
+  ]
+}

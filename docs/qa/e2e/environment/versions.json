@@ -1,0 +1,32 @@
+{
+  "parsed": {
+    "os": "Darwin",
+    "os_version": "27.0",
+    "arch": "arm64",
+    "python": "3.14.0",
+    "java": "21.0.2",
+    "maven": "3.9.10",
+    "maven_jdk": "25",
+    "claude": "2.1.267"
+  },
+  "raw": {
+    "python3 --version": "Python 3.14.0",
+    "java -version": "openjdk version \"21.0.2\" 2024-01-16 LTS\nOpenJDK Runtime Environment Temurin-21.0.2+13 (build 21.0.2+13-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.2+13 (build 21.0.2+13-LTS, mixed mode)",
+    "mvn -v": "Apache Maven 3.9.10 (5f519b97e944483d878815739f519b2eade0a91d)\nMaven home: /opt/homebrew/Cellar/maven/3.9.10/libexec\nJava version: 25, vendor: Homebrew, runtime: /opt/homebrew/Cellar/openjdk/25/libexec/openjdk.jdk/Contents/Home\nDefault locale: en_UA, platform encoding: UTF-8\nOS name: \"mac os x\", version: \"27.0\", arch: \"aarch64\", family: \"mac\"",
+    "claude --version": "2.1.267 (Claude Code)",
+    "which": {
+      "python3": "/opt/homebrew/bin/python3",
+      "java": "/Users/akutil/.sdkman/candidates/java/current/bin/java",
+      "javac": "/Users/akutil/.sdkman/candidates/java/current/bin/javac",
+      "mvn": "/opt/homebrew/bin/mvn",
+      "claude": "/Users/akutil/.local/bin/claude"
+    }
+  },
+  "nfr15": {
+    "os": "macOS",
+    "python": "3.14.0",
+    "java": "21.0.2",
+    "maven": "3.9.10",
+    "claude": "2.1.267"
+  }
+}

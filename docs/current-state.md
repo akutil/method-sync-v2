@@ -6,21 +6,22 @@
 
 ## Last Updated
 
-- **Date and time:** 2026-09-30 03:38:40 (Europe/Kyiv)
-- **Current phase:** Phase 2
-- **Last completed gate:** G2
-- **Active change:** none (7 `improve-PD-*` proposals wait for the owner at checkpoint 2)
-- **Progress:** G0 (цикл фабрики, адаптований під Python), G1 (вимоги підписано на checkpoint 1: 83 MVP FR,
-  принцип IX ратифіковано), G2 (7 базових специфікацій: 103 вимоги, 165 сценаріїв; `spec-pipeline` дав 441 сценарій
-  і 10 суперечностей, прохід `spec-reconcile` звів їх за рішеннями D-1…D-33). Ретро: `process-auditor` дав PD-1…PD-7
-  з виконаними red→green пробами. Чернетка плану — `docs/mvp-capability-plan.md`.
-- **Next task:** checkpoint 2 — власник схвалює план слайсів і покращення PD-1…PD-7; потім кожне PD окремим
-  комітом `Refs: PD-x`, e2e-механізм (`test:e2e`, test-engineer) і G3.
+- **Date and time:** 2026-09-30 10:46:10 (Europe/Kyiv)
+- **Current phase:** Phase 3
+- **Last completed gate:** G3
+- **Active change:** none
+- **Progress:** G0–G2 як раніше. Checkpoint 2: власник схвалив план із 5 слайсів і всі 7 покращень фабрики —
+  застосовані комітами `Refs: PD-1…7` (`docs/qa/improvements/`). E2E-механізм `npm run test:e2e`
+  (`tests/e2e/evidence.py`, 12 сценаріїв, 75 перевірок) написав `test-engineer` до коду інструмента; він червоний
+  з правильної причини (`No module named method_sync.__main__`), звіт — `docs/qa/e2e-report.md`.
+- **Next task:** Phase 4, слайс 1 `add-input` (registry + live-capture): spec-writer → test-engineer (червоні)
+  → capability-implementer (зелені) → `review-gate` → архів (після архіву повернути заголовок і Purpose, які
+  OpenSpec 1.x замінює на TBD).
 - **Claims:**
-  - Специфікації валідні — evidence: `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict` → 14 passed, 0 failed
-  - Кожна MVP-вимога процитована в специфікації — evidence: `node scripts/check-traceability.mjs` (0 spec-mention warnings)
-  - Проби PD-1…PD-7 виконані й зелені — evidence: розділ «EXECUTED red→green proof» у кожному `openspec/changes/improve-PD-*/proposal.md`
-  - Хуки git спрацьовують — evidence: коміт `f393beb chore: verify hooks fire`
+  - Кожен заявлений спосіб приймання має механізм — evidence: `node scripts/check-acceptance-methods.mjs --mode=existence` → 124 контракти, 0 провалів
+  - E2E-харнес червоний до коду — evidence: `docs/qa/e2e-report.md` (`Result: FAIL`, `No module named method_sync.__main__`)
+  - Integrity-lock чистий після PD-4/PD-5 — evidence: `node scripts/check-factory-integrity.mjs` → PASS, 28 файлів
+  - Специфікації валідні — evidence: `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict` → 7 passed
 
 ## Source Of Truth
 

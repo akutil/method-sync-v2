@@ -83,3 +83,13 @@ FuturesMarkPriceInfo: enum-typed properties = 0
 `git log -p -- MarketType.java`: `KR_EQUITY` (2026-05-28) і `HK_EQUITY` (2026-07-16) дописані в кінець
 переліку; після `644fbfd` (запасник `@JsonEnumDefaultValue UNKNOWN`) `CN_EQUITY` (2026-09-08) вставлено
 після `HK_EQUITY`, перед порожнім рядком і запасником.
+
+### R-016. Headless-агент інструмента живе в середовищі власника
+
+Проба 2026-09-30: `claude -p "Reply with exactly the word PONG…" --permission-mode acceptEdits < /dev/null`
+з процесу всередині сесії Claude Code (`CLAUDECODE=1`) → `exit=0` за 10 с; з `env -u CLAUDECODE` → `exit=0`
+за 5 с. Обидві відповіді закінчуються семирядковим чек-листом із глобального `~/.claude/CLAUDE.md` власника:
+глобальні інструкції (і Stop-хук) діють і на агента, якого кличе інструмент. У логах ітерацій v1 так само.
+Наслідок: вивід агента в `iteration-N.log` містить цей чек-лист; на вердикт він не впливає (вердикт дає
+раннер). Ще одна деталь середовища: Maven без `JAVA_HOME` працює на JDK 25, а `java`/`javac` з PATH — 21.0.2
+(помітив `test-engineer` під час e2e-харнесу); збірка і раннер від цього не ламаються.

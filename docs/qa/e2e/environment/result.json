@@ -1,0 +1,67 @@
+{
+  "scenario": "environment",
+  "verdict": "PASS",
+  "ids": [
+    "NFR-15"
+  ],
+  "expected": "Середовище власника за NFR-15: macOS; Python, Java, Maven і Claude Code CLI тих версій, що записані у вимозі (версії читаються з рядка NFR-15).",
+  "observed": "пройшли всі перевірки (5); Maven працює на JDK 25 (JAVA_HOME не задано), а javac і java з PATH — 21.0.2; harness запущено зсередини сесії Claude Code (CLAUDECODE задано): агент інструмента успадкує змінні хост-сесії; доказовий прогін — з термінала власника",
+  "started": "2026-09-30T07:41:24+00:00",
+  "finished": "2026-09-30T07:41:24+00:00",
+  "fingerprint": "562fac644ae112c5",
+  "tool_commit": "7929724cb3cf2875456671e62cb732ef77851b1b",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": false,
+  "notes": [
+    "Maven працює на JDK 25 (JAVA_HOME не задано), а javac і java з PATH — 21.0.2",
+    "harness запущено зсередини сесії Claude Code (CLAUDECODE задано): агент інструмента успадкує змінні хост-сесії; доказовий прогін — з термінала власника"
+  ],
+  "checks": [
+    {
+      "name": "ОС — macOS",
+      "ids": [
+        "NFR-15"
+      ],
+      "ok": true,
+      "expected": "macOS",
+      "observed": "Darwin 27.0 (arm64)"
+    },
+    {
+      "name": "Python як у NFR-15",
+      "ids": [
+        "NFR-15"
+      ],
+      "ok": true,
+      "expected": "3.14.0",
+      "observed": "3.14.0"
+    },
+    {
+      "name": "Java як у NFR-15",
+      "ids": [
+        "NFR-15"
+      ],
+      "ok": true,
+      "expected": "21.0.2",
+      "observed": "21.0.2"
+    },
+    {
+      "name": "Maven як у NFR-15",
+      "ids": [
+        "NFR-15"
+      ],
+      "ok": true,
+      "expected": "3.9.10",
+      "observed": "3.9.10"
+    },
+    {
+      "name": "Claude Code CLI як у NFR-15",
+      "ids": [
+        "NFR-15"
+      ],
+      "ok": true,
+      "expected": "2.1.267",
+      "observed": "2.1.267"
+    }
+  ],
+  "runs": []
+}

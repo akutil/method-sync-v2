@@ -11,6 +11,7 @@
     "lint": "python3 -W error -m compileall -q src tests .claude/hooks",
     "build": "python3 -W error -m compileall -q src",
     "test:run": "python3 -m unittest discover -s tests -p '*_test.py' && python3 -m unittest discover -s .claude/hooks -p '*_test.py'",
+    "test:e2e": "python3 tests/e2e/evidence.py",
     "qa:verify": "node scripts/qa-verify.mjs",
     "check:trace": "node scripts/check-traceability.mjs",
     "check:coverage": "node scripts/check-coverage-ratchet.mjs",

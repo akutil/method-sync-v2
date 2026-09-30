@@ -1,0 +1,46 @@
+{
+  "scenario": "boundary",
+  "verdict": "PASS",
+  "ids": [
+    "TC-7"
+  ],
+  "expected": "Робоча копія людини `/Users/akutil/humex/binancefutures` після всіх сценаріїв така сама, як до першого: HEAD, відбитки `git status --porcelain` і `git diff` (читання з `--no-optional-locks`).",
+  "observed": "пройшли всі перевірки (3)",
+  "started": "2026-09-30T07:41:35+00:00",
+  "finished": "2026-09-30T07:41:35+00:00",
+  "fingerprint": "562fac644ae112c5",
+  "tool_commit": "7929724cb3cf2875456671e62cb732ef77851b1b",
+  "lib_commit": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+  "agent": false,
+  "notes": [],
+  "checks": [
+    {
+      "name": "HEAD робочої копії людини той самий",
+      "ids": [
+        "TC-7"
+      ],
+      "ok": true,
+      "expected": "cee6585f89a45af1cfd648b923b1c3830937dafa",
+      "observed": "cee6585f89a45af1cfd648b923b1c3830937dafa"
+    },
+    {
+      "name": "git status робочої копії людини той самий",
+      "ids": [
+        "TC-7"
+      ],
+      "ok": true,
+      "expected": "sha256 292acaae48a7",
+      "observed": "sha256 292acaae48a7"
+    },
+    {
+      "name": "git diff робочої копії людини той самий",
+      "ids": [
+        "TC-7"
+      ],
+      "ok": true,
+      "expected": "sha256 803ba18d7ec7",
+      "observed": "sha256 803ba18d7ec7"
+    }
+  ],
+  "runs": []
+}
