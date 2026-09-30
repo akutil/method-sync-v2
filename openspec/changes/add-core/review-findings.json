@@ -1,0 +1,87 @@
+{
+  "generatedBy": "review-gate",
+  "scope": "add-core",
+  "change": "add-core",
+  "baseRef": "5120275",
+  "headRef": "HEAD",
+  "dimensions": {
+    "correctness": {
+      "confirmed": 6,
+      "contested": 0,
+      "rejected": 0
+    },
+    "security": {
+      "confirmed": 5,
+      "contested": 2,
+      "rejected": 0
+    },
+    "spec-compliance": {
+      "confirmed": 11,
+      "contested": 0,
+      "rejected": 0
+    },
+    "visual": {
+      "confirmed": 0,
+      "contested": 0,
+      "rejected": 0
+    }
+  },
+  "confirmedTitles": [
+    "Runner compares a non-200 or empty raw response as if it were the live body, so the verdict tells the agent to delete every model field",
+    "Brief goes in argv with the full verify output uncapped; once it is too big the agent never starts",
+    "On timeout only the direct child is killed; processes it started keep running",
+    "A few unexpected errors still end in a traceback and stop the remaining methods (FR-15)",
+    "`--add-dir runs` with acceptEdits lets the agent edit the tool's own runs/, not only read the fixture",
+    "`_seconds` and `_decoded` in agent.py duplicate the helpers in verify.py",
+    "Раннер приймає будь-який HTTP-статус і будь-яке тіло сирого запиту: відповідь-помилка стає «живими ключами»",
+    "Агент фактично має більше, ніж одну команду verify_cmd: acceptEdits дозволяє Bash-команди файлової системи, а --add-dir дає запис у runs/",
+    "Сесія агента успадковує налаштування, хуки і CLAUDE.md користувача та бібліотеки",
+    "Таймаут агента вбиває лише процес claude, його дочірні процеси продовжують працювати",
+    "Бриф передається одним аргументом argv і несе повний вивід перевірки, тож може впертися в ARG_MAX",
+    "Coverage summary (informational, not a defect): 131 scenarios — 118 implemented (7 of them still need the e2e evidence from open task 4.4), 13 partial, 0 missing, 0 contradicted",
+    "The runner treats any HTTP reply at the method URL as the live response, so a 5xx/4xx error body or an empty 3xx gives a wrong verdict that tells the agent to delete every model field",
+    "`--permission-mode acceptEdits` lets the agent run rm/mv/touch, which contradicts the spec's 'exactly one allowed command'",
+    "FR-40 and FR-54 have no test anywhere (unit, integration or e2e)",
+    "Several scenario variants are covered only by source-text checks or not at all (behaviour confirmed by probes)",
+    "The workdir check calls tempfile.gettempdir(), which writes and deletes a probe file inside lib when TMPDIR is inside it",
+    "On a timeout, only the direct child is killed; the agent's and verify_cmd's own children keep running into the next iteration",
+    "A few error paths outside the guarded sections can end the whole run with a traceback",
+    "CLI messages still leak English argparse text in edge cases (NFR-13)",
+    "The brief has behaviour the spec does not describe (stage advice, a client_error line, and a fallback when no reference file exists)",
+    "The proposal's FR range includes FR-59, which the enum spec lists as out of scope"
+  ],
+  "blockingSeverities": [
+    "critical",
+    "major"
+  ],
+  "blockingTitles": [
+    "Runner compares a non-200 or empty raw response as if it were the live body, so the verdict tells the agent to delete every model field",
+    "Раннер приймає будь-який HTTP-статус і будь-яке тіло сирого запиту: відповідь-помилка стає «живими ключами»",
+    "Агент фактично має більше, ніж одну команду verify_cmd: acceptEdits дозволяє Bash-команди файлової системи, а --add-dir дає запис у runs/",
+    "The runner treats any HTTP reply at the method URL as the live response, so a 5xx/4xx error body or an empty 3xx gives a wrong verdict that tells the agent to delete every model field",
+    "`--permission-mode acceptEdits` lets the agent run rm/mv/touch, which contradicts the spec's 'exactly one allowed command'",
+    "FR-40 and FR-54 have no test anywhere (unit, integration or e2e)"
+  ],
+  "backlogTitles": [
+    "[minor] Brief goes in argv with the full verify output uncapped; once it is too big the agent never starts (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:137)",
+    "[minor] On timeout only the direct child is killed; processes it started keep running (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:180)",
+    "[minor] A few unexpected errors still end in a traceback and stop the remaining methods (FR-15) (/Users/akutil/humex/method-sync-v2/src/method_sync/__main__.py:129)",
+    "[minor] `--add-dir runs` with acceptEdits lets the agent edit the tool's own runs/, not only read the fixture (/Users/akutil/humex/method-sync-v2/src/method_sync/__main__.py:146)",
+    "[minor] `_seconds` and `_decoded` in agent.py duplicate the helpers in verify.py (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:163)",
+    "[minor] Сесія агента успадковує налаштування, хуки і CLAUDE.md користувача та бібліотеки (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:155)",
+    "[minor] Таймаут агента вбиває лише процес claude, його дочірні процеси продовжують працювати (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:180)",
+    "[minor] Бриф передається одним аргументом argv і несе повний вивід перевірки, тож може впертися в ARG_MAX (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:137)",
+    "[minor] Coverage summary (informational, not a defect): 131 scenarios — 118 implemented (7 of them still need the e2e evidence from open task 4.4), 13 partial, 0 missing, 0 contradicted (/Users/akutil/humex/method-sync-v2/openspec/changes/add-core/specs:0)",
+    "[minor] Several scenario variants are covered only by source-text checks or not at all (behaviour confirmed by probes) (/Users/akutil/humex/method-sync-v2/tests/verify_test.py:0)",
+    "[minor] The workdir check calls tempfile.gettempdir(), which writes and deletes a probe file inside lib when TMPDIR is inside it (/Users/akutil/humex/method-sync-v2/src/method_sync/verify.py:341)",
+    "[minor] On a timeout, only the direct child is killed; the agent's and verify_cmd's own children keep running into the next iteration (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:180)",
+    "[minor] A few error paths outside the guarded sections can end the whole run with a traceback (/Users/akutil/humex/method-sync-v2/src/method_sync/__main__.py:129)",
+    "[minor] CLI messages still leak English argparse text in edge cases (NFR-13) (/Users/akutil/humex/method-sync-v2/src/method_sync/__main__.py:65)",
+    "[minor] The brief has behaviour the spec does not describe (stage advice, a client_error line, and a fallback when no reference file exists) (/Users/akutil/humex/method-sync-v2/src/method_sync/agent.py:89)",
+    "[minor] The proposal's FR range includes FR-59, which the enum spec lists as out of scope (/Users/akutil/humex/method-sync-v2/openspec/changes/add-core/proposal.md:0)",
+    "[minor] Код виходу раннера відкидається, тож вердикт перекриває будь-який рядок, надрукований після нього (/Users/akutil/humex/method-sync-v2/src/method_sync/verify.py:530)",
+    "[minor] Покриття чек-листа (не дефект): що переглянуто і виявилось чистим (/Users/akutil/humex/method-sync-v2/src/method_sync/__main__.py:187)"
+  ],
+  "clean": false,
+  "generatedAt": "2026-09-30T14:10:12Z"
+}
