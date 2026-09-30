@@ -15,6 +15,7 @@
 import datetime
 import os
 import pathlib
+import stat
 import tomllib
 from dataclasses import dataclass, field
 
@@ -73,8 +74,9 @@ def slug_for(path):
 class Method:
     """Один уже реалізований метод біржі зі списку (FR-8): що викликати і з чим.
 
-    Незмінний, бо наступні стадії прогону беруть його атрибути, але не мають права його правити (design.md D1).
-    `args` — таблиця `tomllib` у порядку запису (FR-9), `call` — рядок Java дослівно, зокрема `""` (FR-8).
+    `frozen` лише забороняє переприсвоювати поля; `args` — звичайний `dict`, як у v1, тож вміст від змін
+    береже домовленість, а не тип, і `Method` не хешується (design.md D1). `args` — таблиця `tomllib` у порядку
+    запису (FR-9), `call` — рядок Java дослівно, зокрема `""` (FR-8).
     """
 
     path: str
@@ -143,7 +145,7 @@ def _parse(source, shown):
         raise RegistryError(f"реєстр {shown} не читається: {getattr(error, 'strerror', None) or error}") from error
     try:
         return tomllib.loads(text)
-    except tomllib.TOMLDecodeError as error:
+    except ValueError as error:  # TOMLDecodeError; голий ValueError з int() — ціле понад 4300 цифр (R1-05)
         raise RegistryError(f"реєстр {shown} не розбирається як TOML: {error}") from error
     except RecursionError as error:  # tomllib розбирає вкладені масиви й таблиці рекурсивно
         raise RegistryError(f"реєстр {shown} не розбирається як TOML: надто глибока вкладеність ({error})") from error
@@ -166,13 +168,31 @@ def _library(value):
         named = f"{value} (відносно поточного каталогу процесу)"
     else:
         named = value
-    if not lib.exists():
+    mode = _stat_mode(lib, "цільової бібліотеки lib", named)
+    if mode is None:
         raise RegistryError(f"цільової бібліотеки lib немає: {named}")
-    if not lib.is_dir():
+    if not stat.S_ISDIR(mode):
         raise RegistryError(f"цільова бібліотека lib — не каталог: {named}")
-    if not (lib / ".git").exists():
+    if _stat_mode(lib / ".git", ".git цільової бібліотеки lib", named) is None:
         raise RegistryError(f"цільова бібліотека lib не є git-репозиторієм (немає .git): {named}")
     return lib
+
+
+def _stat_mode(path, what, named):
+    """`st_mode` шляху або `None`, якщо його немає; іншу відмову ОС названо, а не звернено на «немає» (NFR-11).
+
+    `Path.exists()` у Python 3.14 віддає False на будь-яку помилку ОС, тож каталог, у який процес не може увійти,
+    звучав би як відсутній, і людина шукала б не ту ваду. `what` — що перевіряється, у родовому відмінку.
+    """
+    try:
+        return os.stat(path).st_mode
+    except (FileNotFoundError, NotADirectoryError):
+        return None
+    except PermissionError as error:
+        raise RegistryError(f"немає доступу до {what}: {named} — {error.strerror}") from error
+    except (OSError, ValueError) as error:  # задовге ім'я, петля символьних посилань, нуль-байт у шляху
+        reason = getattr(error, "strerror", None) or error
+        raise RegistryError(f"шлях {what} не перевірено: {named} — {reason}") from error
 
 
 def _method(entry, number):
