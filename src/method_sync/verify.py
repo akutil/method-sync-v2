@@ -25,6 +25,10 @@ import subprocess
 import tempfile
 from dataclasses import dataclass
 
+# Початок тіла в причині — за тими ж межами, що й у живому виклику (design.md D9): скільки тексту сервера
+# розглядається і скільки символів іде в причину.
+from .live import EXCERPT_BYTES, EXCERPT_CHARS
+
 ENVELOPE_CLASS = "com.example.delays.Response"
 ENVELOPE_FIELDS = ("requestSent", "responseRecv")
 
@@ -55,6 +59,7 @@ RUNNER_TIMEOUT_SECONDS = 120
 # Сирий рядок: `\\R` мусить дійти до Java як є.
 _TEMPLATE = r"""
 import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
@@ -75,6 +80,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.regex.Pattern;
 
 /** Згенеровано method-sync. Живий виклик через клієнт бібліотеки + звіряння полів і енамів в обидва боки. */
 public class __RUNNER__ {
@@ -85,6 +91,7 @@ public class __RUNNER__ {
     private static final int VALUE = 1;
     private static final int COLLECTION = 2;
     private static final int MAP_KEYS = 3;
+    private static final Pattern WHITESPACE = Pattern.compile("(?U)\\s+");
 
     public static void main(String[] args) {
         // Вивід — UTF-8 незалежно від локалі процесу: людський лог кирилицею, ключі JSON — будь-які.
@@ -115,12 +122,30 @@ public class __RUNNER__ {
     private static boolean compare(String clientError) throws Exception {
         // FR-35: живі ключі і значення — лише із сирого JSON рівно за URL фікстури; перенаправлень HttpClient
         // типово не виконує.
-        final String body = HttpClient.newHttpClient().send(
+        final HttpResponse<String> response = HttpClient.newHttpClient().send(
                 HttpRequest.newBuilder(URI.create(__URL__)).build(),
-                HttpResponse.BodyHandlers.ofString()).body();
+                HttpResponse.BodyHandlers.ofString());
+        final int status = response.statusCode();
+        final String body = response.body();
 
+        // FR-35, FR-43: за тими ж правилами, що й живий виклик (FR-26, FR-29), відповідь-помилка чи тіло без ключів
+        // живою відповіддю не є — інакше `extra` назвав би кожне поле моделі і велів би агентові їх прибрати.
+        if (status != 200) {
+            throw new IllegalStateException(unavailable("статус HTTP " + status + ", а не 200"
+                    + (status >= 300 && status < 400 ? " (перенаправлення не виконується)" : ""), body));
+        }
         final ObjectMapper mapper = new ObjectMapper();
-        final JsonNode node = mapper.readTree(body);
+        final JsonNode node;
+        try {
+            node = mapper.readTree(body);
+        } catch (JsonProcessingException error) {
+            throw new IllegalStateException(unavailable("статус HTTP 200, але тіло не розбирається як JSON: "
+                    + excerpt(String.valueOf(error.getOriginalMessage())), body));
+        }
+        if (!hasObjectKey(node)) {
+            throw new IllegalStateException(unavailable(
+                    "статус HTTP 200, але на верхньому рівні тіла немає жодного ключа об'єкта", body));
+        }
         final List<JsonNode> objects = new ArrayList<>();
         if (node.isArray()) {
             node.forEach(objects::add);
@@ -226,6 +251,82 @@ public class __RUNNER__ {
         verdict.put("enums", enums);
         System.out.println(mapper.writeValueAsString(verdict));
         return green;
+    }
+
+    /** FR-29: хоч один ключ об'єкта верхнього рівня — у самому тілі чи в елементі тіла-масиву, як у live.fetch. */
+    private static boolean hasObjectKey(JsonNode node) {
+        if (node == null) {
+            return false;  // порожнє тіло: залежно від версії Jackson — null або MissingNode
+        }
+        if (node.isObject()) {
+            return node.size() > 0;
+        }
+        if (node.isArray()) {
+            for (JsonNode item : node) {
+                if (item.isObject() && item.size() > 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /** Причина стадії `runner`: статус числом, що не так, і початок тіла — текст сервера лише крізь `excerpt`. */
+    private static String unavailable(String reason, String body) {
+        final String start = excerpt(body == null ? "" : body);
+        return "сирий запит раннера не дав живої відповіді: " + reason
+                + (start.isEmpty() ? "; тіло порожнє" : "; тіло: " + start);
+    }
+
+    /**
+     * Текст сервера для причини, як `_server_text` у live.py: пробіли згорнуто в один, недруковане — escape-
+     * послідовністю, як `ascii()` у Python, не довше за __EXCERPT_CHARS__ символів із «…». Причина йде в лог, звіт
+     * і бриф, тож не мусить ні керувати терміналом, ні рвати рядок, ні топити його в кілобайтах.
+     */
+    private static String excerpt(String text) {
+        final String head = text.length() > __EXCERPT_SCAN__ ? text.substring(0, __EXCERPT_SCAN__) : text;
+        final String collapsed = WHITESPACE.matcher(head).replaceAll(" ").strip();
+        final StringBuilder kept = new StringBuilder();
+        int size = 0;
+        for (int i = 0; i < collapsed.length(); ) {
+            final int point = collapsed.codePointAt(i);
+            i += Character.charCount(point);
+            final String piece = printable(point) ? new String(Character.toChars(point)) : escaped(point);
+            if (size + piece.length() > __EXCERPT_CHARS__) {
+                return kept + "…";
+            }
+            kept.append(piece);
+            size += piece.length();
+        }
+        return kept.toString();
+    }
+
+    /** Як `str.isprintable()` у Python: не друкуються керівні, форматні, сурогати, приватні, неоголошені і
+     *  роздільники, крім звичайного пробілу. */
+    private static boolean printable(int point) {
+        if (point == ' ') {
+            return true;
+        }
+        switch (Character.getType(point)) {
+            case Character.CONTROL:
+            case Character.FORMAT:
+            case Character.SURROGATE:
+            case Character.PRIVATE_USE:
+            case Character.UNASSIGNED:
+            case Character.LINE_SEPARATOR:
+            case Character.PARAGRAPH_SEPARATOR:
+            case Character.SPACE_SEPARATOR:
+                return false;
+            default:
+                return true;
+        }
+    }
+
+    private static String escaped(int point) {
+        if (point < 0x100) {
+            return String.format("\\x%02x", point);
+        }
+        return point < 0x10000 ? String.format("\\u%04x", point) : String.format("\\U%08x", point);
     }
 
     /** Що в JSON несе значення енама: саме значення, елементи масиву чи ключі об'єкта; 0 — не енамне поле. */
@@ -396,6 +497,8 @@ def render_runner(model, client_method, args, url, call=None,
         "URL": _java_string(url),
         "ENVELOPE": ", ".join(_java_string(name) for name in ENVELOPE_FIELDS),
         "ENVELOPE_CLASS": _java_string(ENVELOPE_CLASS),
+        "EXCERPT_CHARS": str(EXCERPT_CHARS),
+        "EXCERPT_SCAN": str(EXCERPT_BYTES),
     }
     return _TOKEN.sub(lambda match: replacements[match.group(1)], _TEMPLATE).lstrip("\n")
 

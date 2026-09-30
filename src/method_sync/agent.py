@@ -10,6 +10,7 @@ Java-правку пише агент, а не інструмент. Це не �
 розходження енамів і місце нової константи (FR-55); збій запуску, ненульовий код і таймаут агента — текст для логу, а
 не виняток (FR-68).
 """
+import pathlib
 import subprocess
 
 CLI = "claude"
@@ -142,21 +143,28 @@ def build_brief(*, lib, method_path, model, reference_method, fixture_path, mism
     )
 
 
-def command(brief, add_dirs=(), allowed_commands=()):
+def command(brief, add_dirs=(), allowed_commands=(), lib=None):
     """Рядок запуску агента в headless-режимі (FR-65–FR-67).
 
     `add_dirs` потрібен не для краси: агент працює з кореня бібліотеки, а фікстура лежить у каталозі інструмента.
     Перший живий прогін v1 це й показав — агент написав «фікстуру не прочитав, вона поза дозволеним каталогом».
 
-    `allowed_commands` — з тієї ж серії. acceptEdits схвалює правки файлів і нічого більше, а в headless-режимі Bash
-    нікому схвалити, тож агент повертав правку зі словами «mvn потребує дозволу». Дозволяється рівно команда
-    перевірки з реєстру, і рівно вона: перевірено пробою, що спроба стейджу за цього прапорця лишається забороненою.
+    Режим — `dontAsk`: усе, чого немає в `--allowedTools`, відхиляється без запиту. `acceptEdits` для цього не
+    годиться — проба R-017 показала, що в ньому агент виконав `touch` і `rm` та дописав у фікстуру в `runs/`. Тож
+    перелік явний: `Read`, `Edit` і `Write` лише під `lib` і рівно команда перевірки з реєстру — без неї агент
+    повертав правку зі словами «mvn потребує дозволу». Шлях у `Edit(…)`/`Write(…)` — абсолютний `lib` із префіксом
+    `/` (тобто `//…`): однослешний Claude Code читає відносно файлу налаштувань, і такий дозвіл не дає правити нічого
+    (R-017). Без `lib` файлових дозволів немає зовсім.
     """
-    argv = [CLI, "-p", brief, "--permission-mode", "acceptEdits"]
+    argv = [CLI, "-p", brief, "--permission-mode", "dontAsk"]
     for directory in add_dirs:
         argv += ["--add-dir", str(directory)]
-    if allowed_commands:
-        argv += ["--allowedTools", *[f"Bash({shell_line})" for shell_line in allowed_commands]]
+    tools = []
+    if lib is not None:
+        tools += ["Read", f"Edit(/{lib}/**)", f"Write(/{lib}/**)"]
+    tools += [f"Bash({shell_line})" for shell_line in allowed_commands]
+    if tools:
+        argv += ["--allowedTools", *tools]
     return argv
 
 
@@ -175,16 +183,20 @@ def invoke(brief, cwd, add_dirs=(), allowed_commands=(), timeout=TIMEOUT_SECONDS
 
     stdin — порожній навмисно: інакше агент успадковує stdin прогону, чекає на дані з труби і дописує в лог
     попередження «no stdin data received». Бриф іде аргументом, без шелу.
+
+    Дозволи на правку — рівно під `cwd`, абсолютним і з розв'язаними посиланнями: це той самий каталог, який агент
+    бачить робочим, і той самий `lib`, який CLI кладе в бриф.
     """
     try:
+        lib = pathlib.Path(cwd).resolve()
         result = subprocess.run(
-            command(brief, add_dirs, allowed_commands), cwd=str(cwd), capture_output=True, text=True,
+            command(brief, add_dirs, allowed_commands, lib=lib), cwd=str(cwd), capture_output=True, text=True,
             encoding="utf-8", errors="replace", timeout=timeout, stdin=subprocess.DEVNULL)
     except subprocess.TimeoutExpired as expired:
         partial = _decoded(expired.stdout) + _decoded(expired.stderr)
         text = f"агент не вклався в {_seconds(timeout)} с і зупинений"
         return f"{text}\n--- що агент устиг надрукувати ---\n{partial}" if partial else text
-    except (OSError, ValueError) as error:
+    except (OSError, ValueError, RuntimeError) as error:
         return f"агента не вдалося запустити: {error}"
     output = (result.stdout or "") + (result.stderr or "")
     if result.returncode != 0:
