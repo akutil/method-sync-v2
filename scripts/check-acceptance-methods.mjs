@@ -434,7 +434,9 @@ function validateArtifact(rel, kind, threshold) {
 
 function findTraceTest(id) {
   const re = new RegExp(`@trace\\s+[^\\n]*\\b${id}\\b`);
-  const isTestFile = (f) => /\.(test|spec|eval)\.(ts|tsx|js|mjs)$/.test(f);
+  // PD-2, method-sync-v2 adaptation (ADR-0001), the spelling check-traceability.mjs got at G0:
+  // Python tests are `*_test.py`, eval cases `*_eval.py`; the JS/TS spellings stay recognised.
+  const isTestFile = (f) => /\.(test|spec|eval)\.(ts|tsx|js|mjs)$/.test(f) || /(_test|_eval)\.py$/.test(f);
   for (const dir of ["tests", "test", "lib", "app", "src", "components", "evals", "e2e"]) {
     let hit = null;
     walkAll(dir, (rel) => { if (!hit && isTestFile(rel) && re.test(read(rel) ?? "")) hit = rel; });
