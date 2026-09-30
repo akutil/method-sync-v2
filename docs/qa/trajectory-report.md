@@ -10,7 +10,7 @@ Result: PASS, 2 warning(s)
 
 | Slice | Review evidence | Trailer commits | design+tasks | lib domains touched |
 |---|---|---|---|---|
-| 2026-09-30-add-core | **unclean** | 3 | yes | agent, verify, __main__, boundaries, library, loop, report |
+| 2026-09-30-add-core | **unclean** | 4 | yes | agent, verify, __main__, boundaries, library, loop, report |
 | 2026-09-30-add-input | **unclean** | 5 | yes | live, registry |
 
 ## Cross-slice module overlap

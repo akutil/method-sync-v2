@@ -6,22 +6,29 @@
 
 ## Last Updated
 
-- **Date and time:** 2026-09-30 10:46:10 (Europe/Kyiv)
-- **Current phase:** Phase 3
-- **Last completed gate:** G3
+- **Date and time:** 2026-09-30 18:10 (Europe/Kyiv)
+- **Current phase:** Phase 4 завершено швидким шляхом (`docs/mvp-capability-plan.md` §2a); Phase 5–7 не робились
+- **Last completed gate:** G4 (WAIVED: evals NFR-11/NFR-12 — `docs/qa/waivers/2026-09-30-evals-NFR-11-NFR-12.md`)
 - **Active change:** none
-- **Progress:** G0–G2 як раніше. Checkpoint 2: власник схвалив план із 5 слайсів і всі 7 покращень фабрики —
-  застосовані комітами `Refs: PD-1…7` (`docs/qa/improvements/`). E2E-механізм `npm run test:e2e`
-  (`tests/e2e/evidence.py`, 12 сценаріїв, 75 перевірок) написав `test-engineer` до коду інструмента; він червоний
-  з правильної причини (`No module named method_sync.__main__`), звіт — `docs/qa/e2e-report.md`.
-- **Next task:** Phase 4, слайс 1 `add-input` (registry + live-capture): spec-writer → test-engineer (червоні)
-  → capability-implementer (зелені) → `review-gate` → архів (після архіву повернути заголовок і Purpose, які
-  OpenSpec 1.x замінює на TBD).
+- **Progress:** слайс 1 `add-input` і злитий слайс `add-core` (verify + loop + agent + report + library + CLI)
+  реалізовані тестами першими, пройшли рецензію `review-gate` і заархівовані
+  (`openspec/changes/archive/2026-09-30-*`). Інструмент працює end-to-end зі справжнім агентом.
+- **Next task:** рішення власника — диспозиція COR-1 і спосіб здачі capstone (лише знеособлений експорт,
+  жодного push; див. `AGENTS.md` → Boundaries). Сценарій відео — `docs/capstone/video-script.md`.
 - **Claims:**
-  - Кожен заявлений спосіб приймання має механізм — evidence: `node scripts/check-acceptance-methods.mjs --mode=existence` → 124 контракти, 0 провалів
-  - E2E-харнес червоний до коду — evidence: `docs/qa/e2e-report.md` (`Result: FAIL`, `No module named method_sync.__main__`)
-  - Integrity-lock чистий після PD-4/PD-5 — evidence: `node scripts/check-factory-integrity.mjs` → PASS, 28 файлів
+  - Інструмент робить свою роботу на живій біржі — evidence: `docs/qa/e2e-report.md` (`Result: PASS`, 12/12; агент дописав `FX` у `MarketType`, `docs/qa/e2e/schedule-fx/run/lib.diff`)
+  - Юніти зелені — evidence: `npm run test:run` → 229 тестів OK (21 skipped — живі, під `METHOD_SYNC_LIVE=1`) + 12 селф-тестів хука
   - Специфікації валідні — evidence: `OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict` → 7 passed
+  - Integrity-lock чистий — evidence: `node scripts/check-factory-integrity.mjs` → PASS, 28 файлів, 2 warnings
+
+## Not claimed (свідомо, швидкий шлях)
+
+- **G5/G6 NOT-EARNED:** coverage — waiver (лише stdlib); evals і `trajectory-eval` не робились.
+- **G7 FAIL:** `check-traceability --release --strict-tests` — FR-58/69/70 доведені лише e2e-сценаріями, без
+  юніта з `@trace`; `check-trajectory --release` — обидва слайси заархівовані з `review-findings.json`
+  `clean: false` (blocking-знахідки виправлені, повторного чистого раунду не було), `trajectory-report.md` застарів.
+- **COR-1 OPEN:** автоматична корекція на waiver evals — диспозицію ставить лише власник.
+- Мінорні знахідки рецензій — `docs/qa/review-backlog.md`.
 
 ## Source Of Truth
 
@@ -41,7 +48,7 @@ OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict   # expected: all pass
 OPENSPEC_TELEMETRY=0 npx openspec list                      # expected: No active changes (between slices)
 ```
 
-Archived changes: none yet.
+Archived changes: `2026-09-30-add-input`, `2026-09-30-add-core`.
 
 ## Validation Commands
 
@@ -52,7 +59,8 @@ npm run build
 OPENSPEC_TELEMETRY=0 npx openspec validate --all --strict
 ```
 
-Current test expectation: 12 tests (stage-gate selftest); tool tests arrive with Phase 4.
+Current test expectation: 229 unit tests (21 skipped without `METHOD_SYNC_LIVE=1`) + 12 stage-gate selftests.
+`npm run test:integration` — живий Java-раннер; `npm run test:e2e` — CLI зі справжнім агентом.
 
 ## Environment / Deployment
 
